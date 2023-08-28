@@ -1,7 +1,10 @@
 
-bool ACC_input,rain_signal ,Gas_pedal_sensor,Brake_pedal_sensor,Fault_signal;
+bool ACC_input, rain_signal,Fault_signal;
 float V_set_Kmh;
-float Distance_sensor, Ego_velocity_ms, Relative_Velocity_ms, Ego_acceleration_min, Ego_acceleration_max, Ego_acceleration, Time_gap;
+float Distance, Ego_velocity_ms, Relative_Velocity_ms, Ego_acceleration_min, Ego_acceleration_max, Ego_acceleration, Time_gap;
+
+//Sensors fault signals
+bool Velocity_sensor, Rain_sensor, Distance_sensor, Brake_pedal_sensor, Gas_pedal_sensor;
 
 //Calibration Variables
 unsigned int D_default,rain_counter;
@@ -44,6 +47,35 @@ bool ACC_signal()
 }// End ACC_signal function
 
 
+unsigned short int checkSensorsFault() //Check if any sensor stopped working
+{
+
+    unsigned short int flags =0;
+    //Each bit of this 8 bits variables represents an sensor condition. 0 is working, 1 is fault detected.
+    //from right(Least Significant Bit) to left (Most Significant Bit):
+    //bit 0 represents velocity sensor, bit 1 represents rain sensor, bit 2 represents distance sensor
+    //bit 3 represents brake pedal sensor, bit 4 represents gas pedal sensor.
+
+     if (Velocity_sensor) {
+    flags |= (1 << 0);  // Defines LSB as high [0]
+  }
+  if (Rain_sensor) {
+    flags |= (1 << 1);  // Defines second LSB number [1] as high
+  }
+  if (Distance_sensor) {
+    flags |= (1 << 2);  // Defines bit number [2] as high
+  }
+  if (Brake_pedal_sensor) {
+    flags |= (1 << 3);  // Defines bit number [3] as high
+  }
+  if (Gas_pedal_sensor) {
+    flags |= (1 << 4);  // Defines bit number [4] as high
+  }
+
+    return flags;
+
+
+}
 
 
 //End function code
