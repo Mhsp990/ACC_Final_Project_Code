@@ -75,7 +75,16 @@ unsigned short int checkSensorsFault() //Check if any sensor stopped working
     return flags;
 
 
+} //End checkSensorsFault function
+
+
+float calculateLeadVelocity(float previousDistance, float currentDistance, float time)
+{
+    //Must check about the first iteraction, as there will not be a "previousDistance".
+        //For the first iteratction, should we consider "previousDistance" as zero? Or wait for second iteraction?
+    return (currentDistance-previousDistance)/time ;
 }
+
 
 
 //End function code
