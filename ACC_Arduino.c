@@ -1,3 +1,15 @@
+/*
+Authors:                                                  Email for contact
+        Matheus Henrique de Souza Passos            -     matheushenriquepassos45@gmail.com
+        Leonardo Mello                              -
+        Gabriel Oliveira                            -
+        Lucas Sobral                                -
+        Vitor Fassarano                             -
+
+Adaptive Cruise Control in C language (on arduino) for Final Project of "Automotive Software Development" on UFPE (Brazil, Recife, PE).
+In this repository lies the C Code for Adaptive Cruise Control, projected after the model we created on simulink/mathlab. 
+Link for the simulink/mathlab ACC mode: https://github.com/leonardomello27/Projeto_Final
+*/
 
 bool ACC_input, rain_signal,Fault_signal;
 float V_set_Kmh;
@@ -15,7 +27,7 @@ bool ACC_signal(); //Function used to enable or disable the ACC system
 unsigned short int checkSensorsFault(); //Function used to detect faulty sensors.
 float calculateLeadVelocity(float previousDistance, float currentDistance, float time); //Calculate front car speed based on traveled distance. Requires two sequential measured distance values and time between those measurements.
 float calculateEgoAcceleration(); //Calculate ACC acceleration.
-
+float calculateTimeGap(); //Function to calculate timegap. Based on "Time_gap_base" and rain_signal (in this case, rain_counter)
 
 
 //End Function Headers
@@ -84,8 +96,17 @@ float calculateLeadVelocity(float previousDistance, float currentDistance, float
         //For the first iteratction, should we consider "previousDistance" as zero? Or wait for second iteraction?
         //Problem for first suggestion: currentDistance/Elapsed time would give incredible speed!
     return (currentDistance-previousDistance)/time ;
-}
+} //END calculateLeadVelocity Function
 
+
+float calculateTimeGap() 
+{
+  //If the rain_signal is true, rain_counter will raise. When it reacher a certain value, the timeGap is changed based on Time_gap_base
+  //If there is no rain detected (rain_counter < value), returns the Time_gap_base calibrated value
+  if(rain_counter < 10)   return Time_gap_base*2;
+  else  return Time_gap_base;
+
+} //End calculateTimeGap
 
 
 //End function code
