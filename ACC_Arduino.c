@@ -1,8 +1,8 @@
 /*
 Authors:                                                  Email for contact
         Matheus Henrique de Souza Passos            -     matheushenriquepassos45@gmail.com
-        Leonardo Mello                              -
-        Gabriel Oliveira                            -
+        Leonardo Mello                              -     
+        Gabriel Oliveira                            -     gabriel_lopeslomeu@hotmail.com
         Lucas Sobral                                -
         Vitor Fassarano                             -
 
