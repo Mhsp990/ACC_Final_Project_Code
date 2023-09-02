@@ -10,6 +10,7 @@ Adaptive Cruise Control in C language (on arduino) for Final Project of "Automot
 In this repository lies the C Code for Adaptive Cruise Control, projected after the model we created on simulink/mathlab. 
 Link for the simulink/mathlab ACC mode: https://github.com/leonardomello27/Projeto_Final
 */
+#include <stdbool.h>
 
 bool ACC_input, rain_signal,Fault_signal;
 float V_set_Kmh;
@@ -89,13 +90,34 @@ unsigned short int checkSensorsFault() //Check if any sensor stopped working
 
 } //End checkSensorsFault function
 
-
-float calculateLeadVelocity(float previousDistance, float currentDistance, float time)
+float Dy_Dx(float x, float y)
 {
-    //Must check about the first iteraction, as there will not be a "previousDistance".
-        //For the first iteratction, should we consider "previousDistance" as zero? Or wait for second iteraction?
-        //Problem for first suggestion: currentDistance/Elapsed time would give incredible speed!
-    return (currentDistance-previousDistance)/time ;
+    return((x - y)/2);
+}
+
+float calculateLeadVelocity(float previousDistance, float currentDistance, float time_current)
+{
+  float runge_kutta_step;
+  float K_1, K_2, K_3, K_4, K_5;
+  float Relative_Velocity_ms_past;
+
+  int n = (int)((currentDistance - previousDistance) / runge_kutta_step);
+
+  // Iterate for number of iterations
+  float Relative_Velocity_ms = Relative_Velocity_ms_past;
+  for (int i=1; i<=n; i++)
+  {
+    K_1 = runge_kutta_step*Dy_Dx(previousDistance, Relative_Velocity_ms);
+    K_2 = runge_kutta_step*Dy_Dx(previousDistance + 0.5*runge_kutta_step, Relative_Velocity_ms + 0.5*K_1);
+    K_3 = runge_kutta_step*Dy_Dx(previousDistance + 0.5*runge_kutta_step, Relative_Velocity_ms + 0.5*K_2);
+    K_4 = runge_kutta_step*Dy_Dx(previousDistance + runge_kutta_step, Relative_Velocity_ms + K_3);
+    Relative_Velocity_ms = Relative_Velocity_ms + (1.0/6.0)*(K_1 + 2*K_2 + 2*K_3 + K_4);;
+    previousDistance = previousDistance + runge_kutta_step;
+  }
+  //Must check about the first iteraction, as there will not be a "previousDistance".
+  //For the first iteratction, should we consider "previousDistance" as zero? Or wait for second iteraction?
+  //Problem for first suggestion: currentDistance/Elapsed time would give incredible speed!
+  return Relative_Velocity_ms;
 } //END calculateLeadVelocity Function
 
 
