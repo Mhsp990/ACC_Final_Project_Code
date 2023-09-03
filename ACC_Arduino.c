@@ -3,7 +3,7 @@ Authors:                                                  Email for contact
         Matheus Henrique de Souza Passos            -     matheushenriquepassos45@gmail.com
         Leonardo Mello                              -     
         Gabriel Oliveira                            -     gabriel_lopeslomeu@hotmail.com
-        Lucas Sobral                                -
+        Lucas Sobral                                -     lucasdecarvalhosobral@gmail.com
         Vitor Fassarano                             -
 
 Adaptive Cruise Control in C language (on arduino) for Final Project of "Automotive Software Development" on UFPE (Brazil, Recife, PE).
