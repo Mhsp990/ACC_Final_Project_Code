@@ -14,15 +14,29 @@
 //#include "board.h"
 
 
-//Variavel para armazenar informacoes do frame recebido
+//CAN FRAME VARIABLES
 unsigned char 		mDLC = 0;
 unsigned char 		mDATA[8];
 long unsigned int 	mID;
 //If you wish to send, check SENSORS_ECU.CPP example. This example only receives.
 
+//Variables received from CAN FRAMES
+bool ACC_input = 0; //Trigger for ACC_input. 
+bool Rain_sensor = 0, Gas_pedal =0, Brake_pedal =0, Fault_signal = 0;
+float Ego_speed = 0, Relative_distance =0, Relative_speed = 0, ACC_speed_set =0;
+
+//Variables original from ACC_ECU
+bool ACC_enabled = false, ACC_Disabled = false;
+float ACC_acceleration = 0, ACC_brake_acceleration =0;
+
+//Calibration Variables
+const float D_default = 10;
+const float Default_Time_Gap = 3;
 
 
-//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
+
+
+//Build MCP_CAN object with pin 10.
 MCP_CAN CAN1(10); 
 
 void setup()
