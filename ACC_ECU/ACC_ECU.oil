@@ -1,0 +1,125 @@
+//////////////////////////////////////////////////
+// Universidade Federal de Pernambuco - UFPE		  
+// Residência Tecnológica em Software Automotivo      			  
+// Módulo: SWT1 - RTOS e Sistemas Distribuídos 
+//////////////////////////////////////////////////
+
+//A ECU ICM possui 4 tasks:
+//1-> Receber M1 em ate 200 ms.
+//2-> Receber M2 em ate 100 ms.
+//3-> Receber M3 em ate 250 ms.
+//4-> Imprimir na tela (serial print) a rotacao do motor, velocidade e marcha atual.
+
+OIL_VERSION = "2.5" : "test" ;
+
+CPU test {    
+  OS config {
+    STATUS = STANDARD;
+    BUILD = TRUE {
+      TRAMPOLINE_BASE_PATH 	= "../../../";
+      APP_NAME 			 	= "image";
+      APP_SRC	  			= "ACC_ECU.cpp";
+      CPPCOMPILER			= "avr-g++";
+      COMPILER 				= "avr-gcc";
+      LINKER 				= "avr-gcc";
+      ASSEMBLER 			= "avr-gcc";
+      COPIER 				= "avr-objcopy";
+      SYSTEM 				= PYTHON;
+	  LIBRARY 				= serial;
+	  LIBRARY 				= mcp_can;	  
+    };
+    SYSTEM_CALL	= TRUE;
+  };
+
+  APPMODE stdAppmode {};
+
+
+ //--------RECEBER M1 
+  ALARM periodicAlarm1 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM1;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 500; 
+      CYCLETIME = 110; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM1 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE	= 256;
+  };
+
+//--------RECEBER M2
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM2;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 520; 
+      CYCLETIME = 90; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM2 {
+    PRIORITY 	= 15;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE	= 256;
+  };
+
+//--------RECEBER M3
+  ALARM periodicAlarm3 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM3;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 1000;
+      CYCLETIME = 100;
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM3 {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE	= 256;
+  };
+
+//--------RECEBER M1 
+  ALARM periodicAlarm4 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ShowDataTask;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 1200; 
+      CYCLETIME = 400; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ShowDataTask {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE	= 256;
+  };
+
+    RESOURCE res1{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+};

@@ -1,0 +1,79 @@
+//////////////////////////////////////////////////
+// Universidade Federal de Pernambuco - UFPE		  
+// Residência Tecnológica em Software Automotivo      			  
+// Módulo: SWT1 - RTOS e Sistemas Distribuídos 
+//////////////////////////////////////////////////
+// A ECU 'TCM' POSSUI AS SEGUINTES TASKS:
+//1->Ler o valor da marcha atual. Neste caso, proveniente da serial.
+//2->Colocar o valor da marcha atual em uma mensagem CAN M1 e enviar esta mensagem no barramento.
+
+
+OIL_VERSION = "2.5" : "test" ;
+
+CPU test {    
+  OS config {
+    STATUS = STANDARD;
+    BUILD = TRUE {	
+	  TRAMPOLINE_BASE_PATH 	= "../../../";
+      APP_NAME 			 	= "image";
+      APP_SRC	  			= "TCM_ECU.cpp";
+      CPPCOMPILER			= "avr-g++";
+      COMPILER 				= "avr-gcc";
+      LINKER 				= "avr-gcc";
+      ASSEMBLER 			= "avr-gcc";
+      COPIER 				= "avr-objcopy";
+      SYSTEM 				= PYTHON;	  
+	  LIBRARY 				= serial; 
+	  LIBRARY 				= mcp_can;      
+    };
+    SYSTEM_CALL = TRUE;
+  };
+
+  APPMODE stdAppmode {};
+  
+  ALARM periodicAlarm1 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceberMarchaAtual;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 400; //ativado a cada 1024 ms
+      CYCLETIME = 70; //ativado a cada 1024 ms
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceberMarchaAtual {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+//--------------------ENVIAR MENSAGEM CAN M1--
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SendCANM1;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 600; 
+      CYCLETIME = 110; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SendCANM1 {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res1{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+};
