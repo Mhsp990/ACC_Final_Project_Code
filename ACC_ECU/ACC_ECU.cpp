@@ -184,7 +184,7 @@ TASK(Logic_block)
 TASK(Calculate_ACC_Acceleration) 
 {
 	if (ACC_enabled){
-		ReleaseResource(res1);
+		GetResource(res1);
 		Safe_distance = (Ego_speed * Default_Time_Gap) + D_default;
 		Control_x = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
 		Control_v = (ACC_speed_set - Ego_speed) * Kverr_gain;
