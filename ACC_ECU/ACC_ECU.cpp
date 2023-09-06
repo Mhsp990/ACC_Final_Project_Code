@@ -17,7 +17,7 @@
 #define ID_Brake_pedal			0xEC100005 //Dicionário de dados 
 #define ID_Fault_signal			0xEC100006 //Dicionário de dados 
 #define ID_Ego_speed			0xEC100007 //Dicionário de dados 
-#define ID_Relative_distance		0xEC100008 //Dicionário de dados 
+#define ID_Relative_distance	0xEC100008 //Dicionário de dados 
 #define ID_Relative_speed		0xEC100009 //Dicionário de dados
  
 #define ID_ACC_speed_set		0xEC300001 //Dicionário de dados 
@@ -85,29 +85,29 @@ static 							byte M1 = 0;
 unsigned char Data_ACC_Acceleration[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char Data_ACC_Enabled[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-//Construct MCP_CAN object with pin 10 as its CS.
-MCP_CAN CAN1(10);  
+//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
+MCP_CAN CAN1(10);  // ********Defineir esse pino com o Matheus ***********
 
 void setup() {
-	//serial: baudrate = 115200
+	//Inicializa a interface serial: baudrate = 115200
 	Serial.begin(115200);
 	
-	//tart CAN controller : baudrate = 250K, clock=8MHz
+	//Inicializa o controlador can : baudrate = 250K, clock=8MHz
 	while (CAN1.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) != CAN_OK) {
         delay(200);        
     }
-	Serial.println("MCP2515 CAN initialized");
-	//Sets operation mode for MCP2515.
+	Serial.println("MCP2515 can_send inicializado com sucesso!");
+	//Modifica para o modo normal de operação
 	CAN1.setMode(MCP_NORMAL);
-	pinMode(2, INPUT); //Sets pin 2 as input.
+	pinMode(2, INPUT);
 }
 
 
 TASK(Can_Receive)
 {
-	if(!digitalRead(2)){ //Check if there is CAN messages on buffer, detected by digital pin 2  
+	if(!digitalRead(2)){  
 		GetResource(res1);
-		//Read CAN data: mID = Identifier field, mDLC = Data size field, mDATA = Data field
+		//Lê os dados: mID = identificador, mDLC = comprimento, mDATA = dados do freame
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
 		if((mID & ID_ACC_input) == ID_ACC_input) {
 			ACC_input = mDATA[4]; // Ver em que posição essa informação vai vir
@@ -156,6 +156,7 @@ TASK(Can_Receive)
 
 TASK(Logic_block)
 {
+	GetResource(res1);
 	if(ACC_input == 1 && Fault_signal == 0 && (Ego_speed >= 11 || Ego_speed <= 33) && Gas_pedal == 0 && Brake_pedal == 0){
 		ACC_enabled = 1;
 		Data_ACC_Enabled[0] = ACC_enabled;
@@ -175,6 +176,7 @@ TASK(Logic_block)
 	} else {    
 		Serial.println("can_send: Error to send!");      
 	}
+	ReleaseResource(res1);
 	TerminateTask();
 }
 
@@ -182,7 +184,7 @@ TASK(Logic_block)
 TASK(Calculate_ACC_Acceleration) 
 {
 	if (ACC_enabled){
-		
+		ReleaseResource(res1);
 		Safe_distance = (Ego_speed * Default_Time_Gap) + D_default;
 		Control_x = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
 		Control_v = (ACC_speed_set - Ego_speed) * Kverr_gain;
@@ -208,10 +210,12 @@ TASK(Calculate_ACC_Acceleration)
 			
 		}
 		}
-
 	Data_ACC_Acceleration[0] = Acceleration;
 	
+	ReleaseResource(res1);
+	
 	M1 = CAN1.sendMsgBuf(ID_ACC_Acceleration, CAN_EXTID, DLC_ACC, Data_ACC_Acceleration);
+	
 	
 	if (M1 == CAN_OK) {
 		Serial.println("can_send: mensagem transmitida com sucesso");
@@ -223,3 +227,4 @@ TASK(Calculate_ACC_Acceleration)
 	}
 	TerminateTask();
 }		
+	
