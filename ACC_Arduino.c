@@ -116,6 +116,13 @@ float calculateLeadVelocity(float previousDistance, float currentDistance, float
   }
   //Must check about the first iteraction, as there will not be a "previousDistance".
   //For the first iteratction, should we consider "previousDistance" as zero? Or wait for second iteraction?
+      //Sugestion 1: Wait for second interaction. Consider, on main function, using the first interaction AFTER
+        //the ACC enable signal to generate the previousDistance and only starting by the second interaction the ACC
+        //would start running.
+      //Sugestion 2: Consider, for simulation purposes, an initial distance between them, regardless if the ACC
+        //is enabled. That would generate the previous distance. Also, the system should simulate regardless if
+        //the ACC is enabled or not (In my opinion)
+      //Question for YOUR first suggestion: Would it not result in 0 divided by something = zero?
   //Problem for first suggestion: currentDistance/Elapsed time would give incredible speed!
   return Relative_Velocity_ms;
 } //END calculateLeadVelocity Function
