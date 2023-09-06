@@ -1,160 +1,223 @@
-////////////////////////////////////////////////////
-// Universidade Federal de Pernambuco - UFPE		  
 //////////////////////////////////////////////////
-
-
-//Defines CAN ID messages
-#define CAN_ID_M1 0x18F00503
-#define CAN_ID_M2 0x0CF00400
-#define CAN_ID_M3 0x18FEF100   
-
+// Universidade Federal de Pernambuco - UFPE	//	  
+// Residência Tecnológica em Software Automotivo//      			  
+// Módulo: Projeto Final                        //
+//////////////////////////////////////////////////
 
 #include "tpl_os.h"
 #include "Arduino.h"
-//#include "board.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+//Id mensagens CAN Recive
 
 
-//CAN FRAME VARIABLES
-unsigned char 		mDLC = 0;
-unsigned char 		mDATA[8];
-long unsigned int 	mID;
-//If you wish to send, check SENSORS_ECU.CPP example. This example only receives.
+#define ID_Rain_sensor			0xEC100003 //Dicionário de dados 
+#define ID_Gas_pedal			0xEC100004 //Dicionário de dados 
+#define ID_Brake_pedal			0xEC100005 //Dicionário de dados 
+#define ID_Fault_signal			0xEC100006 //Dicionário de dados 
+#define ID_Ego_speed			0xEC100007 //Dicionário de dados 
+#define ID_Relative_distance		0xEC100008 //Dicionário de dados 
+#define ID_Relative_speed		0xEC100009 //Dicionário de dados
+ 
+#define ID_ACC_speed_set		0xEC300001 //Dicionário de dados 
+#define ID_ACC_input			0xEC300002 //Dicionário de dados 
+
+//Id mensagens CAN sand
+#define ID_ACC_Acceleration			0xACC00001 //Dicionário de dados
+#define ID_ACC_Brake_Acceleration	0xACC00002 //Dicionário de dados
+#define ID_ACC_Enabled				0xACC00003 //Dicionário de dados
+#define ID_ACC_Disabled				0xACC00004 //Dicionário de dados
+ 
+ 
+//variaveis para recebimento recebimento de dados da CAN
+long unsigned int 			mID;
+unsigned char 				mDATA[8];
+unsigned char 				mDLC  = 0;
+
+bool 						ACC_Enabled = false;
 
 //Variables received from CAN FRAMES
-bool ACC_input = 0; //Trigger for ACC_input. 
-bool Rain_sensor = 0, Gas_pedal =0, Brake_pedal =0, Fault_signal = 0;
-float Ego_speed = 0, Relative_distance =0, Relative_speed = 0, ACC_speed_set =0;
+bool ACC_input     = 0; //Trigger for ACC_input. 
+bool Rain_sensor   = 0;
+bool Gas_pedal     = 0;
+bool Brake_pedal   = 0;
+bool Fault_signal  = 0;
+float Ego_speed    = 0;
+float Relative_distance = 0;
+float Relative_speed    = 0;
+float ACC_speed_set     = 0;
 
 //Variables original from ACC_ECU
-bool ACC_enabled = false, ACC_Disabled = false;
-float ACC_acceleration = 0, ACC_brake_acceleration =0;
+bool ACC_enabled  = false;
+bool ACC_Disabled = false;
+float ACC_acceleration       = 0;
+float ACC_brake_acceleration = 0;
+
+// Variáveis padrões (ver isso depois)
+#define BUFF_MAX 	10
+#define BUFF_MIN 	00
+volatile int		buffer = BUFF_MAX;
 
 //Calibration Variables
-const float D_default = 10;
+const float D_default  = 10;
 const float Default_Time_Gap = 3;
+const float Kverr_gain = 0.5;
+const float Kxerr_gain = 0.0;
+const float Kvx_gain   = 0.04;
+
+float Acceleration       = 0;
+float Safe_distance      = 0;
+float Control_v          = 0;
+float Control_x          = 0;
+const float Ego_acceleration_min     = -5;
+const float Ego_acceleration_max     = 1.47;
 
 
+//Macros para envio 
+#define DLC_ACC					8
+#define mEEC1_EXT_FRAME			1
+static 							byte M  = 0;
+static 							byte M1 = 0;
 
 
-//Build MCP_CAN object with pin 10.
-MCP_CAN CAN1(10); 
+//Variavel que armazena o FRAME_DATA para ser enviado 
+unsigned char Data_ACC_Acceleration[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char Data_ACC_Enabled[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-void setup()
-{	
+//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
+MCP_CAN CAN1(10);  // ********Defineir esse pino com o Matheus ***********
+
+void setup() {
 	//Inicializa a interface serial: baudrate = 115200
 	Serial.begin(115200);
 	
-	//Inicializa o controlador can : baudrate = 500K, clock=08MHz
-	while(CAN1.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) != CAN_OK)
-    {         
+	//Inicializa o controlador can : baudrate = 250K, clock=8MHz
+	while (CAN1.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) != CAN_OK) {
         delay(200);        
-    }	
-	//Serial.println("Modulo CAN inicializado!");
-	//Configura o controlador MCP2515 no modo normal.
-	CAN1.setMode(MCP_NORMAL);  
-	//Configura o pino de interrupção para recepção	
-	pinMode(2, INPUT);   
-	//Serial.println("ECU ICM INITIALIZING");
-
-	//Serial.print("ID\t\tType\tDLC\tByte0\tByte1\tByte2");
-	//Serial.println("\tByte3\tByte4\tByte5\tByte6\tByte7");
-}
-//////////////////////////////////////////////////////////////////////////////////				 					   
-//  Periodo de execucao da task: 450 ms								   
-//////////////////////////////////////////////////////////////////////////////////
-
-//--------------------------SHOW DATA TASK---------------------------------
-TASK(ShowDataTask)
-{
-GetResource(res1);
-
-ReleaseResource(res1);
-
-//Serial.println("-------------");
-//Serial.println("Show DATA ICM:");
-
-TerminateTask();
-	
+    }
+	Serial.println("MCP2515 can_send inicializado com sucesso!");
+	//Modifica para o modo normal de operação
+	CAN1.setMode(MCP_NORMAL);
+	pinMode(2, INPUT);
 }
 
 
-//-----------------------TASK DE RECEBER M1--------------------
-TASK(ReceiveCANM1)
+TASK(Can_Receive)
 {
-
-CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-GetResource(res1);
-if((mID & CAN_ID_M1) == CAN_ID_M1) //Check if this is the desired CAN message
-{
-	marchaAtual = mDATA[3];
-}
-ReleaseResource(res1);
-
-TerminateTask();
-}
-
-//-----------------------TASK DE RECEBER M2--------------------
-TASK(ReceiveCANM2)
-{
-//SHOULD VERIFY pin 2 first for interruptions (INTERRUPTION on pin 2 means NEW CAN MESSAGE). See example in SENSORS_ECU.CPP
-CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-GetResource(res1);
-if((mID & CAN_ID_M2) == CAN_ID_M2) //MENSAGEM M2: Rotacao do motor
-{
-
-}
-ReleaseResource(res1);
-TerminateTask();
-}
-
-
-//-----------------------TASK DE RECEBER M3--------------------
-TASK(ReceiveCANM3)
-{
-
-CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-GetResource(res1);
-if((mID & CAN_ID_M3) == CAN_ID_M3) //CHECK IF IT IS CAN MESSAGE INTENDED
-{
-	velocidadeCalculadaL = mDATA[1];
-	velocidadeCalculadaH = mDATA[2];
-}
-ReleaseResource(res1);
-
-TerminateTask();
-}
-
-/*
-void loop()
-{
-
-	if(!digitalRead(2))                        
-	{
+	if(!digitalRead(2)){  
+		GetResource(res1);
+		//Lê os dados: mID = identificador, mDLC = comprimento, mDATA = dados do freame
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		
-		if( (mID & CAN_ID_M1) == CAN_ID_M1) //Verifica se o identificador da mensagem é a mensagem M1.	
-			{
-				marchaAtual = mDATA[3]; //Marcha atual esta no byte 4 (índice 3) do campo byte. Atribui este valor para a variavel.
-				
-			}
-			else
-			{
-				if((mID & CAN_ID_M2) == CAN_ID_M2) //MENSAGEM M2: Rotacao do motor
-				{
-					rotacaoL = mDATA[3];
-					rotacaoH = mDATA[4];
-				}
-				else
-				{
-					if((mID & CAN_ID_M3) == CAN_ID_M3) //MENSAGEM M3
-					{
-						velocidadeCalculadaL = mDATA[1];
-						velocidadeCalculadaH = mDATA[2];
-					}
-				}
-			}
-
-	}//FIM IF digital read
-
+		if((mID & ID_ACC_input) == ID_ACC_input) {
+			ACC_input = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Rain_sensor) == ID_Rain_sensor) {
+			Rain_sensor = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Gas_pedal) == ID_Gas_pedal) {
+			Gas_pedal = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Brake_pedal) == ID_Brake_pedal) {
+			Brake_pedal = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Fault_signal) == ID_Fault_signal) {
+			Fault_signal = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Ego_speed) == ID_Ego_speed) {
+			Ego_speed = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Relative_distance) == ID_Relative_distance) {
+			Relative_distance = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_Relative_speed) == ID_Relative_speed) {
+			Relative_speed = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_ACC_speed_set) == ID_ACC_speed_set) {
+			Relative_distance = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+		if((mID & ID_ACC_speed_set) == ID_ACC_speed_set) {
+			ACC_speed_set = mDATA[4]; // Ver em que posição essa informação vai vir
+			TerminateTask();
+		}
+	}
+	ReleaseResource(res1);
 }
-*/
+
+TASK(Logic_block)
+{
+	if(ACC_input == 1 && Fault_signal == 0 && (Ego_speed >= 11 || Ego_speed <= 33) && Gas_pedal == 0 && Brake_pedal == 0){
+		ACC_enabled = 1;
+		Data_ACC_Enabled[0] = ACC_enabled;
+	}
+	else {
+		ACC_enabled = 0;
+		Data_ACC_Enabled [0] = ACC_enabled;
+	}
+	
+	M = CAN1.sendMsgBuf(ID_ACC_Enabled, CAN_EXTID, DLC_ACC, Data_ACC_Enabled);
+	
+	if (M == CAN_OK) {
+		Serial.println("can_send: mensagem transmitida com sucesso");
+		Serial.println("");
+	} else if (M == CAN_SENDMSGTIMEOUT) {
+		Serial.println("can_send: Message timeout!");      
+	} else {    
+		Serial.println("can_send: Error to send!");      
+	}
+}
+
+
+TASK(Calculate_ACC_Acceleration) 
+{
+	if (ACC_enabled){
+		
+		Safe_distance = (Ego_speed * Default_Time_Gap) + D_default;
+		Control_x = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
+		Control_v = (ACC_speed_set - Ego_speed) * Kverr_gain;
+
+		if (Safe_distance <= Relative_distance){
+			
+			Acceleration = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
+			
+		}else{
+			if (Control_x < Control_v){
+				Acceleration = Control_x;
+			}else{
+				Acceleration = Control_v;
+			}
+		}
+		if (Acceleration < Ego_acceleration_min){
+			
+			Acceleration = Ego_acceleration_min;
+			
+		}else if (Acceleration > Ego_acceleration_max) {
+			
+			Acceleration = Ego_acceleration_max;
+			
+		}
+		}
+
+	Data_ACC_Acceleration[0] = Acceleration;
+	
+	M1 = CAN1.sendMsgBuf(ID_ACC_Acceleration, CAN_EXTID, DLC_ACC, Data_ACC_Acceleration);
+	
+	if (M1 == CAN_OK) {
+		Serial.println("can_send: mensagem transmitida com sucesso");
+		Serial.println("");
+	} else if (M1 == CAN_SENDMSGTIMEOUT) {
+		Serial.println("can_send: Message timeout!");      
+	} else {    
+		Serial.println("can_send: Error to send!");      
+	}
+	TerminateTask();
+}		
