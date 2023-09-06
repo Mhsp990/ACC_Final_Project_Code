@@ -21,6 +21,11 @@
 #define Gas_pedal_ID 0xEC100004
 #define Rain_sensor_ID 0xEC100003
 #define Fault_signal_ID 0xEC100006
+static byte M =0;
+static byte M1 =0;
+static byte M2 =0;
+static byte M3 =0;
+
 
 //Variáveis para sensores Break, Gas, Rain e Fault
 bool Break_pedal_sensor = false;
@@ -71,9 +76,9 @@ TASK(SenderRainSensor){
 	ReleaseResource(res1);
 
 	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
-	ret=CAN1.sendMsgBuf(Rain_sensor_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+	M=CAN1.sendMsgBuf(Rain_sensor_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-	if (ret==CAN_OK) //Check for sucess.
+	if (M==CAN_OK) //Check for sucess.
 	{
 		 Serial.print("CAN Rain SENT.");
 		//Could also print the value that was sent.
@@ -88,9 +93,9 @@ TASK(SenderBreakSensor){
 	mEEC1_data[4]= Break_pedal_sensor;
 	ReleaseResource(res1);
 
-	ret=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+	M1=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-	if (ret==CAN_OK) 
+	if (M1==CAN_OK) 
 	{
 		 Serial.print("CAN MSG Break pedal SENT:");
 		 Serial.println(Break_pedal_sensor);
@@ -104,12 +109,12 @@ TASK(SenderGasSensor){
 	mEEC1_data[4]= Gas_pedal_sensor;
 	ReleaseResource(res1);
 
-	ret=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+	M2=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-	if (ret==CAN_OK) 
+	if (M2==CAN_OK) 
 	{
 		 Serial.print("CAN MSG Gas pedal SENT:");
-		 Serial.println(Gas_pedal_base);
+		 Serial.println(Gas_pedal_sensor);
 	}
 	TerminateTask();  
 }
@@ -120,12 +125,12 @@ TASK(SenderFault){
 	mEEC1_data[4]= Fault_signal;
 	ReleaseResource(res1);
 
-	ret=CAN1.sendMsgBuf(Fault_signal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+	M3=CAN1.sendMsgBuf(Fault_signal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-	if (ret==CAN_OK) 
+	if (M3==CAN_OK) 
 	{
 		 Serial.print("CAN MSG fault SENT:");
-		 Serial.println(Fault_signal_base);
+		 Serial.println(Fault_signal);
 	}
 	TerminateTask();  
 }
