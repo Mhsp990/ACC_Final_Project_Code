@@ -7,7 +7,7 @@
 
 #include "tpl_os.h"
 #include "Arduino.h"
-//#include "board.h"
+#include "board.h"
 
 
 //Macro para definicoes
@@ -31,6 +31,8 @@ bool Break_pedal_sensor = false;
 unsigned int Break_pedal_base;
 
 bool Gas_pedal_sensor = false;
+unsigned int Gas_pedal_base;
+
 bool Fault_signal = false;
 
 bool Rain = false;
@@ -112,7 +114,28 @@ TASK(SenderBreakSensor){
 	}
 	TerminateTask();  
 }
+//---------------------------------Send CAN Gas msg.
+TASK(SenderGasSensor){
 
+	if(Gas_pedal_sensor){
+		Gas_pedal_base = 1;
+	}else{
+		Gas_pedal_base = 0;
+	}
+
+	GetResource(res1);
+	mEEC1_data[1]= Gas_pedal_base;
+	ReleaseResource(res1);
+
+	ret=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	if (ret==CAN_OK) 
+	{
+		 Serial.print("CAN MSG Gas pedal SENT:");
+		 Serial.println(Gas_pedal_base);
+	}
+	TerminateTask();  
+}
 
 
 
