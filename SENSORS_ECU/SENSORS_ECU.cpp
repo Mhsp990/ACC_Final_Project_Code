@@ -19,6 +19,26 @@
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
 
+// define para msg de Break, Gas, Rain e Fault
+#define Brake_pedal_ID 0xEC100005
+#define Gas_pedal_ID 0xEC100004
+#define Rain_sensor_ID 0xEC100003
+#define Fault_signal_ID 0xEC100006
+
+
+//Variáveis para sensores Break, Gas, Rain e Fault
+bool Break_pedal_sensor = false;
+unsigned int Break_pedal_base;
+
+bool Gas_pedal_sensor = false;
+bool Fault_signal = false;
+
+bool Rain = false;
+unsigned int Time_gap_base = 3;
+unsigned int Time_gap;
+
+
+
 //Variables for frame data CAN message
 unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mDATA[8];
@@ -48,56 +68,73 @@ void setup()
 
 
 
-//---------------------------------Send CAN M2.
-TASK(SendCANM2)
+//---------------------------------Send CAN Rain msg.
+TASK(SenderRainSensor)
 {
+ 
+	if(Rain){
+		Time_gap=2*Time_gap_base;
+	}else{
+		Time_gap = Time_gap_base;
+	}
+
 	GetResource(res1);
 	//Write CAN message.
-	mEEC1_data[3]= rotacaoFullM2;
-	mEEC1_data[4]= rotacaoFullM2>>8;
-
+	mEEC1_data[1]= Time_gap;
 	ReleaseResource(res1);
-
 	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
-	ret=CAN1.sendMsgBuf(CAN_ID_M2,CAN_EXTID,mEEC1_DLC,mEEC1_data);
-
+	ret=CAN1.sendMsgBuf(Rain_sensor_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
 	if (ret==CAN_OK) //Check for sucess.
 	{
-		 Serial.print("CAN M2 SENT.");
+		 Serial.print("CAN Rain SENT.");
 		//Could also print the value that was sent.
 	}
 	TerminateTask();  
 }
-
-//---------------------------------SEND CAN M3---------------------------
-TASK(CalculateVelocityCANM3)
+//---------------------------------Send CAN Break msg.
+TASK(SenderRainSensor)
 {
-	GetResource(res1);
-	mEEC1_data[1] = velocidade;
-	mEEC1_data[2] = velocidade>>8;
-
-	ReleaseResource(res1);
-	//Envia mensagem para o barramento
-	ret=CAN1.sendMsgBuf(CAN_ID_M3,CAN_EXTID,mEEC1_DLC,mEEC1_data);
-	
-	if (ret==CAN_OK)
-	{
-		Serial.print("CAN M3 SENT.");
-		/*
-		Serial.print("Valor da velocidade enviada: "); 
-		Serial.println(velocidade); 
-		Serial.print("Valor real: "); 
-		Serial.println(velocidade/256);
-		*/
-		
+	if(Break_pedal_sensor){
+		Break_pedal_base = 1;
+	}else{
+		Break_pedal_base = 0;
 	}
+
+	GetResource(res1);
+	//Write CAN message.
+	mEEC1_data[1]= Break_pedal_base;
+	ReleaseResource(res1);
+
+	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
+	ret=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	if (ret==CAN_OK) //Check for sucess.
+	{
+		 Serial.print("CAN MSG Break pedal SENT:");
+		 Serial.println(Break_pedal_base);
+		//Could also print the value that was sent.
+	}
+	
+	TerminateTask();  
+}
+
+//---------------------------------SEND CAN M3 Rain msg---------------------------
+TASK(ReceiverRainSensor)
+{
+
+CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+
+GetResource(res1);
+if((mID & Rain_sensor) == Rain_sensor){}
+ReleaseResource(res1);
 	
 	TerminateTask();
 }
 
 //----------------------------------Read CAN MESSAGE------------------------------
-TASK(ReceiveCANM1)
+
+TASK(ReceiveANM1)
 {
 	 //If there is a interrupt in this pin, there is a message to be read in the CAN buffer.
 	if(!digitalRead(2))                        

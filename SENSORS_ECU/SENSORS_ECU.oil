@@ -78,22 +78,22 @@ CPU test {
     STACKSIZE 	= 256;
   };
 
-  //-------------CAN send M2----------
+  //-------------CAN send Rain----------
 
   ALARM periodicAlarm3 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = SendCANM2;
+      TASK = ReaderRainSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 700; 
-      CYCLETIME = 90; 
+      ALARMTIME = 10; 
+      CYCLETIME = 15; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK SendCANM2 {
-    PRIORITY 	= 15;
+  TASK ReaderRainSensor {
+    PRIORITY 	= 12;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
