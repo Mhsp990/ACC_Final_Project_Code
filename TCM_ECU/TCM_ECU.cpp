@@ -15,8 +15,19 @@
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
 
+
+
+// Macro para definicoes ID 
+#define Fault_signal_ID 0xEC100006
+
+long unsigned int 			mID;
+unsigned char 				mDATA[8];
+unsigned char 				mDLC  = 0;
+bool Fault_signal  = 0;
+
 //Variavel que armazena o FRAME_DATA
 unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
 
 
 //Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
@@ -38,46 +49,15 @@ void setup()
 }
 
 
-TASK(SendCANM1)
+TASK(Can_Receive)
 {
-	
-	GetResource(res1);
-	mEEC1_data[3]= 1; //WRITES TO CAN MESSAGE DATA FIELD
-	ReleaseResource(res1);
+	if(!digitalRead(2)){  
 
-	ret=CAN1.sendMsgBuf(CAN_ID_M1, CAN_EXTID, mEEC1_DLC, mEEC1_data);
-	if (ret==CAN_OK)
-	{
-		Serial.println("can_send M1 OK"); 
+		GetResource(res1);
+		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		if((mID & Fault_signal_ID) == Fault_signal_ID) {
+			Fault_signal = mDATA[4]; 
+			TerminateTask();
+		}
 	}
-	else if (ret == CAN_SENDMSGTIMEOUT)
-	{
-		Serial.println("can_send M1: Message timeout!");      
-	}
-	else 
-	{    
-      Serial.println("can_send M1: Error to send!");      
-	}	   
-	
-	TerminateTask();
-}
-
-
-//TASK DE ENVIAR MSG M1 CONTENDO A MARCHA ATUAL
-TASK(ReceberMarchaAtual)
-{
-	GetResource(res1);
-
-
-	if (Serial.available() > 0) //Check serial buffer
-	{
-		unsigned int var;
-		var = Serial.parseInt(); //Read serial data and convert it to int.
-
-		ReleaseResource(res1);
-		Serial.read(); //CLEAR serial buffer (must do it, otherwise system executes it again with "zero" value
-
-	}
-	TerminateTask();
-  
 }

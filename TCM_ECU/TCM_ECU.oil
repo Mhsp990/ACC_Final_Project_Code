@@ -34,16 +34,16 @@ CPU test {
   ALARM periodicAlarm1 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = ReceberMarchaAtual;
+      TASK = Can_Receive;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 400; //ativado a cada 1024 ms
-      CYCLETIME = 70; //ativado a cada 1024 ms
+      ALARMTIME = 10; 
+      CYCLETIME = 10; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK ReceberMarchaAtual {
+  TASK Can_Receive {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
@@ -51,26 +51,6 @@ CPU test {
     STACKSIZE 	= 256;
   };
 
-//--------------------ENVIAR MENSAGEM CAN M1--
-  ALARM periodicAlarm2 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = SendCANM1;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 600; 
-      CYCLETIME = 110; 
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  TASK SendCANM1 {
-    PRIORITY 	= 20;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
 
     RESOURCE res1{
 		RESOURCEPROPERTY = STANDARD;
