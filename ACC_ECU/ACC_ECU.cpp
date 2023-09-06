@@ -175,6 +175,7 @@ TASK(Logic_block)
 	} else {    
 		Serial.println("can_send: Error to send!");      
 	}
+	TerminateTask();
 }
 
 
