@@ -90,7 +90,8 @@ TASK(SenderRainSensor){
 		 Serial.print("CAN Rain SENT.");
 		//Could also print the value that was sent.
 	}
-	TerminateTask();  
+	TerminateTask();
+	  
 }
 //---------------------------------Send CAN Break msg.
 TASK(SenderBreakSensor){
@@ -116,7 +117,6 @@ TASK(SenderBreakSensor){
 }
 //---------------------------------Send CAN Gas msg.
 TASK(SenderGasSensor){
-
 	if(Gas_pedal_sensor){
 		Gas_pedal_base = 1;
 	}else{
