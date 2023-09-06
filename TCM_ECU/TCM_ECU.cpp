@@ -10,11 +10,20 @@
 
 // setspeed 
 int setsp = 80;
+// EGO_SPEED 
+int EGO_SPEED = 0;
+// FAULT_SIGNAL
+bool FAULT_SIGNAL = false;
+//ACC FEEDBACK
+bool ACC_FEEDBACK = false;
 // ACC state
 bool Acc_state = false;
 
 #define CAN_ID_M1			0xEC300002
 #define CAN_ID_M2			0xEC300001
+#define CAN_ID_M3 			0xEC100007 
+#define CAN_ID_M4 			0xEC100006 
+#define CAN_ID_M5 			0xACC00003 
 
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
@@ -119,5 +128,57 @@ TASK(AccOnOff)
 	ReleaseResource(res2);
 	TerminateTask();
   
+}
+
+
+//______________ RECEIVE EGO  CAN EGO CURRENT SPEED________________________________________
+
+TASK(ReceiveCANM3)
+{
+	if(!digitalRead(2))                        
+	{
+		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		GetResource(res3);
+		if((mID & CAN_ID_M3)==CAN_ID_M3) //Verify if the CAN message is the desired one. This is done by comparing the values.
+		{
+			EGO_SPEED = mDATA[3]; //Store the read data from the CAN message to local variable.
+		}		
+	ReleaseResource(res3);
+	}
+	TerminateTask();
+}
+
+//______________ RECEIVE Fault_signal________________________________________
+
+TASK(ReceiveCANM4)
+{
+	if(!digitalRead(2))                        
+	{
+		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		GetResource(res4);
+		if((mID & CAN_ID_M4)==CAN_ID_M4) //Verify if the CAN message is the desired one. This is done by comparing the values.
+		{
+			FAULT_SIGNAL = mDATA[3]; //Store the read data from the CAN message to local variable.
+		}		
+	ReleaseResource(res4);
+	}
+	TerminateTask();
+}
+
+//______________ RECEIVE ACC FEEDBACK________________________________________
+
+TASK(ReceiveCANM5)
+{
+	if(!digitalRead(2))                        
+	{
+		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		GetResource(res5);
+		if((mID & CAN_ID_M5)==CAN_ID_M5) //Verify if the CAN message is the desired one. This is done by comparing the values.
+		{
+			ACC_FEEDBACK = mDATA[3]; //Store the read data from the CAN message to local variable.
+		}		
+	ReleaseResource(res5);
+	}
+	TerminateTask();
 }
 

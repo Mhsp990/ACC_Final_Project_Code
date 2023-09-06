@@ -133,4 +133,82 @@ CPU test {
 		RESOURCEPROPERTY = STANDARD;
   };
 
+  //-------------Receive CAN EGO CURRENT SPEED----------
+
+  ALARM periodicAlarm5 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM3;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM3 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res3{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+  //-------------Receive Fault Sensor----------
+
+  ALARM periodicAlarm6 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM4;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM4 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res4{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+  //-------------Receive ACC Enable----------
+
+  ALARM periodicAlarm7 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM5;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM5 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res5{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
 };
