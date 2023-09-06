@@ -85,29 +85,29 @@ static 							byte M1 = 0;
 unsigned char Data_ACC_Acceleration[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char Data_ACC_Enabled[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
-MCP_CAN CAN1(10);  // ********Defineir esse pino com o Matheus ***********
+//Construct MCP_CAN object with pin 10 as its CS.
+MCP_CAN CAN1(10);  
 
 void setup() {
-	//Inicializa a interface serial: baudrate = 115200
+	//serial: baudrate = 115200
 	Serial.begin(115200);
 	
-	//Inicializa o controlador can : baudrate = 250K, clock=8MHz
+	//tart CAN controller : baudrate = 250K, clock=8MHz
 	while (CAN1.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) != CAN_OK) {
         delay(200);        
     }
-	Serial.println("MCP2515 can_send inicializado com sucesso!");
-	//Modifica para o modo normal de operação
+	Serial.println("MCP2515 CAN initialized");
+	//Sets operation mode for MCP2515.
 	CAN1.setMode(MCP_NORMAL);
-	pinMode(2, INPUT);
+	pinMode(2, INPUT); //Sets pin 2 as input.
 }
 
 
 TASK(Can_Receive)
 {
-	if(!digitalRead(2)){  
+	if(!digitalRead(2)){ //Check if there is CAN messages on buffer, detected by digital pin 2  
 		GetResource(res1);
-		//Lê os dados: mID = identificador, mDLC = comprimento, mDATA = dados do freame
+		//Read CAN data: mID = Identifier field, mDLC = Data size field, mDATA = Data field
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
 		if((mID & ID_ACC_input) == ID_ACC_input) {
 			ACC_input = mDATA[4]; // Ver em que posição essa informação vai vir
@@ -151,6 +151,7 @@ TASK(Can_Receive)
 		}
 	}
 	ReleaseResource(res1);
+	TerminateTask();
 }
 
 TASK(Logic_block)
