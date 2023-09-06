@@ -33,57 +33,11 @@ CPU test {
   APPMODE stdAppmode {};
   
 
-//---------CAN CALCULATE VELOCITY----------
+//---------SenderRainSensor----------
   ALARM periodicAlarm1 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = CalculateVelocityCANM3;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 1000; 
-      CYCLETIME = 100; 
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  //Maior prioridade
-  TASK CalculateVelocityCANM3 {
-    PRIORITY 	= 20;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-
-
-//-------------READ ENGINE ROTATION----------
-  ALARM periodicAlarm2 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = EngRotTask;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 600; 
-      CYCLETIME = 60; 
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  TASK EngRotTask {
-    PRIORITY 	= 1;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-  //-------------CAN send Rain----------
-
-  ALARM periodicAlarm3 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ReaderRainSensor;
+      TASK = SenderRainSensor;
     };
     AUTOSTART = TRUE {
       ALARMTIME = 10; 
@@ -92,7 +46,8 @@ CPU test {
     };
   };
   
-  TASK ReaderRainSensor {
+  
+  TASK SenderRainSensor {
     PRIORITY 	= 12;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
@@ -100,22 +55,23 @@ CPU test {
     STACKSIZE 	= 256;
   };
 
-  //-------------Receive CAN M1----------
 
-  ALARM periodicAlarm4 {
+
+//-------------SenderBreakSensor----------
+  ALARM periodicAlarm2 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = ReceiveCANM1;
+      TASK = SenderBreakSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 800; 
-      CYCLETIME = 100; 
+      ALARMTIME = 10; 
+      CYCLETIME = 14; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK ReceiveCANM1 {
-    PRIORITY 	= 10;
+  TASK EngRotTask {
+    PRIORITY 	= 13;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;

@@ -69,9 +69,7 @@ void setup()
 
 
 //---------------------------------Send CAN Rain msg.
-TASK(SenderRainSensor)
-{
- 
+TASK(SenderRainSensor){
 	if(Rain){
 		Time_gap=2*Time_gap_base;
 	}else{
@@ -93,8 +91,8 @@ TASK(SenderRainSensor)
 	TerminateTask();  
 }
 //---------------------------------Send CAN Break msg.
-TASK(SenderRainSensor)
-{
+TASK(SenderBreakSensor){
+
 	if(Break_pedal_sensor){
 		Break_pedal_base = 1;
 	}else{
@@ -102,31 +100,32 @@ TASK(SenderRainSensor)
 	}
 
 	GetResource(res1);
-	//Write CAN message.
 	mEEC1_data[1]= Break_pedal_base;
 	ReleaseResource(res1);
 
-	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
 	ret=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-	if (ret==CAN_OK) //Check for sucess.
+	if (ret==CAN_OK) 
 	{
 		 Serial.print("CAN MSG Break pedal SENT:");
 		 Serial.println(Break_pedal_base);
-		//Could also print the value that was sent.
 	}
-	
 	TerminateTask();  
 }
 
-//---------------------------------SEND CAN M3 Rain msg---------------------------
-TASK(ReceiverRainSensor)
-{
+
+
+
+
+
+//exemples
+//---------------------------------SEND CAN M3  msg---------------------------
+TASK(ReceiverRainSensor){
 
 CAN1.readMsgBuf(&mID, &mDLC, mDATA);
 
 GetResource(res1);
-if((mID & Rain_sensor) == Rain_sensor){}
+
 ReleaseResource(res1);
 	
 	TerminateTask();
