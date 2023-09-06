@@ -19,6 +19,13 @@ bool ACC_FEEDBACK = false;
 // ACC state
 bool Acc_state = false;
 
+static byte ret = 0;
+
+long unsigned int 			mID;
+unsigned char 				mDATA[8];
+unsigned char 				mDLC  = 0;
+
+
 #define CAN_ID_M1			0xEC300002
 #define CAN_ID_M2			0xEC300001
 #define CAN_ID_M3 			0xEC100007 
