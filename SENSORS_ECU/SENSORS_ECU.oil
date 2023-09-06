@@ -41,7 +41,7 @@ CPU test {
     };
     AUTOSTART = TRUE {
       ALARMTIME = 10; 
-      CYCLETIME = 10; 
+      CYCLETIME = 11; 
       APPMODE 	= stdAppmode;
     };
   };
@@ -93,6 +93,27 @@ CPU test {
   
   TASK SenderGasSensor {
     PRIORITY 	= 13;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+  //-------------SenderFault----------
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SenderFault;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 10; 
+      CYCLETIME = 10; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SenderFault {
+    PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
