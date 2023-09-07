@@ -7,7 +7,9 @@ float D_time_gap = 3;
 float D_distance = 10;
 float V_set = 70;
 int rain_signal = 0;
-
+const float Kverr_gain = 0.5;
+const float Kxerr_gain = 0.0;
+const float Kvx_gain   = 0.04;
 
 float V_lead = 80;
 float Pos_lead = 100;
