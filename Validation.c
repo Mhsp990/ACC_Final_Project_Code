@@ -32,8 +32,8 @@ float checkValidationSensors(short int ACC_enable, int Fault_signal, int Gas_ped
     }
 }
 
-float checkRainSafeDistance(int rain_signal, int D_distance, int V_ego, float safeDistance){
-    if(rain_signal){
+float checkRainSafeDistance(int ACC_enable, int rain_signal, int D_distance, int V_ego, float safeDistance){
+    if(ACC_enable && rain_signal){
         if(safeDistance != (D_distance + V_ego*6)){
             printf("Safe distance is not correct for a wet street\n");
             return 1;
@@ -42,12 +42,15 @@ float checkRainSafeDistance(int rain_signal, int D_distance, int V_ego, float sa
     return 0;
 }
 
-float checkRelativeSafeDistance(float safeDistance, float relativeDistance){
+float checkRelativeSafeDistance(int ACC_enable, float safeDistance, float relativeDistance){
+    if(ACC_enable){
     if(relativeDistance < safeDistance){
         printf("The vehicle is closer than the limit\n");
         return 1;
     }
 }
+}
+
 
 
 //---------------------- simulating calling the check functions------------------
@@ -65,8 +68,8 @@ int main() {
 
     checkCollision(ACC_enable, relativeDistance);
     checkValidationSensors(ACC_enable, Fault_signal, Gas_pedal, Brake_pedal);
-    checkRainSafeDistance(rain_signal, D_distance, V_ego, safeDistance);
-    checkRelativeSafeDistance(safeDistance, relativeDistance);
+    checkRainSafeDistance(ACC_enable ,rain_signal, D_distance, V_ego, safeDistance);
+    checkRelativeSafeDistance(ACC_enable, safeDistance, relativeDistance);
     return 0;
 }
 
