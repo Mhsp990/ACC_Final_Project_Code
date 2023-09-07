@@ -20,8 +20,6 @@ unsigned char 		mDATA[8];
 long unsigned int 	mID;
 //If you wish to send, check SENSORS_ECU.CPP example. This example only receives.
 
-
-
 //Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
 MCP_CAN CAN1(10); 
 

@@ -25,10 +25,9 @@ unsigned char mDATA[8];
 unsigned char mDLC = 0;
 
 
-
-
 //Create MCP_CAN object and configure Chip select pin as digital 10.
-MCP_CAN CAN1(10);  //This pin (10) will be defined as the CS and put on output mode
+//This pin (10) will be defined as the CS and put on output mode
+MCP_CAN CAN1(10);
 
 void setup()
 {
@@ -48,58 +47,20 @@ void setup()
 
 
 
-//---------------------------------Send CAN M2.
+//---------------------------------SEND CAN M3---------------------------//
 TASK(SendCANM2)
 {
 	GetResource(res1);
-	//Write CAN message.
-	mEEC1_data[3]= rotacaoFullM2;
-	mEEC1_data[4]= rotacaoFullM2>>8;
 
 	ReleaseResource(res1);
 
-	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
-	ret=CAN1.sendMsgBuf(CAN_ID_M2,CAN_EXTID,mEEC1_DLC,mEEC1_data);
-
-
-	if (ret==CAN_OK) //Check for sucess.
-	{
-		 Serial.print("CAN M2 SENT.");
-		//Could also print the value that was sent.
-	}
 	TerminateTask();  
 }
 
-//---------------------------------SEND CAN M3---------------------------
-TASK(CalculateVelocityCANM3)
-{
-	GetResource(res1);
-	mEEC1_data[1] = velocidade;
-	mEEC1_data[2] = velocidade>>8;
-
-	ReleaseResource(res1);
-	//Envia mensagem para o barramento
-	ret=CAN1.sendMsgBuf(CAN_ID_M3,CAN_EXTID,mEEC1_DLC,mEEC1_data);
-	
-	if (ret==CAN_OK)
-	{
-		Serial.print("CAN M3 SENT.");
-		/*
-		Serial.print("Valor da velocidade enviada: "); 
-		Serial.println(velocidade); 
-		Serial.print("Valor real: "); 
-		Serial.println(velocidade/256);
-		*/
-		
-	}
-	
-	TerminateTask();
-}
-
-//----------------------------------Read CAN MESSAGE------------------------------
+//---------------------------------SEND CAN M3---------------------------//
 TASK(ReceiveCANM1)
 {
-	 //If there is a interrupt in this pin, there is a message to be read in the CAN buffer.
+	//If there is a interrupt in this pin, there is a message to be read in the CAN buffer.
 	if(!digitalRead(2))                        
 	{
 		unsigned int var = 0;
@@ -116,6 +77,36 @@ TASK(ReceiveCANM1)
 	ReleaseResource(res1);
 	}
 	TerminateTask();
+}
+
+//---------------------------------SEND CAN M3---------------------------//
+TASK(CalcEgoVel)
+{
+	GetResource(res1);
+
+	ReleaseResource(res1);
+
+	TerminateTask();  
+}
+
+//---------------------------------SEND CAN M3---------------------------//
+TASK(CalcRelativeVel)
+{
+	GetResource(res1);
+
+	ReleaseResource(res1);
+
+	TerminateTask();  
+}
+
+//---------------------------------SEND CAN M3---------------------------//
+TASK(CalcRelativeDis)
+{
+	GetResource(res1);
+
+	ReleaseResource(res1);
+
+	TerminateTask();  
 }
 
 /*
