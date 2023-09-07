@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 
 //Calibration Variables
@@ -40,26 +41,33 @@ float safeDistance = 15;
 
 int main(){
 
-    //Generating Lead car data for this interaction. Based on previous values
+    do
+    {
+     //Generating Lead car data for this interaction. Based on previous values
     Acceleration_lead = generateLeadAcceleration(Amplitude_move_lead);
     V_lead = calculateLeadSpeed(V_lead, Acceleration_lead, step);
     Pos_lead =calculateEgoPosition(Pos_lead,V_lead,step,Acceleration_lead);
 
-    safeDistance = D_distance + V_ego*(setTimeGap());
-    relativeDistance = Pos_lead - Pos_ego;
-    relativeSpeed = V_lead - V_ego;
+    safeDistance = D_distance + V_ego*(setTimeGap()); //Calculating safe distance
+    relativeDistance = Pos_lead - Pos_ego; //Calculating relative distance
+    relativeSpeed = V_lead - V_ego; //Calculating relative speed
     
     //Using the ACC system with generated data from simulation
-    ACC_enable = control();
-    ACC_acceleration = ACC_FUNCTION();
+    ACC_enable = control(); //Check if ACC can be enabled
+    ACC_acceleration = ACC_FUNCTION(); //Calculate ACC. If ACC is disable, returns 0;
 
     //Generating Ego car data for this interaction. Based on previous values
-    V_ego = calculateEgoSpeed(Pos_ego, V_ego, step);
-    Pos_lead = calculateEgoPosition(Pos_ego,V_ego,step,ACC_acceleration);
+    V_ego = calculateEgoSpeed(Pos_ego, V_ego, step); //Calculating new speed
+    Pos_lead = calculateEgoPosition(Pos_ego,V_ego,step,ACC_acceleration); //Calculating new pos
 
     //Run test for this interaction, such as check if there is colision
-    
 
+    counter++;
+    } while (counter<=maxCounter);
+
+    printf("SIMULATION ENDED");
+    
+    
 }
 
 
@@ -89,7 +97,7 @@ float calculateEgoSpeed(float Vo, float Acc, float dT )
 
 float calculateEgoPosition(float So, float Vo, float dT, float Acc)
 {
-    return So+(Vo*dT)+((Acc*dT)^2)/2;
+    return So+(Vo*dT)+ (pow(Acc*dT,2))/2;
 }
 
 float setTimeGap()
