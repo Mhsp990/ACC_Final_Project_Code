@@ -17,17 +17,17 @@
 #define ID_Brake_pedal			0xEC100005 //Dicionário de dados 
 #define ID_Fault_signal			0xEC100006 //Dicionário de dados 
 #define ID_Ego_speed			0xEC100007 //Dicionário de dados 
-#define ID_Relative_distance	0xEC100008 //Dicionário de dados 
+#define ID_Relative_distance		0xEC100008 //Dicionário de dados 
 #define ID_Relative_speed		0xEC100009 //Dicionário de dados
  
 #define ID_ACC_speed_set		0xEC300001 //Dicionário de dados 
 #define ID_ACC_input			0xEC300002 //Dicionário de dados 
 
 //Id mensagens CAN sand
-#define ID_ACC_Acceleration			0xACC00001 //Dicionário de dados
+#define ID_ACC_Acceleration		0xACC00001 //Dicionário de dados
 #define ID_ACC_Brake_Acceleration	0xACC00002 //Dicionário de dados
-#define ID_ACC_Enabled				0xACC00003 //Dicionário de dados
-#define ID_ACC_Disabled				0xACC00004 //Dicionário de dados
+#define ID_ACC_Enabled			0xACC00003 //Dicionário de dados
+#define ID_ACC_Disabled			0xACC00004 //Dicionário de dados
  
  
 //variaveis para recebimento recebimento de dados da CAN
@@ -35,7 +35,7 @@ long unsigned int 			mID;
 unsigned char 				mDATA[8];
 unsigned char 				mDLC  = 0;
 
-bool 						ACC_Enabled = false;
+bool 					ACC_Enabled = false;
 
 //Variables received from CAN FRAMES
 bool ACC_input     = 0; //Trigger for ACC_input. 
@@ -70,15 +70,16 @@ float Acceleration       = 0;
 float Safe_distance      = 0;
 float Control_v          = 0;
 float Control_x          = 0;
+float SafeD_relD		 = 0;
 const float Ego_acceleration_min     = -5;
 const float Ego_acceleration_max     = 1.47;
 
 
 //Macros para envio 
-#define DLC_ACC					8
+#define DLC_ACC				8
 #define mEEC1_EXT_FRAME			1
-static 							byte M  = 0;
-static 							byte M1 = 0;
+static 					byte M  = 0;
+static 					byte M1 = 0;
 
 
 //Variavel que armazena o FRAME_DATA para ser enviado 
@@ -183,33 +184,30 @@ TASK(Logic_block)
 
 TASK(Calculate_ACC_Acceleration) 
 {
-	if (ACC_enabled){
-		GetResource(res1);
-		Safe_distance = (Ego_speed * Default_Time_Gap) + D_default;
-		Control_x = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
-		Control_v = (ACC_speed_set - Ego_speed) * Kverr_gain;
+	Safe_distance = (Ego_speed * Default_Time_Gap) + D_default;
+	SafeD_relD = Safe_distance - Relative_distance;
+	Control_x = (Relative_speed * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
+	Control_v = (ACC_speed_set - Ego_speed) * Kverr_gain;
 
-		if (Safe_distance <= Relative_distance){
+	if (SafeD_relD > 0){
 			
-			Acceleration = (Relative_distance * Kvx_gain) - ((Safe_distance - Relative_distance) * Kxerr_gain);
+		Acceleration = (Relative_speed * Kvx_gain) - (SafeD_relD * Kxerr_gain);
 			
+	}else{
+		if (Control_x < Control_v){
+			Acceleration = Control_x;
 		}else{
-			if (Control_x < Control_v){
-				Acceleration = Control_x;
-			}else{
-				Acceleration = Control_v;
-			}
+			Acceleration = Control_v;
 		}
-		if (Acceleration < Ego_acceleration_min){
+	}
+	if (Acceleration < Ego_acceleration_min){
 			
-			Acceleration = Ego_acceleration_min;
+		Acceleration = Ego_acceleration_min;
 			
-		}else if (Acceleration > Ego_acceleration_max) {
+	}else if (Acceleration > Ego_acceleration_max) {
 			
-			Acceleration = Ego_acceleration_max;
-			
-		}
-		}
+		Acceleration = Ego_acceleration_max;
+	}
 	Data_ACC_Acceleration[0] = Acceleration;
 	
 	ReleaseResource(res1);
@@ -226,5 +224,4 @@ TASK(Calculate_ACC_Acceleration)
 		Serial.println("can_send: Error to send!");      
 	}
 	TerminateTask();
-}		
-	
+}
