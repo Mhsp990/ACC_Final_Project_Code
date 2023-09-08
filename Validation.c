@@ -45,7 +45,8 @@ float checkRainSafeDistance(int ACC_enable, int rain_signal, int D_distance, int
 float checkRelativeSafeDistance(int ACC_enable, float safeDistance, float relativeDistance){
     if(ACC_enable){
     if(relativeDistance < safeDistance){
-        printf("The vehicle is closer than the limit\n");
+        printf("The vehicle is closer than the limit\n"); //This is not a error, is a mode change
+        //This change from speed control to distance control mode
         return 1;
     }
 }
