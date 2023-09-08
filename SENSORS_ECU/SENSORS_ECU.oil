@@ -15,7 +15,7 @@ CPU test {
   OS config {
     STATUS = STANDARD;
     BUILD = TRUE {	
-	  TRAMPOLINE_BASE_PATH 	= "../../../";
+	  TRAMPOLINE_BASE_PATH 	= "../../../..";
       APP_NAME 			 	= "image";
       APP_SRC	  			= "SENSORS_ECU.cpp";
       CPPCOMPILER			= "avr-g++";
@@ -33,22 +33,22 @@ CPU test {
   APPMODE stdAppmode {};
   
 
-//---------CAN CALCULATE VELOCITY----------
+//---------SenderRainSensor----------
   ALARM periodicAlarm1 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = CalculateVelocityCANM3;
+      TASK = SenderRainSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 1000; 
-      CYCLETIME = 100; 
+      ALARMTIME = 10; 
+      CYCLETIME = 11; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  //Maior prioridade
-  TASK CalculateVelocityCANM3 {
-    PRIORITY 	= 20;
+  
+  TASK SenderRainSensor {
+    PRIORITY 	= 12;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
@@ -56,65 +56,63 @@ CPU test {
   };
 
 
-
-//-------------READ ENGINE ROTATION----------
+//-------------SenderBreakSensor----------
   ALARM periodicAlarm2 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = EngRotTask;
+      TASK = SenderBreakSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 600; 
-      CYCLETIME = 60; 
+      ALARMTIME = 10; 
+      CYCLETIME = 14; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK EngRotTask {
-    PRIORITY 	= 1;
+  TASK SenderBreakSensor {
+    PRIORITY 	= 13;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
     STACKSIZE 	= 256;
   };
 
-  //-------------CAN send M2----------
 
-  ALARM periodicAlarm3 {
+//-------------SenderGasSensor----------
+  ALARM periodicAlarm2 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = SendCANM2;
+      TASK = SenderGasSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 700; 
-      CYCLETIME = 90; 
+      ALARMTIME = 10; 
+      CYCLETIME = 15; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK SendCANM2 {
-    PRIORITY 	= 15;
+  TASK SenderGasSensor {
+    PRIORITY 	= 13;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
     STACKSIZE 	= 256;
   };
 
-  //-------------Receive CAN M1----------
-
-  ALARM periodicAlarm4 {
+  //-------------SenderFault----------
+  ALARM periodicAlarm2 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = ReceiveCANM1;
+      TASK = SenderFault;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 800; 
-      CYCLETIME = 100; 
+      ALARMTIME = 10; 
+      CYCLETIME = 10; 
       APPMODE 	= stdAppmode;
     };
   };
   
-  TASK ReceiveCANM1 {
+  TASK SenderFault {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
