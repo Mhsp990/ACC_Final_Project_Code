@@ -124,13 +124,13 @@ float ACC_FUNCTION()
 {
 	if (ACC_enable){
 		float Control_x =0, Control_v=0;
-        float Acceleration = 0;
-		Control_x = (relativeDistance * Kvx_gain) - ((safeDistance - relativeDistance) * Kxerr_gain);
+        	float Acceleration = 0;
+		Control_x = (relativeSpeed * Kvx_gain) - ((safeDistance - relativeDistance) * Kxerr_gain);
 		Control_v = (V_set - V_ego) * Kverr_gain;
 
 		if (safeDistance <= relativeDistance){
 			
-			Acceleration = (relativeDistance * Kvx_gain) - ((safeDistance - relativeDistance) * Kxerr_gain);
+			Acceleration = (relativeSpeed * Kvx_gain) - ((safeDistance - relativeDistance) * Kxerr_gain);
 			
 		}else{
 			if (Control_x < Control_v){
