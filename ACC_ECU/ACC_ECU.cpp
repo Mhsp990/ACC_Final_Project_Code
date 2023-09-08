@@ -31,11 +31,10 @@
  
  
 //variaveis para recebimento recebimento de dados da CAN
-long unsigned int 			mID;
-unsigned char 				mDATA[8];
-unsigned char 				mDLC  = 0;
-
-bool 					ACC_Enabled = false;
+long unsigned int 	mID;
+unsigned char 		mDATA[8];
+unsigned char 		mDLC  = 0;
+bool 			ACC_Enabled = false;
 
 //Variables received from CAN FRAMES
 bool ACC_input     = 0; //Trigger for ACC_input. 
@@ -70,16 +69,16 @@ float Acceleration       = 0;
 float Safe_distance      = 0;
 float Control_v          = 0;
 float Control_x          = 0;
-float SafeD_relD		 = 0;
+float SafeD_relD	 = 0;
 const float Ego_acceleration_min     = -5;
 const float Ego_acceleration_max     = 1.47;
 
 
 //Macros para envio 
-#define DLC_ACC				8
-#define mEEC1_EXT_FRAME			1
-static 					byte M  = 0;
-static 					byte M1 = 0;
+#define DLC_ACC			8
+#define mEEC1_EXT_FRAME		1
+static 				byte M  = 0;
+static 				byte M1 = 0;
 
 
 //Variavel que armazena o FRAME_DATA para ser enviado 
