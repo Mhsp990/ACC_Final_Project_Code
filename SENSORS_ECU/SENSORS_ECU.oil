@@ -1,13 +1,7 @@
 //////////////////////////////////////////////////
 // Universidade Federal de Pernambuco - UFPE		  
 // Residência Tecnológica em Software Automotivo      			  
-// Módulo: SWT1 - RTOS e Sistemas Distribuídos 
 //////////////////////////////////////////////////
-
-//HAVERAO 4 TASKS NA EMC: 
-//1-> Receber rotacao do motor (We); 2-> Receber e ler mensagem CAN M1, possuindo a marcha atual.
-//3-> Enviar mensagem CAN M2, transmitindo a rotacao do motor.
-//4-> Calcular a velocidade e enviar mensagem CAN M3, transmitindo a velocidade do veiculo calculada.
 
 OIL_VERSION = "2.5" : "test" ;
 
@@ -106,14 +100,14 @@ CPU test {
       TASK = SenderFault;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 10; 
-      CYCLETIME = 10; 
+      ALARMTIME = 30; 
+      CYCLETIME = 12; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK SenderFault {
-    PRIORITY 	= 10;
+    PRIORITY 	= 5;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;

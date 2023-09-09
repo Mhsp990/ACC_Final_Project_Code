@@ -34,7 +34,7 @@ bool Fault_signal = false;
 
 bool Rain = false;
 unsigned int Time_gap_base = 3;
-unsigned int Time_gap;
+unsigned int Time_gap=3;
 
 //Variables for frame data CAN message
 unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -73,7 +73,7 @@ TASK(SenderRainSensor){
 	}
 	//Write CAN message.
 	mEEC1_data[4]= Time_gap;
-	ReleaseResource(res1);
+	
 
 	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
 	M=CAN1.sendMsgBuf(Rain_sensor_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
@@ -83,6 +83,7 @@ TASK(SenderRainSensor){
 		 Serial.print("CAN Rain SENT.");
 		//Could also print the value that was sent.
 	}
+	ReleaseResource(res1);
 	TerminateTask();
 
 }
@@ -91,8 +92,6 @@ TASK(SenderBreakSensor){
 
 	GetResource(res1);
 	mEEC1_data[4]= Break_pedal_sensor;
-	ReleaseResource(res1);
-
 	M1=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
 	if (M1==CAN_OK) 
@@ -100,6 +99,7 @@ TASK(SenderBreakSensor){
 		 Serial.print("CAN MSG Break pedal SENT:");
 		 Serial.println(Break_pedal_sensor);
 	}
+	ReleaseResource(res1);
 	TerminateTask();  
 }
 //---------------------------------Send CAN Gas msg.
@@ -107,15 +107,16 @@ TASK(SenderGasSensor){
 	
 	GetResource(res1);
 	mEEC1_data[4]= Gas_pedal_sensor;
-	ReleaseResource(res1);
 
-	M2=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	M2=CAN1.sendMsgBuf(Gas_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
 	if (M2==CAN_OK) 
 	{
 		 Serial.print("CAN MSG Gas pedal SENT:");
 		 Serial.println(Gas_pedal_sensor);
 	}
+	ReleaseResource(res1);
 	TerminateTask();  
 }
 //---------------------------------Send CAN Fault msg.
@@ -123,8 +124,6 @@ TASK(SenderFault){
 	
 	GetResource(res1);
 	mEEC1_data[4]= Fault_signal;
-	ReleaseResource(res1);
-
 	M3=CAN1.sendMsgBuf(Fault_signal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
 	if (M3==CAN_OK) 
@@ -132,6 +131,7 @@ TASK(SenderFault){
 		 Serial.print("CAN MSG fault SENT:");
 		 Serial.println(Fault_signal);
 	}
+	ReleaseResource(res1);
 	TerminateTask();  
 }
 

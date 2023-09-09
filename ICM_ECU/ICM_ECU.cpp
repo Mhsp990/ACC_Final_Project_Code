@@ -17,7 +17,7 @@ bool FAULT_SIGNAL = false;
 //ACC FEEDBACK
 bool ACC_FEEDBACK = false;
 // ACC state
-bool Acc_state = false;
+bool ACC_input = false;
 
 static byte ret = 0;
 
@@ -26,11 +26,11 @@ unsigned char 				mDATA[8];
 unsigned char 				mDLC  = 0;
 
 
-#define CAN_ID_M1			0xEC300002
-#define CAN_ID_M2			0xEC300001
-#define CAN_ID_M3 			0xEC100007 
-#define CAN_ID_M4 			0xEC100006 
-#define CAN_ID_M5 			0xACC00003 
+#define CAN_ID_M1			0xEC300002 //ACC_speed_set
+#define CAN_ID_M2			0xEC300001 //Acc_input
+#define CAN_ID_M3 			0xEC100007 //Ego_speed
+#define CAN_ID_M4 			0xEC100006 //Fault_signal
+#define CAN_ID_M5 			0xACC00003 //Acc_enabled
 
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
@@ -44,21 +44,22 @@ unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 MCP_CAN CAN1(10);  //OUTPUT
 
 
-// Macro para definicoes ID 
-#define Fault_signal_ID 0xEC100006
 
+//#define Fault_signal_ID 0xEC100006
+
+/*
 long unsigned int 			mID;
 unsigned char 				mDATA[8];
 unsigned char 				mDLC  = 0;
 bool Fault_signal  = 0;
+*/
+// FRAME_DATA
+//unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-//Variavel que armazena o FRAME_DATA
-unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 
-
-//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
-MCP_CAN CAN1(10);  //A própria biblioteca já define este pino como output.
+//Build MCP_CAN object. Chip selector = digital pin 10.
+MCP_CAN CAN1(10);  
 
 
 void setup()
@@ -82,8 +83,7 @@ TASK(SendCANM1)
 {
 	
 	GetResource(res1);
-	mEEC1_data[3]= 1; //WRITES TO CAN MESSAGE DATA FIELD
-	ReleaseResource(res1);
+	mEEC1_data[4]= setsp; //WRITES TO CAN MESSAGE DATA FIELD
 
 	ret=CAN1.sendMsgBuf(CAN_ID_M1, CAN_EXTID, mEEC1_DLC, mEEC1_data);
 	if (ret==CAN_OK)
@@ -98,7 +98,7 @@ TASK(SendCANM1)
 	{    
       Serial.println("can_send M1: Error to send!");      
 	}	   
-	
+	ReleaseResource(res1);
 	TerminateTask();
 }
 
@@ -106,7 +106,7 @@ TASK(SendCANM1)
 TASK(ReceiveSetSpeed)
 {
 	GetResource(res1);
-
+	
 	if (Serial.available() > 0) //Check serial buffer
 	{
 		setsp = Serial.parseInt(); //Read serial data and convert it to int.
@@ -115,6 +115,7 @@ TASK(ReceiveSetSpeed)
 		Serial.read(); //CLEAR serial buffer (must do it, otherwise system executes it again with "zero" value
 
 	}
+	ReleaseResource(res1);
 	TerminateTask();
   
 }
@@ -126,8 +127,7 @@ TASK(SendCANM2)
 {
 	
 	GetResource(res2);
-	mEEC1_data[3]= 1; //WRITES TO CAN MESSAGE DATA FIELD
-	ReleaseResource(res2);
+	mEEC1_data[4]= ACC_input; //WRITES TO CAN MESSAGE DATA FIELD
 
 	ret=CAN1.sendMsgBuf(CAN_ID_M2, CAN_EXTID, mEEC1_DLC, mEEC1_data);
 	if (ret==CAN_OK)
@@ -142,15 +142,16 @@ TASK(SendCANM2)
 	{    
       Serial.println("can_send M2: Error to send!");      
 	}	   
-	
+	ReleaseResource(res2);
 	TerminateTask();
 }
 
 //TASK ACC ACTIVATION 
+//Needs to implement the detection for enable and disable ACC_input. For now, always true.
 TASK(AccOnOff)
 {
 	GetResource(res2);
-	Acc_state = false;
+	ACC_input = true;
 	ReleaseResource(res2);
 	TerminateTask();
   
@@ -167,7 +168,7 @@ TASK(ReceiveCANM3)
 		GetResource(res3);
 		if((mID & CAN_ID_M3)==CAN_ID_M3) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
-			EGO_SPEED = mDATA[3]; //Store the read data from the CAN message to local variable.
+			EGO_SPEED = mDATA[4]; //Store the read data from the CAN message to local variable.
 		}		
 	ReleaseResource(res3);
 	}
@@ -184,7 +185,7 @@ TASK(ReceiveCANM4)
 		GetResource(res4);
 		if((mID & CAN_ID_M4)==CAN_ID_M4) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
-			FAULT_SIGNAL = mDATA[3]; //Store the read data from the CAN message to local variable.
+			FAULT_SIGNAL = mDATA[4]; //Store the read data from the CAN message to local variable.
 		}		
 	ReleaseResource(res4);
 	}
@@ -201,13 +202,14 @@ TASK(ReceiveCANM5)
 		GetResource(res5);
 		if((mID & CAN_ID_M5)==CAN_ID_M5) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
-			ACC_FEEDBACK = mDATA[3]; //Store the read data from the CAN message to local variable.
+			ACC_FEEDBACK = mDATA[0]; //Store the read data from the CAN message to local variable.
 		}		
 	ReleaseResource(res5);
 	}
 	TerminateTask();
 }
 
+/*
 TASK(Can_Receive)
 {
 	if(!digitalRead(2)){  
@@ -220,4 +222,4 @@ TASK(Can_Receive)
 		}
 	}
 }
-
+*/ 

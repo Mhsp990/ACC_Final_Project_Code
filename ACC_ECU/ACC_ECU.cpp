@@ -163,7 +163,7 @@ TASK(Logic_block)
 	}
 	else {
 		ACC_enabled = 0;
-		Data_ACC_Enabled [0] = ACC_enabled;
+		Data_ACC_Enabled[0] = ACC_enabled;
 	}
 	
 	M = CAN1.sendMsgBuf(ID_ACC_Enabled, CAN_EXTID, DLC_ACC, Data_ACC_Enabled);

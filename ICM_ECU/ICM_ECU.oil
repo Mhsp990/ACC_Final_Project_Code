@@ -38,18 +38,15 @@ CPU test {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
       TASK = ReceiveSetSpeed;
-      TASK = Can_Receive;
-
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 10; 
-      CYCLETIME = 10; 
+      ALARMTIME = 100; 
+      CYCLETIME = 70; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK ReceiveSetSpeed {
-  TASK Can_Receive {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
@@ -66,8 +63,8 @@ CPU test {
       TASK = SendCANM1;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 600; 
-      CYCLETIME = 110; 
+      ALARMTIME = 300; 
+      CYCLETIME = 100; 
       APPMODE 	= stdAppmode;
     };
   };
@@ -97,8 +94,8 @@ CPU test {
       TASK = AccOnOff;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 400; //ativado a cada 1024 ms
-      CYCLETIME = 70; //ativado a cada 1024 ms
+      ALARMTIME = 500; // Defines the ms time to start the ACC.
+      CYCLETIME = 100; //
       APPMODE 	= stdAppmode;
     };
   };
@@ -119,14 +116,14 @@ CPU test {
       TASK = SendCANM2;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 600; 
-      CYCLETIME = 110; 
+      ALARMTIME = 500; 
+      CYCLETIME = 70; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK SendCANM2 {
-    PRIORITY 	= 20;
+    PRIORITY 	= 5;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
@@ -145,14 +142,14 @@ CPU test {
       TASK = ReceiveCANM3;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 800; 
-      CYCLETIME = 100; 
+      ALARMTIME = 100; 
+      CYCLETIME = 50; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK ReceiveCANM3 {
-    PRIORITY 	= 10;
+    PRIORITY 	= 30;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
@@ -171,14 +168,14 @@ CPU test {
       TASK = ReceiveCANM4;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 800; 
-      CYCLETIME = 100; 
+      ALARMTIME = 50; 
+      CYCLETIME = 20; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK ReceiveCANM4 {
-    PRIORITY 	= 10;
+    PRIORITY 	= 5;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
@@ -197,7 +194,7 @@ CPU test {
       TASK = ReceiveCANM5;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 800; 
+      ALARMTIME = 500; 
       CYCLETIME = 100; 
       APPMODE 	= stdAppmode;
     };
