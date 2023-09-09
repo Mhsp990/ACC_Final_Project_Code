@@ -31,10 +31,11 @@
  
  
 //variaveis para recebimento recebimento de dados da CAN
-long unsigned int 	mID;
-unsigned char 		mDATA[8];
-unsigned char 		mDLC  = 0;
-bool 			ACC_Enabled = false;
+long unsigned int 			mID;
+unsigned char 				mDATA[8];
+unsigned char 				mDLC  = 0;
+
+bool 						ACC_Enabled = false;
 
 //Variables received from CAN FRAMES
 bool ACC_input     = 0; //Trigger for ACC_input. 
@@ -49,7 +50,7 @@ float ACC_speed_set     = 0;
 
 //Variables original from ACC_ECU
 bool ACC_enabled  = false;
-bool ACC_Disabled = false;
+bool aux  		  = 0;
 float ACC_acceleration       = 0;
 float ACC_brake_acceleration = 0;
 
@@ -75,10 +76,10 @@ const float Ego_acceleration_max     = 1.47;
 
 
 //Macros para envio 
-#define DLC_ACC			8
-#define mEEC1_EXT_FRAME		1
-static 				byte M  = 0;
-static 				byte M1 = 0;
+#define DLC_ACC				8
+#define mEEC1_EXT_FRAME			1
+static 					byte M  = 0;
+static 					byte M1 = 0;
 
 
 //Variavel que armazena o FRAME_DATA para ser enviado 
@@ -157,14 +158,18 @@ TASK(Can_Receive)
 TASK(Logic_block)
 {
 	GetResource(res1);
-	if(ACC_input == 1 && Fault_signal == 0 && (Ego_speed >= 11 || Ego_speed <= 33) && Gas_pedal == 0 && Brake_pedal == 0){
+	if(ACC_input == 1 && Fault_signal == 0 && (Ego_speed >= 11 && Ego_speed <= 33) && Gas_pedal == 0 && Brake_pedal == 0){
+		aux = 1;
 		ACC_enabled = 1;
-		Data_ACC_Enabled[0] = ACC_enabled;
+	}else {
+		if (ACC_input == 1 && aux == 1 && Ego_speed <= 11 && Fault_signal == 0 && Gas_pedal == 0 && Brake_pedal == 0){
+			ACC_enabled = 1;
+		}else {
+			ACC_enabled = 0;
+			aux = 0;
+		}
 	}
-	else {
-		ACC_enabled = 0;
-		Data_ACC_Enabled [0] = ACC_enabled;
-	}
+	Data_ACC_Enabled [0] = ACC_enabled;
 	
 	M = CAN1.sendMsgBuf(ID_ACC_Enabled, CAN_EXTID, DLC_ACC, Data_ACC_Enabled);
 	
@@ -223,4 +228,4 @@ TASK(Calculate_ACC_Acceleration)
 		Serial.println("can_send: Error to send!");      
 	}
 	TerminateTask();
-}
+}		
