@@ -38,21 +38,25 @@ CPU test {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
       TASK = ReceiveSetSpeed;
+      TASK = Can_Receive;
+
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 400; //ativado a cada 1024 ms
-      CYCLETIME = 70; //ativado a cada 1024 ms
+      ALARMTIME = 10; 
+      CYCLETIME = 10; 
       APPMODE 	= stdAppmode;
     };
   };
   
   TASK ReceiveSetSpeed {
+  TASK Can_Receive {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
     STACKSIZE 	= 256;
   };
+
 
 //SEND M1 TO CAN BUS
 

@@ -35,12 +35,31 @@ unsigned char 				mDLC  = 0;
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
 
+
 // STORE FRAME_DATA
 unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 
 //Construct an MCP_CAN object and configure the selector chip for pin 10.
 MCP_CAN CAN1(10);  //OUTPUT
+
+
+// Macro para definicoes ID 
+#define Fault_signal_ID 0xEC100006
+
+long unsigned int 			mID;
+unsigned char 				mDATA[8];
+unsigned char 				mDLC  = 0;
+bool Fault_signal  = 0;
+
+//Variavel que armazena o FRAME_DATA
+unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+
+
+//Constroi um objeto MCP_CAN e configura o chip selector para o pino 10.
+MCP_CAN CAN1(10);  //A própria biblioteca já define este pino como output.
+
 
 void setup()
 {
@@ -187,5 +206,18 @@ TASK(ReceiveCANM5)
 	ReleaseResource(res5);
 	}
 	TerminateTask();
+}
+
+TASK(Can_Receive)
+{
+	if(!digitalRead(2)){  
+
+		GetResource(res1);
+		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		if((mID & Fault_signal_ID) == Fault_signal_ID) {
+			Fault_signal = mDATA[4]; 
+			TerminateTask();
+		}
+	}
 }
 
