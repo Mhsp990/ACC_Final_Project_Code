@@ -136,7 +136,7 @@ TASK(SenderFault){
 		 Serial.println(Fault_signal);
 	}
 	ReleaseResource(res1);
-	}
+	
 	TerminateTask();
 }
 
