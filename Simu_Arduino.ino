@@ -29,11 +29,15 @@ MCP_CAN CAN1(10);
 #define mSim3_ID			0xACC00001
 #define mSim3_DLC			8
 
+#define mSim4_ID			0xACC00002
+#define mSim4_DLC			8
+
 #define CAN_EXTID           1
 
 unsigned char mSim1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mSim2_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mSim3_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char mSim4_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mDATA[8];
 unsigned char mDLC = 0;
 
@@ -86,6 +90,10 @@ CAN1.sendMsgBuf(mSim2_ID,CAN_EXTID,mSim2_DLC,mSim2_data);
 delay(20);
 
 CAN1.sendMsgBuf(mSim1_ID,CAN_EXTID,mSim1_DLC,mSim1_data);
+
+delay(20);
+
+CAN1.sendMsgBuf(mSim4_ID,CAN_EXTID,mSim4_DLC,mSim4_data);
 
 while (counter < 50000);
 }
