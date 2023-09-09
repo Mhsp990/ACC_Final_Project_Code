@@ -126,7 +126,7 @@ float ACC_FUNCTION()
 {
 	if (ACC_enable){
 		float Control_x =0, Control_v=0;
-        	float Acceleration = 0;
+        float Acceleration = 0;
 		Control_x = (relativeSpeed * Kvx_gain) - ((safeDistance - relativeDistance) * Kxerr_gain);
 		Control_v = (V_set - V_ego) * Kverr_gain;
 

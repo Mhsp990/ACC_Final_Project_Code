@@ -34,8 +34,8 @@ CPU test {
       TASK = SenderRainSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 10; 
-      CYCLETIME = 11; 
+      ALARMTIME = 15; 
+      CYCLETIME = 15; 
       APPMODE 	= stdAppmode;
     };
   };
@@ -79,7 +79,7 @@ CPU test {
       TASK = SenderGasSensor;
     };
     AUTOSTART = TRUE {
-      ALARMTIME = 10; 
+      ALARMTIME = 12; 
       CYCLETIME = 15; 
       APPMODE 	= stdAppmode;
     };
