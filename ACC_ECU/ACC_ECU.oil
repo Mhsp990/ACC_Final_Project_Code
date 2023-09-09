@@ -4,19 +4,13 @@
 // Módulo: SWT1 - RTOS e Sistemas Distribuídos 
 //////////////////////////////////////////////////
 
-//A ECU ICM possui 4 tasks:
-//1-> Receber M1 em ate 200 ms.
-//2-> Receber M2 em ate 100 ms.
-//3-> Receber M3 em ate 250 ms.
-//4-> Imprimir na tela (serial print) a rotacao do motor, velocidade e marcha atual.
+OIL_VERSION = "2.5" : "ECM" ;
 
-OIL_VERSION = "2.5" : "test" ;
-
-CPU test {    
+CPU ECM {    
   OS config {
     STATUS = STANDARD;
-    BUILD = TRUE {
-      TRAMPOLINE_BASE_PATH 	= "../../../";
+    BUILD = TRUE {	
+	  TRAMPOLINE_BASE_PATH 	= "../../../../";
       APP_NAME 			 	= "image";
       APP_SRC	  			= "ACC_ECU.cpp";
       CPPCOMPILER			= "avr-g++";
@@ -24,102 +18,80 @@ CPU test {
       LINKER 				= "avr-gcc";
       ASSEMBLER 			= "avr-gcc";
       COPIER 				= "avr-objcopy";
-      SYSTEM 				= PYTHON;
-	  LIBRARY 				= serial;
-	  LIBRARY 				= mcp_can;	  
+      SYSTEM 				= PYTHON;	  
+      LIBRARY 				= serial; 
+      LIBRARY 				= mcp_can;      
     };
-    SYSTEM_CALL	= TRUE;
-  };
-
-  APPMODE stdAppmode {};
+	SYSTEM_CALL = TRUE;
+};
 
 
- //--------RECEBER M1 
-  ALARM periodicAlarm1 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ReceiveCANM1;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 500; 
-      CYCLETIME = 110; 
-      APPMODE 	= stdAppmode;
-    };
-  };
+	APPMODE stdAppMode {};
   
-  TASK ReceiveCANM1 {
-    PRIORITY 	= 10;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE	= 256;
-  };
+	ALARM alarmeCan_Receive {
+		COUNTER = SystemCounter;
+		ACTION = ACTIVATETASK { 
+			TASK = Can_Receive;
+		};  
+		AUTOSTART = TRUE {
+			ALARMTIME = 10;
+			CYCLETIME = 10;
+			APPMODE = stdAppMode;
+		};
+	};
+	
+	TASK Can_Receive {
+		PRIORITY = 12;
+		AUTOSTART = FALSE;
+		ACTIVATION = 1;
+		SCHEDULE = FULL;
+		STACKSIZE = 128;
+	};
+	
+	
+	ALARM alarmeLogic_block {
+		COUNTER = SystemCounter;
+		ACTION = ACTIVATETASK { 
+		TASK = Logic_block;
+		};  
+			AUTOSTART = TRUE {
+			ALARMTIME = 8;
+			CYCLETIME = 8;
+			APPMODE = stdAppMode;
+		};
+	};	
+	
+	TASK Logic_block {
+		PRIORITY = 11;
+		AUTOSTART = FALSE;
+		ACTIVATION = 1;
+		SCHEDULE = FULL;
+		STACKSIZE = 256;
+	}; 
 
-//--------RECEBER M2
-  ALARM periodicAlarm2 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ReceiveCANM2;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 520; 
-      CYCLETIME = 90; 
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  TASK ReceiveCANM2 {
-    PRIORITY 	= 15;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE	= 256;
-  };
 
-//--------RECEBER M3
-  ALARM periodicAlarm3 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ReceiveCANM3;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 1000;
-      CYCLETIME = 100;
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  TASK ReceiveCANM3 {
-    PRIORITY 	= 20;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE	= 256;
-  };
+	ALARM alarmeCalculate_ACC_Acceleration {
+		COUNTER = SystemCounter;
+		ACTION = ACTIVATETASK { 
+		TASK = Calculate_ACC_Acceleration;
+		};  
+			AUTOSTART = TRUE {
+			ALARMTIME = 10;
+			CYCLETIME = 10;
+			APPMODE   = stdAppMode;
+		};
+	};	
+	
+	TASK Calculate_ACC_Acceleration {
+		PRIORITY   = 10;
+		AUTOSTART  = FALSE;
+		ACTIVATION = 1;
+		SCHEDULE   = FULL;
+		STACKSIZE  = 256;
+	}; 
 
-//--------RECEBER M1 
-  ALARM periodicAlarm4 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ShowDataTask;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 1200; 
-      CYCLETIME = 400; 
-      APPMODE 	= stdAppmode;
-    };
-  };
-  
-  TASK ShowDataTask {
-    PRIORITY 	= 20;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE	= 256;
-  };
-
-    RESOURCE res1{
+	
+	RESOURCE res1{
 		RESOURCEPROPERTY = STANDARD;
-  };
-
+	};
 };

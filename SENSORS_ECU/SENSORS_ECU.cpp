@@ -2,9 +2,6 @@
 // Universidade Federal de Pernambuco - UFPE		  
 //////////////////////////////////////////////////
 
-
-
-
 #include "tpl_os.h"
 #include "Arduino.h"
 //#include "board.h"
@@ -19,10 +16,32 @@
 #define mEEC1_DLC			8
 #define mEEC1_EXT_FRAME		1
 
+// define para msg de Break, Gas, Rain e Fault
+#define Brake_pedal_ID 0xEC100005
+#define Gas_pedal_ID 0xEC100004
+#define Rain_sensor_ID 0xEC100003
+#define Fault_signal_ID 0xEC100006
+static byte M =0;
+static byte M1 =0;
+static byte M2 =0;
+static byte M3 =0;
+
+
+//Variáveis para sensores Break, Gas, Rain e Fault
+bool Break_pedal_sensor = false;
+bool Gas_pedal_sensor = false;
+bool Fault_signal = false;
+
+bool Rain = false;
+unsigned int Time_gap_base = 3;
+unsigned int Time_gap=3;
+
 //Variables for frame data CAN message
 unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mDATA[8];
 unsigned char mDLC = 0;
+
+
 
 
 //Create MCP_CAN object and configure Chip select pin as digital 10.
@@ -47,66 +66,78 @@ void setup()
 
 
 
-//---------------------------------SEND CAN M3---------------------------//
-TASK(SendCANM2)
-{
+//---------------------------------Send CAN Rain msg.
+TASK(SenderRainSensor){
+
 	GetResource(res1);
+	if(Rain){
+		Time_gap=2*Time_gap_base;
+	}else{
+		Time_gap = Time_gap_base;
+	}
+	//Write CAN message.
+	mEEC1_data[4]= Time_gap;
+	
 
+	//Send CAN message with previous DATA and with the desired ID. Desired ID on "CAN_ID_M2" field.
+	M=CAN1.sendMsgBuf(Rain_sensor_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	if (M==CAN_OK) //Check for sucess.
+	{
+		 Serial.print("CAN Rain SENT.");
+		//Could also print the value that was sent.
+	}
 	ReleaseResource(res1);
+	TerminateTask();
 
+}
+//---------------------------------Send CAN Break msg.
+TASK(SenderBreakSensor){
+
+	GetResource(res1);
+	mEEC1_data[4]= Break_pedal_sensor;
+	M1=CAN1.sendMsgBuf(Brake_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	if (M1==CAN_OK) 
+	{
+		 Serial.print("CAN MSG Break pedal SENT:");
+		 Serial.println(Break_pedal_sensor);
+	}
+	ReleaseResource(res1);
 	TerminateTask();  
 }
+//---------------------------------Send CAN Gas msg.
+TASK(SenderGasSensor){
+	
+	GetResource(res1);
+	mEEC1_data[4]= Gas_pedal_sensor;
 
-//---------------------------------SEND CAN M3---------------------------//
-TASK(ReceiveCANM1)
-{
-	//If there is a interrupt in this pin, there is a message to be read in the CAN buffer.
-	if(!digitalRead(2))                        
+
+	M2=CAN1.sendMsgBuf(Gas_pedal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
+
+	if (M2==CAN_OK) 
 	{
-		unsigned int var = 0;
-		
-		//Lê os dados: mID = identificador, mDLC = comprimento, mDATA = dados do freame
-		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+		 Serial.print("CAN MSG Gas pedal SENT:");
+		 Serial.println(Gas_pedal_sensor);
+	}
+	ReleaseResource(res1);
+	TerminateTask();  
+}
+//---------------------------------Send CAN Fault msg.
+TASK(SenderFault){
+	
+	GetResource(res1);
+	mEEC1_data[4]= Fault_signal;
+	M3=CAN1.sendMsgBuf(Fault_signal_ID,CAN_EXTID,mEEC1_DLC,mEEC1_data);
 
-		GetResource(res1);
-		var = (rotacaoH<<8) | (rotacaoL);
-		if((mID & CAN_ID_M1)==CAN_ID_M1) //Verify if the CAN message is the desired one. This is done by comparing the values.
-		{
-			marchaAtual = mDATA[3]; //Store the read data from the CAN message to local variable.
-		}		
+	if (M3==CAN_OK) 
+	{
+		 Serial.print("CAN MSG fault SENT:");
+		 Serial.println(Fault_signal);
+	}
 	ReleaseResource(res1);
 	}
 	TerminateTask();
-}
-
-//---------------------------------SEND CAN M3---------------------------//
-TASK(CalcEgoVel)
-{
-	GetResource(res1);
-
-	ReleaseResource(res1);
-
-	TerminateTask();  
-}
-
-//---------------------------------SEND CAN M3---------------------------//
-TASK(CalcRelativeVel)
-{
-	GetResource(res1);
-
-	ReleaseResource(res1);
-
-	TerminateTask();  
-}
-
-//---------------------------------SEND CAN M3---------------------------//
-TASK(CalcRelativeDis)
-{
-	GetResource(res1);
-
-	ReleaseResource(res1);
-
-	TerminateTask();  
 }
 
 /*
