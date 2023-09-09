@@ -1,12 +1,13 @@
 //////////////////////////////////////////////////
 // Universidade Federal de Pernambuco - UFPE		  
 // Residência Tecnológica em Software Automotivo      			  
-// Módulo: SWT1 - RTOS e Sistemas Distribuídos 
+// PROJETO FINAL 
 //////////////////////////////////////////////////
-// A ECU 'TCM' POSSUI AS SEGUINTES TASKS:
-//1->Ler o valor da marcha atual. Neste caso, proveniente da serial.
-//2->Colocar o valor da marcha atual em uma mensagem CAN M1 e enviar esta mensagem no barramento.
-
+// THE 'TCM' ECU HAS THE FOLLOWING TASKS:
+//1->Read the ACC speed value defined by the user. In this case, coming from the serial.
+//2->Place the ACC speed value defined by the user in a CAN M1 message and send this message on the bus.
+//3->Read the ACC activation value defined by the user. In this case, coming from the serial.
+//4->Place the ACC activation value defined by the user in a CAN M2 message and send this message on the bus.
 
 OIL_VERSION = "2.5" : "test" ;
 
@@ -14,7 +15,7 @@ CPU test {
   OS config {
     STATUS = STANDARD;
     BUILD = TRUE {	
-	  TRAMPOLINE_BASE_PATH 	= "../../../";
+	  TRAMPOLINE_BASE_PATH 	= "../../../..";
       APP_NAME 			 	= "image";
       APP_SRC	  			= "TCM_ECU.cpp";
       CPPCOMPILER			= "avr-g++";
@@ -31,10 +32,14 @@ CPU test {
 
   APPMODE stdAppmode {};
   
+  //______________ACC SET SPEED______________//
+
   ALARM periodicAlarm1 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
+      TASK = ReceiveSetSpeed;
       TASK = Can_Receive;
+
     };
     AUTOSTART = TRUE {
       ALARMTIME = 10; 
@@ -43,6 +48,7 @@ CPU test {
     };
   };
   
+  TASK ReceiveSetSpeed {
   TASK Can_Receive {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
@@ -52,7 +58,160 @@ CPU test {
   };
 
 
+//SEND M1 TO CAN BUS
+
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SendCANM1;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 600; 
+      CYCLETIME = 110; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SendCANM1 {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
     RESOURCE res1{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+
+
+//______________ACC ACTIVATION______________//
+
+
+  //2 - ACC ACTIVATION 
+
+  ALARM periodicAlarm3 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = AccOnOff;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 400; //ativado a cada 1024 ms
+      CYCLETIME = 70; //ativado a cada 1024 ms
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK AccOnOff {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+// SEND M2 MESSAGE TO CAN BUS 
+
+  ALARM periodicAlarm4 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SendCANM2;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 600; 
+      CYCLETIME = 110; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SendCANM2 {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res2{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+  //-------------Receive CAN EGO CURRENT SPEED----------
+
+  ALARM periodicAlarm5 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM3;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM3 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res3{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+  //-------------Receive Fault Sensor----------
+
+  ALARM periodicAlarm6 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM4;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM4 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res4{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+  //-------------Receive ACC Enable----------
+
+  ALARM periodicAlarm7 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ReceiveCANM5;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 800; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ReceiveCANM5 {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res5{
 		RESOURCEPROPERTY = STANDARD;
   };
 
