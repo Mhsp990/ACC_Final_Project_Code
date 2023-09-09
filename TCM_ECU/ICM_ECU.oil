@@ -17,7 +17,7 @@ CPU test {
     BUILD = TRUE {	
 	  TRAMPOLINE_BASE_PATH 	= "../../../..";
       APP_NAME 			 	= "image";
-      APP_SRC	  			= "TCM_ECU.cpp";
+      APP_SRC	  			= "ICM_ECU.cpp";
       CPPCOMPILER			= "avr-g++";
       COMPILER 				= "avr-gcc";
       LINKER 				= "avr-gcc";
