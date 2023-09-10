@@ -27,7 +27,7 @@ static byte M2 =0;
 static byte M3 =0;
 
 
-//Variáveis para sensores Break, Gas, Rain e Fault
+//Variables sensors Break, Gas, Rain e Fault
 bool Break_pedal_sensor = false;
 bool Gas_pedal_sensor = false;
 bool Fault_signal = false;
@@ -42,9 +42,6 @@ unsigned char mDATA[8];
 unsigned char mDLC = 0;
 
 
-
-
-//Create MCP_CAN object and configure Chip select pin as digital 10.
 //This pin (10) will be defined as the CS and put on output mode
 MCP_CAN CAN1(10);
 
@@ -63,8 +60,6 @@ void setup()
 	//Modifica para o modo normal de operação
 	CAN1.setMode(MCP_NORMAL);
 }
-
-
 
 //---------------------------------Send CAN Rain msg.
 TASK(SenderRainSensor){
@@ -139,22 +134,3 @@ TASK(SenderFault){
 	
 	TerminateTask();
 }
-
-/*
-void loop()
-{
-	if (Serial.available() > 0) //Verifica o buffer da serial.
-	{
-		//FALTA CONSERTAR, O RESULTADO EH UM FLOAT E POSSUI 4 BYTES
-		unsigned int var;
-		var = Serial.read(); //Lê a serial. Como o intervalo da marcha é suficiente para um byte, não há perdas na "conversão" para byte
-		//var = var*8; //A mesma coisa de var * 8.
-		
-		rotacaoL=var;
-		rotacaoH=var>>8;
-
-		Serial.read(); //Limpa dados indesejados da serial, tal como o new line ou outros caracteres que não faziam parte da informacao original
-		
-	}
-}
-*/
