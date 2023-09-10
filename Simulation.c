@@ -40,11 +40,20 @@ float relativeDistance = 15; // relativeDistance = Pos_lead - Pos_ego
 float relativeSpeed = 10;   // relativeSpeed = V_lead - V_ego
 float safeDistance = 15;   //  safeDistance = (D_time_Gap*2) + D_distance
 
+float calculateLeadSpeed(float Vo, float Acc, float dT );
+float calculateLeadPosition(float So, float Vo, float dT, float Acc);
+float generateLeadAcceleration(float Amplitude_move_lead);
+float calculateEgoSpeed(float Vo, float Acc, float dT );
+float calculateEgoPosition(float So, float Vo, float dT, float Acc);
+float setTimeGap();
+float control();
+float ACC_FUNCTION();
+
 int main(){
 
     do
     {
-     //Generating Lead car data for this interaction. Based on previous values
+    //Generating Lead car data for this interaction. Based on previous values
     Acceleration_lead = generateLeadAcceleration(Amplitude_move_lead);
     V_lead = calculateLeadSpeed(V_lead, Acceleration_lead, step);
     Pos_lead =calculateEgoPosition(Pos_lead,V_lead,step,Acceleration_lead);
@@ -83,7 +92,7 @@ float calculateLeadSpeed(float Vo, float Acc, float dT )
 
 float calculateLeadPosition(float So, float Vo, float dT, float Acc)
 {
-    return So+(Vo*dT)+((Acc*dT)^2)/2;
+    return So+(Vo*dT)+(pow((Acc*dT),2))/2;
 }
 
 float generateLeadAcceleration(float Amplitude_move_lead)
@@ -119,7 +128,6 @@ float control()
 	else {
 		return 0;
 	}
-	
 }
 
 
