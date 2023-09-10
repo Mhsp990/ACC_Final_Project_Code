@@ -78,7 +78,7 @@ int main(){
     } while (counter<=maxCounter);
 
     printf("SIMULATION ENDED");
-    
+    printf("\n%d",counter);
     
 }
 
