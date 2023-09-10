@@ -41,8 +41,12 @@ unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mDATA[8];
 unsigned char mDLC = 0;
 
+
+
+
 //Create MCP_CAN object and configure Chip select pin as digital 10.
-MCP_CAN CAN1(10);  //This pin (10) will be defined as the CS and put on output mode
+//This pin (10) will be defined as the CS and put on output mode
+MCP_CAN CAN1(10);
 
 void setup()
 {
@@ -132,7 +136,25 @@ TASK(SenderFault){
 		 Serial.println(Fault_signal);
 	}
 	ReleaseResource(res1);
-	TerminateTask();  
+	
+	TerminateTask();
 }
 
+/*
+void loop()
+{
+	if (Serial.available() > 0) //Verifica o buffer da serial.
+	{
+		//FALTA CONSERTAR, O RESULTADO EH UM FLOAT E POSSUI 4 BYTES
+		unsigned int var;
+		var = Serial.read(); //Lê a serial. Como o intervalo da marcha é suficiente para um byte, não há perdas na "conversão" para byte
+		//var = var*8; //A mesma coisa de var * 8.
+		
+		rotacaoL=var;
+		rotacaoH=var>>8;
 
+		Serial.read(); //Limpa dados indesejados da serial, tal como o new line ou outros caracteres que não faziam parte da informacao original
+		
+	}
+}
+*/
