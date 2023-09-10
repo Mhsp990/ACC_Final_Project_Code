@@ -105,5 +105,26 @@ CAN1.sendMsgBuf(mSim4_ID,CAN_EXTID,mSim4_DLC,mSim4_data);
 if (counter == 50000){
 exit(0);
 }
-}
+
+// SHOWING DATA
+Serial.print("D_rel:"); 
+Serial.print(Relative_distance_pres);
+Serial.print(","); 
+
+Serial.print("V_EGO:");
+Serial.print(Ego_velo);
+Serial.print(","); 
+
+Serial.print("V_LEAD:");
+Serial.print(Lead_velo); 
+Serial.print(",");
+
+Serial.print("EGO ACC:");
+Serial.println(Ego_ace);
+
+
+
+
+
+} //END LOOP
 
