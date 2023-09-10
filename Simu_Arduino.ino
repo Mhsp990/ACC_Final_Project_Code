@@ -2,19 +2,18 @@
 #include "Arduino.h"
 #include "mcp_can.h"
 
-float Ego_pos, Lead_pos;
-float Ego_velo, Lead_velo;
+
 float Ego_ace = 0, Lead_ace = 0;
 float Relative_velo = 0;
 
-Lead_pos = 50.0;  // Initial lead car position (m)
-Ego_pos  = 10.0;  // Initial ego car position  (m)
+float Lead_pos = 50.0;  // Initial lead car position (m)
+float Ego_pos  = 10.0;  // Initial ego car position  (m)
 
 float Relative_distance_pres = Lead_pos - Ego_pos; //Relative distance between Ego and Lead Car.
-float Relative_distance_past = Relative_distance_pres // Past value of relative distance.
+float Relative_distance_past = Relative_distance_pres; // Past value of relative distance.
 
-Lead_vel = 90.0/3.6; // Initial lead car position (m/s)
-Ego_vel  = 70.0/3.6; // Initial ego car position  (m/s)
+float Lead_velo = 90.0/3.6; // Initial lead car position (m/s)
+float Ego_velo  = 70.0/3.6; // Initial ego car position  (m/s)
 
 float interval = 0.001;
 int counter = 0;
@@ -41,11 +40,13 @@ unsigned char mSim3_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};/
 unsigned char mSim4_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 unsigned char mDATA[8];
 unsigned char mDLC = 0;
+long unsigned int mID = 0;
+static byte ret = 0;
 
-void setup{
+void setup(){
 Serial.begin(115200);
 while(CAN1.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) != CAN_OK) 
-{         
+{           
     delay(200);        
 }
 CAN1.setMode(MCP_NORMAL);
@@ -77,7 +78,7 @@ if(Relative_distance_pres > 200){
     Relative_distance_pres = Relative_distance_pres;
 }
 
-CAN1.readMsgBuf(&mID, &mDLC, mDATA);
+ret = CAN1.readMsgBuf(&mID, &mDLC, mDATA);
 
 if((mID & mSim3_ID) == mSim3_ID){
     Ego_ace = mDATA[4];
@@ -101,6 +102,8 @@ delay(20);
 mSim4_data[4] = Relative_velo;
 CAN1.sendMsgBuf(mSim4_ID,CAN_EXTID,mSim4_DLC,mSim4_data);
 
-while (counter < 50000);
+if (counter == 50000){
+exit(0);
+}
 }
 
