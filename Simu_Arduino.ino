@@ -81,7 +81,7 @@ if(Relative_distance_pres > 200){
 ret = CAN1.readMsgBuf(&mID, &mDLC, mDATA);
 
 if((mID & mSim3_ID) == mSim3_ID){
-    Ego_ace = mDATA[4];
+    Ego_ace = mDATA[0];
     }else{
         Ego_ace = Ego_ace;
     }
@@ -90,13 +90,13 @@ if((mID & mSim3_ID) == mSim3_ID){
 mSim2_data[4] = Relative_distance_pres;
 CAN1.sendMsgBuf(mSim2_ID,CAN_EXTID,mSim2_DLC,mSim2_data);
 
-delay(20);
+delay(1);
 
 //Ego Speed CAN Message Sender
 mSim1_data[4] = Ego_velo;
 CAN1.sendMsgBuf(mSim1_ID,CAN_EXTID,mSim1_DLC,mSim1_data);
 
-delay(20);
+delay(1);
 
 //Relative Speed CAN Message Sender
 mSim4_data[4] = Relative_velo;
