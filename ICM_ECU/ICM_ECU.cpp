@@ -9,7 +9,7 @@
 //#include "board.h"
 
 // setspeed 
-int setsp = 80;
+int setsp     = 80;
 // EGO_SPEED 
 int EGO_SPEED = 0;
 // FAULT_SIGNAL
@@ -17,9 +17,9 @@ bool FAULT_SIGNAL = false;
 //ACC FEEDBACK
 bool ACC_FEEDBACK = false;
 // ACC state
-bool ACC_input = false;
+bool ACC_input    = false;
 
-static byte ret = 0;
+static byte ret   = 0;
 
 long unsigned int 			mID;
 unsigned char 				mDATA[8];
@@ -43,25 +43,6 @@ unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 //Construct an MCP_CAN object and configure the selector chip for pin 10.
 MCP_CAN CAN1(10);  //OUTPUT
 
-
-
-//#define Fault_signal_ID 0xEC100006
-
-/*
-long unsigned int 			mID;
-unsigned char 				mDATA[8];
-unsigned char 				mDLC  = 0;
-bool Fault_signal  = 0;
-*/
-// FRAME_DATA
-//unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-
-
-
-//Build MCP_CAN object. Chip selector = digital pin 10.
-MCP_CAN CAN1(10);  
-
-
 void setup()
 {
 	// Initialize the serial interface: baudrate = 115200
@@ -72,7 +53,7 @@ void setup()
     {         
         delay(200);        
     }
-	Serial.println("MCP2515 can_send initialized successfully!");
+//	Serial.println("MCP2515 can_send initialized successfully!");
 	//Changes to normal operating mode
 	CAN1.setMode(MCP_NORMAL);
 }
@@ -86,7 +67,7 @@ TASK(SendCANM1)
 	mEEC1_data[4]= setsp; //WRITES TO CAN MESSAGE DATA FIELD
 
 	ret=CAN1.sendMsgBuf(CAN_ID_M1, CAN_EXTID, mEEC1_DLC, mEEC1_data);
-	if (ret==CAN_OK)
+/*	if (ret==CAN_OK)
 	{
 		Serial.println("can_send M1 OK"); 
 	}
@@ -97,7 +78,8 @@ TASK(SendCANM1)
 	else 
 	{    
       Serial.println("can_send M1: Error to send!");      
-	}	   
+	}	 
+*/	
 	ReleaseResource(res1);
 	TerminateTask();
 }
@@ -126,10 +108,11 @@ TASK(ReceiveSetSpeed)
 TASK(SendCANM2)
 {
 	
-	GetResource(res2);
+	GetResource(res1);
 	mEEC1_data[4]= ACC_input; //WRITES TO CAN MESSAGE DATA FIELD
 
 	ret=CAN1.sendMsgBuf(CAN_ID_M2, CAN_EXTID, mEEC1_DLC, mEEC1_data);
+/*
 	if (ret==CAN_OK)
 	{
 		Serial.println("can_send M2 OK"); 
@@ -142,7 +125,8 @@ TASK(SendCANM2)
 	{    
       Serial.println("can_send M2: Error to send!");      
 	}	   
-	ReleaseResource(res2);
+*/
+	ReleaseResource(res1);
 	TerminateTask();
 }
 
@@ -150,9 +134,9 @@ TASK(SendCANM2)
 //Needs to implement the detection for enable and disable ACC_input. For now, always true.
 TASK(AccOnOff)
 {
-	GetResource(res2);
+	GetResource(res1);
 	ACC_input = true;
-	ReleaseResource(res2);
+	ReleaseResource(res1);
 	TerminateTask();
   
 }
@@ -165,12 +149,12 @@ TASK(ReceiveCANM3)
 	if(!digitalRead(2))                        
 	{
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res3);
+		GetResource(res1);
 		if((mID & CAN_ID_M3)==CAN_ID_M3) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
 			EGO_SPEED = mDATA[4]; //Store the read data from the CAN message to local variable.
 		}		
-	ReleaseResource(res3);
+	ReleaseResource(res1);
 	}
 	TerminateTask();
 }
@@ -182,12 +166,12 @@ TASK(ReceiveCANM4)
 	if(!digitalRead(2))                        
 	{
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res4);
+		GetResource(res1);
 		if((mID & CAN_ID_M4)==CAN_ID_M4) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
 			FAULT_SIGNAL = mDATA[4]; //Store the read data from the CAN message to local variable.
 		}		
-	ReleaseResource(res4);
+	ReleaseResource(res1);
 	}
 	TerminateTask();
 }
@@ -199,27 +183,12 @@ TASK(ReceiveCANM5)
 	if(!digitalRead(2))                        
 	{
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res5);
+		GetResource(res1);
 		if((mID & CAN_ID_M5)==CAN_ID_M5) //Verify if the CAN message is the desired one. This is done by comparing the values.
 		{
 			ACC_FEEDBACK = mDATA[0]; //Store the read data from the CAN message to local variable.
 		}		
-	ReleaseResource(res5);
+	ReleaseResource(res1);
 	}
 	TerminateTask();
 }
-
-/*
-TASK(Can_Receive)
-{
-	if(!digitalRead(2)){  
-
-		GetResource(res1);
-		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		if((mID & Fault_signal_ID) == Fault_signal_ID) {
-			Fault_signal = mDATA[4]; 
-			TerminateTask();
-		}
-	}
-}
-*/ 

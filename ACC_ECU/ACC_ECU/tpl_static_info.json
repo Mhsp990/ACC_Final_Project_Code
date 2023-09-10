@@ -1,0 +1,126 @@
+
+{
+  "alarm" : 
+  [
+    
+    {
+      "ACTION" : "ACTIVATETASK",
+      "ACTION_S" : 
+      {
+        "TASK" : "Calculate_ACC_Acceleration"
+      },
+      "AUTOSTART" : "true",
+      "AUTOSTART_S" : 
+      {
+        "ALARMTIME" : 10,
+        "APPMODE" : 
+        [
+          
+          {
+            "VALUE" : "stdAppMode"
+          }
+        ],
+        "CYCLETIME" : 10
+      },
+      "COUNTER" : "SystemCounter",
+      "NAME" : "alarmeCalculate_ACC_Acceleration"
+    },    
+    {
+      "ACTION" : "ACTIVATETASK",
+      "ACTION_S" : 
+      {
+        "TASK" : "Can_Receive"
+      },
+      "AUTOSTART" : "true",
+      "AUTOSTART_S" : 
+      {
+        "ALARMTIME" : 10,
+        "APPMODE" : 
+        [
+          
+          {
+            "VALUE" : "stdAppMode"
+          }
+        ],
+        "CYCLETIME" : 10
+      },
+      "COUNTER" : "SystemCounter",
+      "NAME" : "alarmeCan_Receive"
+    },    
+    {
+      "ACTION" : "ACTIVATETASK",
+      "ACTION_S" : 
+      {
+        "TASK" : "Logic_block"
+      },
+      "AUTOSTART" : "true",
+      "AUTOSTART_S" : 
+      {
+        "ALARMTIME" : 8,
+        "APPMODE" : 
+        [
+          
+          {
+            "VALUE" : "stdAppMode"
+          }
+        ],
+        "CYCLETIME" : 8
+      },
+      "COUNTER" : "SystemCounter",
+      "NAME" : "alarmeLogic_block"
+    }
+  ],
+  "event" : [],
+  "ioc" : [],
+  "isr" : [],
+  "message" : [],
+  "resource" : 
+  [
+    
+    {
+      "ISRUSAGE" : [],
+      "KIND" : "Resource",
+      "NAME" : "res1",
+      "PRIORITY" : 1,
+      "RESOURCEPROPERTY" : "STANDARD",
+      "TASKUSAGE" : []
+    }
+  ],
+  "task" : 
+  [
+    
+    {
+      "ACTIVATION" : 1,
+      "AUTOSTART" : "false",
+      "KIND" : "Task",
+      "NAME" : "Calculate_ACC_Acceleration",
+      "NONPREEMPTABLE" : "false",
+      "PRIORITY" : 2,
+      "SCHEDULE" : "FULL",
+      "STACKSIZE" : 256,
+      "USEINTERNALRESOURCE" : "false"
+    },    
+    {
+      "ACTIVATION" : 1,
+      "AUTOSTART" : "false",
+      "KIND" : "Task",
+      "NAME" : "Logic_block",
+      "NONPREEMPTABLE" : "false",
+      "PRIORITY" : 3,
+      "SCHEDULE" : "FULL",
+      "STACKSIZE" : 256,
+      "USEINTERNALRESOURCE" : "false"
+    },    
+    {
+      "ACTIVATION" : 1,
+      "AUTOSTART" : "false",
+      "KIND" : "Task",
+      "NAME" : "Can_Receive",
+      "NONPREEMPTABLE" : "false",
+      "PRIORITY" : 4,
+      "SCHEDULE" : "FULL",
+      "STACKSIZE" : 128,
+      "USEINTERNALRESOURCE" : "false"
+    }
+  ]
+}

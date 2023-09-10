@@ -51,7 +51,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
+    STACKSIZE 	= 128;
   };
 
 
@@ -74,7 +74,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
+    STACKSIZE 	= 128;
   };
 
     RESOURCE res1{
@@ -105,7 +105,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
+    STACKSIZE 	= 128;
   };
 
 // SEND M2 MESSAGE TO CAN BUS 
@@ -127,11 +127,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-    RESOURCE res2{
-		RESOURCEPROPERTY = STANDARD;
+    STACKSIZE 	= 128;
   };
 
   //-------------Receive CAN EGO CURRENT SPEED----------
@@ -153,11 +149,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-    RESOURCE res3{
-		RESOURCEPROPERTY = STANDARD;
+    STACKSIZE 	= 128;
   };
 
   //-------------Receive Fault Sensor----------
@@ -179,11 +171,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-    RESOURCE res4{
-		RESOURCEPROPERTY = STANDARD;
+    STACKSIZE 	= 128;
   };
 
   //-------------Receive ACC Enable----------
@@ -205,11 +193,7 @@ CPU test {
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
-    STACKSIZE 	= 256;
-  };
-
-    RESOURCE res5{
-		RESOURCEPROPERTY = STANDARD;
+    STACKSIZE 	= 128;
   };
 
 };

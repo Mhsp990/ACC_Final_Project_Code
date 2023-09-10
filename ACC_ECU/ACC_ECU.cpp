@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Universidade Federal de Pernambuco - UFPE	//	  
 // Residência Tecnológica em Software Automotivo//      			  
-// Módulo: Projeto Final                        //
+// Final Project                                //
 //////////////////////////////////////////////////
 
 #include "tpl_os.h"
@@ -10,30 +10,26 @@
 #include <stdio.h>
 
 //Id CAN Receive
-#define ID_Rain_sensor			0xEC100003 //Dicionário de dados 
-#define ID_Gas_pedal			0xEC100004 //Dicionário de dados 
-#define ID_Brake_pedal			0xEC100005 //Dicionário de dados 
-#define ID_Fault_signal			0xEC100006 //Dicionário de dados 
-#define ID_Ego_speed			0xEC100007 //Dicionário de dados 
-#define ID_Relative_distance	0xEC100008 //Dicionário de dados 
-#define ID_Relative_speed		0xEC100009 //Dicionário de dados
- 
-#define ID_ACC_speed_set		0xEC300001 //Dicionário de dados 
-#define ID_ACC_input			0xEC300002 //Dicionário de dados 
+#define ID_Rain_sensor			0xEC100003 //Data dictionary 
+#define ID_Gas_pedal			0xEC100004 //Data dictionary
+#define ID_Brake_pedal			0xEC100005 //Data dictionary 
+#define ID_Fault_signal			0xEC100006 //Data dictionary 
+#define ID_Ego_speed			0xEC100007 //Data dictionary
+#define ID_Relative_distance	0xEC100008 //Data dictionary 
+#define ID_Relative_speed		0xEC100009 //Data dictionary
+#define ID_ACC_speed_set		0xEC300001 //Data dictionary
+#define ID_ACC_input			0xEC300002 //Data dictionary
 
 //Id mensagens CAN sand
-#define ID_ACC_Acceleration			0xACC00001 //Dicionário de dados
-#define ID_ACC_Brake_Acceleration	0xACC00002 //Dicionário de dados
-#define ID_ACC_Enabled				0xACC00003 //Dicionário de dados
-#define ID_ACC_Disabled				0xACC00004 //Dicionário de dados
+#define ID_ACC_Acceleration			0xACC00001 //Data dictionary
+#define ID_ACC_Brake_Acceleration	0xACC00002 //Data dictionary
+#define ID_ACC_Enabled				0xACC00003 //Data dictionary
+#define ID_ACC_Disabled				0xACC00004 //Data dictionary
  
- 
-//variaveis para recebimento recebimento de dados da CAN
+//Variables received
 long unsigned int 			mID;
 unsigned char 				mDATA[8];
 unsigned char 				mDLC  = 0;
-
-bool 						ACC_Enabled = false;
 
 //Variables received from CAN FRAMES
 bool ACC_input     = 0; //Trigger for ACC_input. 
@@ -45,14 +41,13 @@ float Ego_speed    = 0;
 float Relative_distance = 0;
 float Relative_speed    = 0;
 float ACC_speed_set     = 0;
+bool ACC_Enabled        = false;
 
-//Variables original from ACC_ECU
 bool ACC_enabled  = false;
 bool aux  		  = 0;
 float ACC_acceleration       = 0;
 float ACC_brake_acceleration = 0;
 
-// Variáveis padrões (ver isso depois)
 #define BUFF_MAX 	10
 #define BUFF_MIN 	00
 volatile int		buffer = BUFF_MAX;
@@ -72,21 +67,19 @@ float SafeD_relD		 = 0;
 const float Ego_acceleration_min     = -5;
 const float Ego_acceleration_max     = 1.47;
 
-
-//Macros para envio 
+//Macros send
 #define DLC_ACC					8
 #define mEEC1_EXT_FRAME			1
 static 							byte M  = 0;
 static 							byte M1 = 0;
 
-
 //CAN FRAME_DATA START 
-//unsigned char Data_ACC_Acceleration[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-//unsigned char Data_ACC_Enabled[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char Data_ACC_Acceleration[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char Data_ACC_Enabled[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 //Is two of them necessary?
 
 //MPC_CAN Object with Chip selector as digital pin 10
-MCP_CAN CAN1(10);  //
+MCP_CAN CAN1(10);  
 
 void setup() {
 	//serial: baudrate = 115200
@@ -101,7 +94,6 @@ void setup() {
 	CAN1.setMode(MCP_NORMAL);
 	pinMode(2, INPUT);
 }
-
 
 TASK(Can_Receive)
 {
