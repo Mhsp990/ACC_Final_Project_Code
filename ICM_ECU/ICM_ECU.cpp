@@ -6,42 +6,39 @@
 
 #include "tpl_os.h"
 #include "Arduino.h"
-//#include "board.h"
-
-// setspeed 
-int setsp     = 80;
-// EGO_SPEED 
-int EGO_SPEED = 0;
-// FAULT_SIGNAL
-bool FAULT_SIGNAL = false;
-//ACC FEEDBACK
-bool ACC_FEEDBACK = false;
-// ACC state
-bool ACC_input    = false;
-
-static byte ret   = 0;
-
-long unsigned int 			mID;
-unsigned char 				mDATA[8];
-unsigned char 				mDLC  = 0;
 
 
-#define CAN_ID_M1			0xEC300002 //ACC_speed_set
-#define CAN_ID_M2			0xEC300001 //Acc_input
-#define CAN_ID_M3 			0xEC100007 //Ego_speed
-#define CAN_ID_M4 			0xEC100006 //Fault_signal
-#define CAN_ID_M5 			0xACC00003 //Acc_enabled
+long unsigned int 	mID;
+unsigned char 		mDATA[8];
+unsigned char 		mDLC  = 0;
 
 #define mEEC1_DLC			8
-#define mEEC1_EXT_FRAME		1
+#define EXT_FRAME			1
+
+
+#define ACC_speed_set_ID	0xEC300002 //ACC_speed_set
+#define ACC_input_ID		0xEC300001 //Acc_input
+#define Ego_speed_ID 		0xEC100007 //Ego_speed
+#define ACC_enabled_ID 		0xACC00002 //Acc_enabled
+
+
+//bool   Fault_signal = 0; // FAULT_SIGNAL
+bool  ACC_input   = 0;
+float setsp     = 80; // setspeed
+bool  ACC_enabled = 0;
+float Ego_speed = 0;  
+
+static byte M   = 0;
+static byte ret = 0;
 
 
 // STORE FRAME_DATA
-unsigned char mEEC1_data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char ACC_input_Data[8]     = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned char ACC_speed_set_Data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 
 //Construct an MCP_CAN object and configure the selector chip for pin 10.
-MCP_CAN CAN1(10);  //OUTPUT
+MCP_CAN CAN1(10); 
 
 void setup()
 {
@@ -56,139 +53,46 @@ void setup()
 //	Serial.println("MCP2515 can_send initialized successfully!");
 	//Changes to normal operating mode
 	CAN1.setMode(MCP_NORMAL);
+	pinMode(2, INPUT);
 }
 
-// SEND MESSAGE 1
 
-TASK(SendCANM1)
+TASK(ACC_speed_set_send)
 {
+	ACC_speed_set_Data[1] = (char)(setsp/3.6); //WRITES TO CAN MESSAGE DATA FIELD
+
+	M = CAN1.sendMsgBuf(ACC_speed_set_ID, EXT_FRAME, mEEC1_DLC, ACC_speed_set_Data);
 	
-	GetResource(res1);
-	mEEC1_data[4]= setsp; //WRITES TO CAN MESSAGE DATA FIELD
-
-	ret=CAN1.sendMsgBuf(CAN_ID_M1, CAN_EXTID, mEEC1_DLC, mEEC1_data);
-/*	if (ret==CAN_OK)
-	{
-		Serial.println("can_send M1 OK"); 
+	if (M == CAN_OK){
+		Serial.println("can_send ACC_speed_set OK"); 
 	}
-	else if (ret == CAN_SENDMSGTIMEOUT)
-	{
-		Serial.println("can_send M1: Message timeout!");      
-	}
-	else 
-	{    
-      Serial.println("can_send M1: Error to send!");      
-	}	 
-*/	
-	ReleaseResource(res1);
 	TerminateTask();
 }
 
-//TASK SET SPEED
-TASK(ReceiveSetSpeed)
+
+TASK(ACC_input_send)
 {
-	GetResource(res1);
-	
-	if (Serial.available() > 0) //Check serial buffer
-	{
-		setsp = Serial.parseInt(); //Read serial data and convert it to int.
+	ACC_input_Data[1] = (char)ACC_input; //WRITES TO CAN MESSAGE DATA FIELD
 
-		ReleaseResource(res1);
-		Serial.read(); //CLEAR serial buffer (must do it, otherwise system executes it again with "zero" value
+	ret = CAN1.sendMsgBuf(ACC_input_ID, EXT_FRAME, mEEC1_DLC, ACC_input_Data);
 
+	if (ret == CAN_OK){
+		Serial.println("can_send ACC_input OK"); 
 	}
-	ReleaseResource(res1);
-	TerminateTask();
-  
-}
-
-
-// SEND MESSAGE 2
-
-TASK(SendCANM2)
-{
-	
-	GetResource(res1);
-	mEEC1_data[4]= ACC_input; //WRITES TO CAN MESSAGE DATA FIELD
-
-	ret=CAN1.sendMsgBuf(CAN_ID_M2, CAN_EXTID, mEEC1_DLC, mEEC1_data);
-/*
-	if (ret==CAN_OK)
-	{
-		Serial.println("can_send M2 OK"); 
-	}
-	else if (ret == CAN_SENDMSGTIMEOUT)
-	{
-		Serial.println("can_send M2: Message timeout!");      
-	}
-	else 
-	{    
-      Serial.println("can_send M2: Error to send!");      
-	}	   
-*/
-	ReleaseResource(res1);
 	TerminateTask();
 }
 
-//TASK ACC ACTIVATION 
-//Needs to implement the detection for enable and disable ACC_input. For now, always true.
-TASK(AccOnOff)
+
+TASK(Receive)
 {
-	GetResource(res1);
-	ACC_input = true;
-	ReleaseResource(res1);
-	TerminateTask();
-  
-}
-
-
-//______________ RECEIVE EGO  CAN EGO CURRENT SPEED________________________________________
-
-TASK(ReceiveCANM3)
-{
-	if(!digitalRead(2))                        
-	{
+	if(!digitalRead(2)){
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res1);
-		if((mID & CAN_ID_M3)==CAN_ID_M3) //Verify if the CAN message is the desired one. This is done by comparing the values.
-		{
-			EGO_SPEED = mDATA[4]; //Store the read data from the CAN message to local variable.
-		}		
-	ReleaseResource(res1);
-	}
-	TerminateTask();
-}
-
-//______________ RECEIVE Fault_signal________________________________________
-
-TASK(ReceiveCANM4)
-{
-	if(!digitalRead(2))                        
-	{
-		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res1);
-		if((mID & CAN_ID_M4)==CAN_ID_M4) //Verify if the CAN message is the desired one. This is done by comparing the values.
-		{
-			FAULT_SIGNAL = mDATA[4]; //Store the read data from the CAN message to local variable.
-		}		
-	ReleaseResource(res1);
-	}
-	TerminateTask();
-}
-
-//______________ RECEIVE ACC FEEDBACK________________________________________
-
-TASK(ReceiveCANM5)
-{
-	if(!digitalRead(2))                        
-	{
-		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
-		GetResource(res1);
-		if((mID & CAN_ID_M5)==CAN_ID_M5) //Verify if the CAN message is the desired one. This is done by comparing the values.
-		{
-			ACC_FEEDBACK = mDATA[0]; //Store the read data from the CAN message to local variable.
-		}		
-	ReleaseResource(res1);
+		if((mID & Ego_speed_ID) == Ego_speed_ID){
+			Ego_speed = mDATA[1];
+		}
+		if((mID & ACC_enabled_ID) == ACC_enabled_ID){
+			ACC_enabled = mDATA[1];
+		}			
 	}
 	TerminateTask();
 }

@@ -31,7 +31,7 @@ CPU test {
   ALARM periodicAlarm1 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = SenderRainSensor;
+      TASK = SenderTimeGap;
     };
     AUTOSTART = TRUE {
       ALARMTIME = 15; 
@@ -41,7 +41,7 @@ CPU test {
   };
   
   
-  TASK SenderRainSensor {
+  TASK SenderTimeGap {
     PRIORITY 	= 12;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;

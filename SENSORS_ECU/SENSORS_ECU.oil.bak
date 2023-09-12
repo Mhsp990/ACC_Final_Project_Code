@@ -1,0 +1,121 @@
+//////////////////////////////////////////////////
+// Universidade Federal de Pernambuco - UFPE		  
+// Residência Tecnológica em Software Automotivo      			  
+//////////////////////////////////////////////////
+
+OIL_VERSION = "2.5" : "test" ;
+
+CPU test {    
+  OS config {
+    STATUS = STANDARD;
+    BUILD = TRUE {	
+	  TRAMPOLINE_BASE_PATH 	= "../../../..";
+      APP_NAME 			 	= "image";
+      APP_SRC	  			= "SENSORS_ECU.cpp";
+      CPPCOMPILER			= "avr-g++";
+      COMPILER 				= "avr-gcc";
+      LINKER 				= "avr-gcc";
+      ASSEMBLER 			= "avr-gcc";
+      COPIER 				= "avr-objcopy";
+      SYSTEM 				= PYTHON;	  
+	  LIBRARY 				= serial; 
+	  LIBRARY 				= mcp_can;      
+    };
+    SYSTEM_CALL = TRUE;
+  };
+
+  APPMODE stdAppmode {};
+  
+
+//---------SenderRainSensor----------
+  ALARM periodicAlarm1 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SenderRainSensor;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 15; 
+      CYCLETIME = 15; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  
+  TASK SenderRainSensor {
+    PRIORITY 	= 12;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+
+//-------------SenderBreakSensor----------
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SenderBreakSensor;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 10; 
+      CYCLETIME = 14; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SenderBreakSensor {
+    PRIORITY 	= 13;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+
+//-------------SenderGasSensor----------
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SenderGasSensor;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 12; 
+      CYCLETIME = 15; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SenderGasSensor {
+    PRIORITY 	= 13;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+  //-------------SenderFault----------
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = SenderFault;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 30; 
+      CYCLETIME = 12; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK SenderFault {
+    PRIORITY 	= 5;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 256;
+  };
+
+    RESOURCE res1{
+		RESOURCEPROPERTY = STANDARD;
+  };
+
+};

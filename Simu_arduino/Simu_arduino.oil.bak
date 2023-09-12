@@ -1,0 +1,93 @@
+//////////////////////////////////////////////////
+// Universidade Federal de Pernambuco - UFPE		  
+// Residência Tecnológica em Software Automotivo      			  
+// PROJETO FINAL 
+
+OIL_VERSION = "2.5" : "test" ;
+
+CPU test {    
+  OS config {
+    STATUS = STANDARD;
+    BUILD = TRUE {	
+	  TRAMPOLINE_BASE_PATH 	= "../../../../";
+      APP_NAME 			 	= "image";
+      APP_SRC	  			= "Simu_arduino.cpp";
+      CPPCOMPILER			= "avr-g++";
+      COMPILER 				= "avr-gcc";
+      LINKER 				= "avr-gcc";
+      ASSEMBLER 			= "avr-gcc";
+      COPIER 				= "avr-objcopy";
+      SYSTEM 				= PYTHON;	  
+	  LIBRARY 				= serial; 
+	  LIBRARY 				= mcp_can;      
+    };
+    SYSTEM_CALL = TRUE;
+  };
+
+  APPMODE stdAppmode {};
+  
+
+  ALARM periodicAlarm1 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ACC_speed_set_send;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 100; 
+      CYCLETIME = 70; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ACC_speed_set_send {
+    PRIORITY 	= 10;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 128;
+  };
+
+
+
+  ALARM periodicAlarm2 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = ACC_input_send;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 300; 
+      CYCLETIME = 100; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK ACC_input_send {
+    PRIORITY 	= 20;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 128;
+  };
+
+
+
+  ALARM periodicAlarm4 {
+    COUNTER= SystemCounter;
+    ACTION = ACTIVATETASK {
+      TASK = Receive;
+    };
+    AUTOSTART = TRUE {
+      ALARMTIME = 500; 
+      CYCLETIME = 70; 
+      APPMODE 	= stdAppmode;
+    };
+  };
+  
+  TASK Receive {
+    PRIORITY 	= 5;
+    AUTOSTART 	= FALSE;
+    ACTIVATION 	= 1;
+    SCHEDULE 	= FULL;
+    STACKSIZE 	= 128;
+  };
+};

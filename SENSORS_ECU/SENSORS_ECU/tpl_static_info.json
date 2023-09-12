@@ -7,7 +7,7 @@
       "ACTION" : "ACTIVATETASK",
       "ACTION_S" : 
       {
-        "TASK" : "SenderRainSensor"
+        "TASK" : "SenderTimeGap"
       },
       "AUTOSTART" : "true",
       "AUTOSTART_S" : 
@@ -88,7 +88,7 @@
       "ACTIVATION" : 1,
       "AUTOSTART" : "false",
       "KIND" : "Task",
-      "NAME" : "SenderRainSensor",
+      "NAME" : "SenderTimeGap",
       "NONPREEMPTABLE" : "false",
       "PRIORITY" : 3,
       "SCHEDULE" : "FULL",
