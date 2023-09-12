@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
+#include "Validation.h"
 
 float Ego_ace = 0;
 float Lead_ace = 0;
@@ -22,6 +22,7 @@ int counter = 1; //Interactions limiter
 //Calibration Variables
 const float D_default        = 10;
 const float Default_Time_Gap = 3;
+float Time_Gap = 3;
 const float Kverr_gain       = 0.5;
 const float Kxerr_gain       = 0.02;
 const float Kvx_gain         = 0.04;
@@ -35,7 +36,7 @@ const float Ego_acceleration_min     = -5;
 const float Ego_acceleration_max     = 1.47;
 
 //Variables received from CAN FRAMES
-bool ACC_input     = 0; //Trigger for ACC_input. 
+bool ACC_input     = 1; //Trigger for ACC_input. 
 bool Rain_sensor   = 0;
 bool Gas_pedal     = 0;
 bool Brake_pedal   = 0;
@@ -43,7 +44,7 @@ bool Fault_signal  = 0;
 
 float ACC_speed_set  = 100;
 
-bool ACC_enabled             = true;
+bool ACC_enabled             = false;
 bool aux  		               = 0;
 float ACC_acceleration       = 0;
 float ACC_brake_acceleration = 0;
@@ -60,9 +61,9 @@ int main ()
     }
 
   //Number of times of looping
-  while (counter != 100000)
+  while (counter < 100000)
   {
-  counter++;
+  
   Ego_ace = Acceleration;
   //Storage of the last value of Relative Distance
   Relative_distance_past = Relative_distance_pres;
@@ -102,8 +103,14 @@ int main ()
 		}
 	}
 
-  //Control block
-	Safe_distance = (Ego_velo * Default_Time_Gap) + D_default;
+  //----------------------Control block---------------------//
+
+  //Detection of rain and change the Time_Gap
+  Time_Gap = Rain_sensor ? Default_Time_Gap*2 : Default_Time_Gap;
+  //Limit of Ego_velo to dont exceed the safe velocity
+  if(ACC_speed_set > 120) ACC_speed_set = 120;
+
+	Safe_distance = (Ego_velo * Time_Gap) + D_default;
 	SafeD_relD = Safe_distance - Relative_distance_pres;
 	Control_x = (Relative_velo * Kvx_gain) - ((Safe_distance - Relative_distance_pres) * Kxerr_gain);
 	Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;
@@ -118,7 +125,16 @@ int main ()
 	
 	Acceleration = (Acceleration < Ego_acceleration_min) ? Ego_acceleration_min : (Acceleration > Ego_acceleration_max) ? Ego_acceleration_max : Acceleration;
 
+  counter++;
+
  
+ // Data validation 
+  bool checkOne = checkCollision(ACC_enabled, Relative_distance_pres);
+  bool checkTwo = checkValidationSensors(ACC_enabled,  Fault_signal,  Gas_pedal,  Brake_pedal);
+  bool checkThree = checkRainSafeDistance( ACC_enabled,  Rain_sensor,  D_default,  Ego_velo,  Safe_distance);
+  if(checkOne || checkTwo || checkThree) counter=100000;
+
+
   // write to the text file
   fprintf(fp,"\nAcceleration: %.2f, ",Acceleration);
   fprintf(fp,"RelativeDistance: %.2f, ", Relative_distance_pres);
