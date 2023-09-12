@@ -1,5 +1,5 @@
 build/machines/avr/arduino/cores/arduino/WMath.cpp.o: \
- ../../../..//machines/avr/arduino/cores/arduino/WMath.cpp \
+ ../../../machines/avr/arduino/cores/arduino/WMath.cpp \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h
 

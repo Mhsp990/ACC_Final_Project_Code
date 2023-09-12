@@ -1,2 +1,2 @@
 build/machines/avr/arduino/cores/arduino/hooks.c.o: \
- ../../../..//machines/avr/arduino/cores/arduino/hooks.c
+ ../../../machines/avr/arduino/cores/arduino/hooks.c

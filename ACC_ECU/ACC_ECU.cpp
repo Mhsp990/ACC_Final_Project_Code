@@ -27,16 +27,16 @@ unsigned char 		mDLC  = 0;
 
 
 //Id CAN Receive
-#define ID_ACC_speed_set		0xEC300002 //Data dictionary
-#define ACC_input_ID			0xEC300001 //Data dictionary
-#define ID_Ego_speed			0xEC100007 //Data dictionary
-#define ID_Relative_distance	0xEC100008 //Data dictionary 
-#define ID_Relative_speed		0xEC100009 //Data dictionary
+#define ID_ACC_speed_set		0x18F00503 //Data dictionary
+#define ACC_input_ID			0x0CF00400 //Data dictionary
+#define ID_Ego_speed			0x0F1B0007 //Data dictionary
+#define ID_Relative_distance	0x0A1B8008 //Data dictionary 
+#define ID_Relative_speed		0x0C1BA009 //Data dictionary
 
 
 //Id mensagens CAN sand
-#define ID_ACC_Acceleration		0xACC00001 //Data dictionary
-#define ACC_enabled_ID			0xACC00002 //Data dictionar
+#define ID_ACC_Acceleration		0x18EFE210 //Data dictionary
+#define ACC_enabled_ID			0x18FEF100 //Data dictionar
 
 
 //Calibration Variables
@@ -99,6 +99,7 @@ void setup() {
 TASK(Can_Receive)
 {
 	if(!digitalRead(2)){  
+		Serial.println("ENTROU NA TASK");
 		GetResource(res1);
 		//Read can frame: mID = Identifier, mDLC = Data lenght, mDATA = data frame
 		CAN1.readMsgBuf(&mID, &mDLC, mDATA);
@@ -106,30 +107,41 @@ TASK(Can_Receive)
 		if((mID & ACC_input_ID) == ACC_input_ID) {
 			ACC_input = mDATA[1]; //Check data dictionary 
 			ReleaseResource(res1);
+			Serial.println("Recebi dado");
 			TerminateTask();
 		}
 		if((mID & ID_ACC_speed_set) == ID_ACC_speed_set) {
 			ACC_speed_set = mDATA[1]; //Check data dictionary
 			ReleaseResource(res1);
+			Serial.print("ACC_speed_set = ");
+			Serial.println(ACC_speed_set);
 			TerminateTask();
 		}
 		if((mID & ID_Ego_speed) == ID_Ego_speed) {
 			Ego_speed = mDATA[1]; //Check data dictionary
 			ReleaseResource(res1);
+			Serial.print("EGO SPEED = ");
+			Serial.println(Ego_speed);
 			TerminateTask();
 		}
 		
 		if((mID & ID_Relative_distance) == ID_Relative_distance) {
 			Relative_distance = mDATA[1]; //Check data dictionary
 			ReleaseResource(res1);
+			Serial.print("Relative_Distance = ");
+			Serial.println(Relative_distance);
 			TerminateTask();
 		}
 		if((mID & ID_Relative_speed) == ID_Relative_speed) {
 			Relative_speed = mDATA[1]; //Check data dictionary
 			ReleaseResource(res1);
+			Serial.print("Relative_speed = ");
+			Serial.println(Relative_speed);
 			TerminateTask();
 		}
 	}
+	Serial.println("mID = = ");
+	Serial.println(mID, HEX);
 	ReleaseResource(res1);
 	TerminateTask();
 }
@@ -194,7 +206,10 @@ TASK(Calculate_ACC_Acceleration)
 	M1 = CAN1.sendMsgBuf(ID_ACC_Acceleration, EXT_FRAME, DLC_ACC, ACC_Acceleration_Data);
 	
 	if (M1 == CAN_OK) {
-		Serial.println("ACC_Acceleration transmitida com sucesso");
+		Serial.print("ACC_Acceleration transmitida com sucesso (CHAR) = ");
+		Serial.println(ACC_Acceleration_Data[1]);
+		Serial.print("ACC_Acceleration transmitida com sucesso = ");
+		Serial.println(Acceleration);
 	}
 	ReleaseResource(res1);
 	TerminateTask();

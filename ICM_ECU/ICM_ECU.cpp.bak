@@ -13,12 +13,12 @@ unsigned char 		mDATA[8];
 unsigned char 		mDLC  = 0;
 
 #define mEEC1_DLC			8
-#define mEEC1_EXT_FRAME		1
+#define EXT_FRAME			1
 
 
-#define ACC_speed_set_ID	0xEC300002 //ACC_speed_set
-#define ACC_input_ID		0xEC300001 //Acc_input
-#define Ego_speed_ID 		0xEC100007 //Ego_speed
+#define ACC_speed_set_ID	0x18F00503 //ACC_speed_set
+#define ACC_input_ID		0x0CF00400 //Acc_input
+#define Ego_speed_ID 		0x0F1B0007 //Ego_speed
 #define ACC_enabled_ID 		0xACC00002 //Acc_enabled
 
 
@@ -61,7 +61,7 @@ TASK(ACC_speed_set_send)
 {
 	ACC_speed_set_Data[1] = (char)(setsp/3.6); //WRITES TO CAN MESSAGE DATA FIELD
 
-	M = CAN1.sendMsgBuf(ACC_speed_set_ID, CAN_EXTID, mEEC1_DLC, ACC_speed_set_Data);
+	M = CAN1.sendMsgBuf(ACC_speed_set_ID, EXT_FRAME, mEEC1_DLC, ACC_speed_set_Data);
 	
 	if (M == CAN_OK){
 		Serial.println("can_send ACC_speed_set OK"); 
@@ -74,7 +74,7 @@ TASK(ACC_input_send)
 {
 	ACC_input_Data[1] = (char)ACC_input; //WRITES TO CAN MESSAGE DATA FIELD
 
-	ret = CAN1.sendMsgBuf(ACC_input_ID, CAN_EXTID, mEEC1_DLC, ACC_input_Data);
+	ret = CAN1.sendMsgBuf(ACC_input_ID, EXT_FRAME, mEEC1_DLC, ACC_input_Data);
 
 	if (ret == CAN_OK){
 		Serial.println("can_send ACC_input OK"); 

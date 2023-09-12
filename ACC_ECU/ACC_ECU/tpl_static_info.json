@@ -12,7 +12,7 @@
       "AUTOSTART" : "true",
       "AUTOSTART_S" : 
       {
-        "ALARMTIME" : 10,
+        "ALARMTIME" : 1000,
         "APPMODE" : 
         [
           
@@ -20,7 +20,7 @@
             "VALUE" : "stdAppMode"
           }
         ],
-        "CYCLETIME" : 10
+        "CYCLETIME" : 200
       },
       "COUNTER" : "SystemCounter",
       "NAME" : "alarmeCalculate_ACC_Acceleration"
@@ -34,7 +34,7 @@
       "AUTOSTART" : "true",
       "AUTOSTART_S" : 
       {
-        "ALARMTIME" : 10,
+        "ALARMTIME" : 101,
         "APPMODE" : 
         [
           
@@ -42,7 +42,7 @@
             "VALUE" : "stdAppMode"
           }
         ],
-        "CYCLETIME" : 10
+        "CYCLETIME" : 80
       },
       "COUNTER" : "SystemCounter",
       "NAME" : "alarmeCan_Receive"
@@ -56,7 +56,7 @@
       "AUTOSTART" : "true",
       "AUTOSTART_S" : 
       {
-        "ALARMTIME" : 8,
+        "ALARMTIME" : 80,
         "APPMODE" : 
         [
           
@@ -64,7 +64,7 @@
             "VALUE" : "stdAppMode"
           }
         ],
-        "CYCLETIME" : 8
+        "CYCLETIME" : 200
       },
       "COUNTER" : "SystemCounter",
       "NAME" : "alarmeLogic_block"

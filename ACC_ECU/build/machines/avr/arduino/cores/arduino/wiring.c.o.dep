@@ -1,6 +1,6 @@
 build/machines/avr/arduino/cores/arduino/wiring.c.o: \
- ../../../..//machines/avr/arduino/cores/arduino/wiring.c \
- ../../../..//machines/avr/arduino/cores/arduino/wiring_private.h \
+ ../../../machines/avr/arduino/cores/arduino/wiring.c \
+ ../../../machines/avr/arduino/cores/arduino/wiring_private.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\io.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\sfr_defs.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\inttypes.h \
@@ -16,17 +16,17 @@ build/machines/avr/arduino/cores/arduino/wiring.c.o: \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdio.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h \
- ../../../..//machines/avr/arduino/cores/arduino/Arduino.h \
+ ../../../machines/avr/arduino/cores/arduino/Arduino.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdbool.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\string.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\math.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\pgmspace.h \
- ../../../..//machines/avr/arduino/cores/arduino/binary.h \
- ../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
+ ../../../machines/avr/arduino/cores/arduino/binary.h \
+ ../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
  c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h
 
-../../../..//machines/avr/arduino/cores/arduino/wiring_private.h:
+../../../machines/avr/arduino/cores/arduino/wiring_private.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\io.h:
 
@@ -58,7 +58,7 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdarg.h
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Arduino.h:
+../../../machines/avr/arduino/cores/arduino/Arduino.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h:
 
@@ -70,8 +70,8 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\math.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\pgmspace.h:
 
-../../../..//machines/avr/arduino/cores/arduino/binary.h:
+../../../machines/avr/arduino/cores/arduino/binary.h:
 
-../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
+../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
 
 c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h:

@@ -2,12 +2,6 @@
 // Universidade Federal de Pernambuco - UFPE		  
 // Residência Tecnológica em Software Automotivo      			  
 // PROJETO FINAL 
-//////////////////////////////////////////////////
-// THE 'TCM' ECU HAS THE FOLLOWING TASKS:
-//1->Read the ACC speed value defined by the user. In this case, coming from the serial.
-//2->Place the ACC speed value defined by the user in a CAN M1 message and send this message on the bus.
-//3->Read the ACC activation value defined by the user. In this case, coming from the serial.
-//4->Place the ACC activation value defined by the user in a CAN M2 message and send this message on the bus.
 
 OIL_VERSION = "2.5" : "test" ;
 
@@ -55,8 +49,6 @@ CPU test {
 
 
 
-
-
   ALARM periodicAlarm2 {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
@@ -78,7 +70,6 @@ CPU test {
   };
 
 
- 
 
   ALARM periodicAlarm4 {
     COUNTER= SystemCounter;

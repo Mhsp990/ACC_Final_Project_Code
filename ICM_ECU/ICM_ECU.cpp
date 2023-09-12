@@ -16,10 +16,10 @@ unsigned char 		mDLC  = 0;
 #define EXT_FRAME			1
 
 
-#define ACC_speed_set_ID	0xEC300002 //ACC_speed_set
-#define ACC_input_ID		0xEC300001 //Acc_input
-#define Ego_speed_ID 		0xEC100007 //Ego_speed
-#define ACC_enabled_ID 		0xACC00002 //Acc_enabled
+#define ACC_speed_set_ID	0x18F00503 //ACC_speed_set
+#define ACC_input_ID		0x0CF00400 //Acc_input
+#define Ego_speed_ID 		0x0F1B0007 //Ego_speed
+#define ACC_enabled_ID 		0x18FEF100 //Acc_enabled
 
 
 //bool   Fault_signal = 0; // FAULT_SIGNAL

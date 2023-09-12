@@ -1,6 +1,6 @@
 build/machines/avr/arduino/cores/arduino/WString.cpp.o: \
- ../../../..//machines/avr/arduino/cores/arduino/WString.cpp \
- ../../../..//machines/avr/arduino/cores/arduino/WString.h \
+ ../../../machines/avr/arduino/cores/arduino/WString.cpp \
+ ../../../machines/avr/arduino/cores/arduino/WString.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\string.h \
@@ -18,7 +18,7 @@ build/machines/avr/arduino/cores/arduino/WString.cpp.o: \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\fuse.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\lock.h
 
-../../../..//machines/avr/arduino/cores/arduino/WString.h:
+../../../machines/avr/arduino/cores/arduino/WString.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h:
 

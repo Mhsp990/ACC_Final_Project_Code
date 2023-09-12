@@ -17,10 +17,10 @@ float interval  = 0.001;
 int   counter   = 0;
 
 
-#define Ego_Speed_ID			0xEC100007
-#define Relative_Distance_ID	0xEC100008 
+#define Ego_Speed_ID			0x0F1B0007
+#define Relative_Distance_ID	0x0A1B8008 
 #define Ego_Acceleration_ID		0xACC00001
-#define Relative_Speed_ID		0xEC100009 
+#define Relative_Speed_ID		0x0C1BA009 
 
 #define DLC			8
 #define EXT_FRAME 	1
@@ -96,7 +96,6 @@ TASK(Environment)
 		ret = CAN1.sendMsgBuf(Ego_Speed_ID,EXT_FRAME,DLC,Ego_Speed_data);
 
 		delay(1);
-
 		//Ego Speed CAN Message Sender
 		Relative_Distance_data[1] = (char)Ego_velo;
 		ret = CAN1.sendMsgBuf(Relative_Distance_ID,EXT_FRAME,DLC,Relative_Distance_data);
@@ -104,7 +103,7 @@ TASK(Environment)
 		delay(1);
 
 		//Relative Speed CAN Message Sender
-		Relative_Speed_data[4] = Relative_velo;
+		Relative_Speed_data[4] = (char)Relative_velo;
 		ret = CAN1.sendMsgBuf(Relative_Speed_ID,EXT_FRAME,DLC,Relative_Speed_data);
 	
 //		if (counter == 50000){

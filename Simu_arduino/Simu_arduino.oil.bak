@@ -27,10 +27,10 @@ CPU test {
   APPMODE stdAppmode {};
   
 
-  ALARM periodicAlarm1 {
+  ALARM periodicAlarmEnvironment {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
-      TASK = ACC_speed_set_send;
+      TASK = Environment;
     };
     AUTOSTART = TRUE {
       ALARMTIME = 100; 
@@ -39,39 +39,15 @@ CPU test {
     };
   };
   
-  TASK ACC_speed_set_send {
+  TASK Environment {
     PRIORITY 	= 10;
     AUTOSTART 	= FALSE;
     ACTIVATION 	= 1;
     SCHEDULE 	= FULL;
     STACKSIZE 	= 128;
   };
-
-
-
-  ALARM periodicAlarm2 {
-    COUNTER= SystemCounter;
-    ACTION = ACTIVATETASK {
-      TASK = ACC_input_send;
-    };
-    AUTOSTART = TRUE {
-      ALARMTIME = 300; 
-      CYCLETIME = 100; 
-      APPMODE 	= stdAppmode;
-    };
-  };
   
-  TASK ACC_input_send {
-    PRIORITY 	= 20;
-    AUTOSTART 	= FALSE;
-    ACTIVATION 	= 1;
-    SCHEDULE 	= FULL;
-    STACKSIZE 	= 128;
-  };
-
-
-
-  ALARM periodicAlarm4 {
+    ALARM periodicAlarmReceive {
     COUNTER= SystemCounter;
     ACTION = ACTIVATETASK {
       TASK = Receive;
@@ -90,4 +66,8 @@ CPU test {
     SCHEDULE 	= FULL;
     STACKSIZE 	= 128;
   };
+  
+	RESOURCE res1{
+		RESOURCEPROPERTY = STANDARD;
+	};
 };

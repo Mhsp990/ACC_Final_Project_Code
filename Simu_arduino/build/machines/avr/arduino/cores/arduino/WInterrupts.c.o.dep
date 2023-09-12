@@ -1,5 +1,5 @@
 build/machines/avr/arduino/cores/arduino/WInterrupts.c.o: \
- ../../../..//machines/avr/arduino/cores/arduino/WInterrupts.c \
+ ../../../machines/avr/arduino/cores/arduino/WInterrupts.c \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\inttypes.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdint.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdint.h \
@@ -16,25 +16,25 @@ build/machines/avr/arduino/cores/arduino/WInterrupts.c.o: \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdio.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdarg.h \
- ../../../..//machines/avr/arduino/cores/arduino/wiring_private.h \
- ../../../..//machines/avr/arduino/cores/arduino/Arduino.h \
+ ../../../machines/avr/arduino/cores/arduino/wiring_private.h \
+ ../../../machines/avr/arduino/cores/arduino/Arduino.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdbool.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\string.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\math.h \
- ../../../..//machines/avr/arduino/cores/arduino/binary.h \
- ../../../..//machines/avr/arduino/cores/arduino/WCharacter.h \
+ ../../../machines/avr/arduino/cores/arduino/binary.h \
+ ../../../machines/avr/arduino/cores/arduino/WCharacter.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\ctype.h \
- ../../../..//machines/avr/arduino/cores/arduino/WString.h \
- ../../../..//machines/avr/arduino/cores/arduino/HardwareSerial.h \
- ../../../..//machines/avr/arduino/cores/arduino/Stream.h \
- ../../../..//machines/avr/arduino/cores/arduino/Print.h \
- ../../../..//machines/avr/arduino/cores/arduino/Printable.h \
- ../../../..//machines/avr/arduino/cores/arduino/USBAPI.h \
+ ../../../machines/avr/arduino/cores/arduino/WString.h \
+ ../../../machines/avr/arduino/cores/arduino/HardwareSerial.h \
+ ../../../machines/avr/arduino/cores/arduino/Stream.h \
+ ../../../machines/avr/arduino/cores/arduino/Print.h \
+ ../../../machines/avr/arduino/cores/arduino/Printable.h \
+ ../../../machines/avr/arduino/cores/arduino/USBAPI.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\eeprom.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\util\delay.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\util\delay_basic.h \
- ../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
+ ../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
  c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\inttypes.h:
@@ -69,9 +69,9 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdio.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdarg.h:
 
-../../../..//machines/avr/arduino/cores/arduino/wiring_private.h:
+../../../machines/avr/arduino/cores/arduino/wiring_private.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Arduino.h:
+../../../machines/avr/arduino/cores/arduino/Arduino.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h:
 
@@ -81,23 +81,23 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\string.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\math.h:
 
-../../../..//machines/avr/arduino/cores/arduino/binary.h:
+../../../machines/avr/arduino/cores/arduino/binary.h:
 
-../../../..//machines/avr/arduino/cores/arduino/WCharacter.h:
+../../../machines/avr/arduino/cores/arduino/WCharacter.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\ctype.h:
 
-../../../..//machines/avr/arduino/cores/arduino/WString.h:
+../../../machines/avr/arduino/cores/arduino/WString.h:
 
-../../../..//machines/avr/arduino/cores/arduino/HardwareSerial.h:
+../../../machines/avr/arduino/cores/arduino/HardwareSerial.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Stream.h:
+../../../machines/avr/arduino/cores/arduino/Stream.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Print.h:
+../../../machines/avr/arduino/cores/arduino/Print.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Printable.h:
+../../../machines/avr/arduino/cores/arduino/Printable.h:
 
-../../../..//machines/avr/arduino/cores/arduino/USBAPI.h:
+../../../machines/avr/arduino/cores/arduino/USBAPI.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\eeprom.h:
 
@@ -105,6 +105,6 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\util\delay.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\util\delay_basic.h:
 
-../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
+../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
 
 c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h:

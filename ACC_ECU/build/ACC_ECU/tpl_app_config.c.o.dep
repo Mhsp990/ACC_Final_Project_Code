@@ -3,28 +3,24 @@ build/ACC_ECU/tpl_app_config.c.o: ACC_ECU/tpl_app_config.c \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdint.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdint.h \
  ACC_ECU/tpl_app_config.h ACC_ECU/tpl_app_define.h \
- ../../../..//os/tpl_config_def.h ../../../..//os/tpl_config_check.h \
- ../../../..//os/tpl_compiler.h ACC_ECU/tpl_app_define.h \
- ../../../..//os/tpl_os_internal_types.h \
- ../../../..//machines/avr/tpl_os_std_types.h \
- ../../../..//os/tpl_os_custom_types.h \
- ../../../..//os/tpl_os_application_def.h ACC_ECU/tpl_app_custom_types.h \
- ../../../..//machines/avr/tpl_machine.h \
- ../../../..//os/tpl_os_custom_types.h ../../../..//os/tpl_compiler.h \
- ../../../..//os/tpl_memmap.h ../../../..//os/tpl_os_interrupt.h \
- ../../../..//os/tpl_os_types.h ../../../..//os/tpl_os_internal_types.h \
- ../../../..//os/tpl_os_interrupt_kernel.h \
- ../../../..//os/tpl_os_kernel.h \
- ../../../..//os/tpl_os_multicore_macros.h ../../../..//os/tpl_memmap.h \
- ../../../..//os/tpl_os_alarm_kernel.h \
- ../../../..//os/tpl_os_timeobj_kernel.h ../../../..//os/tpl_os_action.h \
- ../../../..//os/tpl_os_task_kernel.h ../../../..//os/tpl_os_alarm.h \
- ../../../..//os/tpl_os_resource_kernel.h \
- ../../../..//os/tpl_os_resource.h ../../../..//os/tpl_os_event_kernel.h \
- ../../../..//os/tpl_os_event.h ../../../..//os/tpl_os_action.h \
- ../../../..//os/tpl_os_kernel.h ../../../..//os/tpl_os_definitions.h \
- ../../../..//os/tpl_os_timeobj_kernel.h \
- ../../../..//os/tpl_machine_interface.h \
+ ../../../os/tpl_config_def.h ../../../os/tpl_config_check.h \
+ ../../../os/tpl_compiler.h ACC_ECU/tpl_app_define.h \
+ ../../../os/tpl_os_internal_types.h \
+ ../../../machines/avr/tpl_os_std_types.h \
+ ../../../os/tpl_os_custom_types.h ../../../os/tpl_os_application_def.h \
+ ACC_ECU/tpl_app_custom_types.h ../../../machines/avr/tpl_machine.h \
+ ../../../os/tpl_os_custom_types.h ../../../os/tpl_compiler.h \
+ ../../../os/tpl_memmap.h ../../../os/tpl_os_interrupt.h \
+ ../../../os/tpl_os_types.h ../../../os/tpl_os_internal_types.h \
+ ../../../os/tpl_os_interrupt_kernel.h ../../../os/tpl_os_kernel.h \
+ ../../../os/tpl_os_multicore_macros.h ../../../os/tpl_memmap.h \
+ ../../../os/tpl_os_alarm_kernel.h ../../../os/tpl_os_timeobj_kernel.h \
+ ../../../os/tpl_os_action.h ../../../os/tpl_os_task_kernel.h \
+ ../../../os/tpl_os_alarm.h ../../../os/tpl_os_resource_kernel.h \
+ ../../../os/tpl_os_resource.h ../../../os/tpl_os_event_kernel.h \
+ ../../../os/tpl_os_event.h ../../../os/tpl_os_action.h \
+ ../../../os/tpl_os_kernel.h ../../../os/tpl_os_definitions.h \
+ ../../../os/tpl_os_timeobj_kernel.h ../../../os/tpl_machine_interface.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\interrupt.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\io.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\sfr_defs.h \
@@ -46,73 +42,73 @@ ACC_ECU/tpl_app_config.h:
 
 ACC_ECU/tpl_app_define.h:
 
-../../../..//os/tpl_config_def.h:
+../../../os/tpl_config_def.h:
 
-../../../..//os/tpl_config_check.h:
+../../../os/tpl_config_check.h:
 
-../../../..//os/tpl_compiler.h:
+../../../os/tpl_compiler.h:
 
 ACC_ECU/tpl_app_define.h:
 
-../../../..//os/tpl_os_internal_types.h:
+../../../os/tpl_os_internal_types.h:
 
-../../../..//machines/avr/tpl_os_std_types.h:
+../../../machines/avr/tpl_os_std_types.h:
 
-../../../..//os/tpl_os_custom_types.h:
+../../../os/tpl_os_custom_types.h:
 
-../../../..//os/tpl_os_application_def.h:
+../../../os/tpl_os_application_def.h:
 
 ACC_ECU/tpl_app_custom_types.h:
 
-../../../..//machines/avr/tpl_machine.h:
+../../../machines/avr/tpl_machine.h:
 
-../../../..//os/tpl_os_custom_types.h:
+../../../os/tpl_os_custom_types.h:
 
-../../../..//os/tpl_compiler.h:
+../../../os/tpl_compiler.h:
 
-../../../..//os/tpl_memmap.h:
+../../../os/tpl_memmap.h:
 
-../../../..//os/tpl_os_interrupt.h:
+../../../os/tpl_os_interrupt.h:
 
-../../../..//os/tpl_os_types.h:
+../../../os/tpl_os_types.h:
 
-../../../..//os/tpl_os_internal_types.h:
+../../../os/tpl_os_internal_types.h:
 
-../../../..//os/tpl_os_interrupt_kernel.h:
+../../../os/tpl_os_interrupt_kernel.h:
 
-../../../..//os/tpl_os_kernel.h:
+../../../os/tpl_os_kernel.h:
 
-../../../..//os/tpl_os_multicore_macros.h:
+../../../os/tpl_os_multicore_macros.h:
 
-../../../..//os/tpl_memmap.h:
+../../../os/tpl_memmap.h:
 
-../../../..//os/tpl_os_alarm_kernel.h:
+../../../os/tpl_os_alarm_kernel.h:
 
-../../../..//os/tpl_os_timeobj_kernel.h:
+../../../os/tpl_os_timeobj_kernel.h:
 
-../../../..//os/tpl_os_action.h:
+../../../os/tpl_os_action.h:
 
-../../../..//os/tpl_os_task_kernel.h:
+../../../os/tpl_os_task_kernel.h:
 
-../../../..//os/tpl_os_alarm.h:
+../../../os/tpl_os_alarm.h:
 
-../../../..//os/tpl_os_resource_kernel.h:
+../../../os/tpl_os_resource_kernel.h:
 
-../../../..//os/tpl_os_resource.h:
+../../../os/tpl_os_resource.h:
 
-../../../..//os/tpl_os_event_kernel.h:
+../../../os/tpl_os_event_kernel.h:
 
-../../../..//os/tpl_os_event.h:
+../../../os/tpl_os_event.h:
 
-../../../..//os/tpl_os_action.h:
+../../../os/tpl_os_action.h:
 
-../../../..//os/tpl_os_kernel.h:
+../../../os/tpl_os_kernel.h:
 
-../../../..//os/tpl_os_definitions.h:
+../../../os/tpl_os_definitions.h:
 
-../../../..//os/tpl_os_timeobj_kernel.h:
+../../../os/tpl_os_timeobj_kernel.h:
 
-../../../..//os/tpl_machine_interface.h:
+../../../os/tpl_machine_interface.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\interrupt.h:
 

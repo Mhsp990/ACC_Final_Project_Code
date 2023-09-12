@@ -1,11 +1,10 @@
 build/ACC_ECU/tpl_interrupts.c.o: ACC_ECU/tpl_interrupts.c \
- ../../../..//machines/avr/tpl_machine.h \
- ../../../..//os/tpl_os_custom_types.h \
- ../../../..//os/tpl_os_application_def.h ACC_ECU/tpl_app_define.h \
- ../../../..//os/tpl_config_def.h ../../../..//os/tpl_config_check.h \
- ACC_ECU/tpl_app_custom_types.h ../../../..//os/tpl_compiler.h \
- ../../../..//machines/avr/tpl_os_std_types.h \
- ../../../..//machines/avr/arduino/cores/arduino/Arduino.h \
+ ../../../machines/avr/tpl_machine.h ../../../os/tpl_os_custom_types.h \
+ ../../../os/tpl_os_application_def.h ACC_ECU/tpl_app_define.h \
+ ../../../os/tpl_config_def.h ../../../os/tpl_config_check.h \
+ ACC_ECU/tpl_app_custom_types.h ../../../os/tpl_compiler.h \
+ ../../../machines/avr/tpl_os_std_types.h \
+ ../../../machines/avr/arduino/cores/arduino/Arduino.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stddef.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\lib\gcc\avr\5.4.0\include\stdbool.h \
@@ -24,30 +23,30 @@ build/ACC_ECU/tpl_interrupts.c.o: ACC_ECU/tpl_interrupts.c \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\fuse.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\lock.h \
  c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\interrupt.h \
- ../../../..//machines/avr/arduino/cores/arduino/binary.h \
- ../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
+ ../../../machines/avr/arduino/cores/arduino/binary.h \
+ ../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h \
  c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h \
- ../../../..//os/tpl_memmap.h
+ ../../../os/tpl_memmap.h
 
-../../../..//machines/avr/tpl_machine.h:
+../../../machines/avr/tpl_machine.h:
 
-../../../..//os/tpl_os_custom_types.h:
+../../../os/tpl_os_custom_types.h:
 
-../../../..//os/tpl_os_application_def.h:
+../../../os/tpl_os_application_def.h:
 
 ACC_ECU/tpl_app_define.h:
 
-../../../..//os/tpl_config_def.h:
+../../../os/tpl_config_def.h:
 
-../../../..//os/tpl_config_check.h:
+../../../os/tpl_config_check.h:
 
 ACC_ECU/tpl_app_custom_types.h:
 
-../../../..//os/tpl_compiler.h:
+../../../os/tpl_compiler.h:
 
-../../../..//machines/avr/tpl_os_std_types.h:
+../../../machines/avr/tpl_os_std_types.h:
 
-../../../..//machines/avr/arduino/cores/arduino/Arduino.h:
+../../../machines/avr/arduino/cores/arduino/Arduino.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\stdlib.h:
 
@@ -85,10 +84,10 @@ c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\lock.h:
 
 c:\esa\avr_tools\avr8-gnu-toolchain-win32_x86\avr\include\avr\interrupt.h:
 
-../../../..//machines/avr/arduino/cores/arduino/binary.h:
+../../../machines/avr/arduino/cores/arduino/binary.h:
 
-../../../..//machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
+../../../machines/avr/arduino/variants/eightanaloginputs/pins_arduino.h:
 
 c:\esa\trampoline\machines\avr\arduino\variants\standard\pins_arduino.h:
 
-../../../..//os/tpl_memmap.h:
+../../../os/tpl_memmap.h:
