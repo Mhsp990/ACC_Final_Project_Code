@@ -1,0 +1,8 @@
+To compile the test, run the following lines for Ubuntu:
+
+if you don't have the CUnit libraries, run < sudo apt update > and after < sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev >
+
+and then:
+
+step 1 -> Run > gcc -o Test_ACC Test_ACC.c -lcunit
+step 2 -> Run > ./Test_ACC

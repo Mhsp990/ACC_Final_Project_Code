@@ -63,7 +63,7 @@ int main ()
     }
 
   //Number of times of looping
-  while (counter < 100000)
+  while (counter < 10000)
   {
   
   Ego_ace = Acceleration;
