@@ -16,12 +16,9 @@ jobs:
     - name: Install CUnit
       run: sudo apt-get install libcunit1-dev 
       
-    - name: Changing diretory
-      run: cd TestCode
-      
-    - name: Build
-      run:  make build
-      
+    - name: Changing diretory and build
+      run: cd TestCode && make build
+          
     - name: Testing
       run:  ./main
             
