@@ -70,12 +70,12 @@ struct ACCcontrol{
         Control_x = (Relative_velo * Kvx_gain) - ((i.Safe_distance - Relative_distance_pres) * Kxerr_gain);
         Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;
 
-        if (SafeD_relD > 0){   
-            i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);
-                
-        }else{
-            i.Acceleration = (Control_x < Control_v) ? Control_x : Control_v;
-        }
+            if (SafeD_relD > 0){   
+                i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);
+                    
+                }else{
+                    i.Acceleration = (Control_x < Control_v) ? Control_x : Control_v;
+                }
         i.Acceleration = (i.Acceleration < Ego_acceleration_min) ? Ego_acceleration_min : (i.Acceleration > Ego_acceleration_max) ? Ego_acceleration_max : i.Acceleration;
         return i;
 

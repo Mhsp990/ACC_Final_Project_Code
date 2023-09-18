@@ -6,7 +6,7 @@ RM	= rm -rf
 Test_ACC.o: Test_ACC.c
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 
-build: Test_ACC.o ACC_Code.o ## Make build
+build: Test_ACC.o ## Make build
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 	$(CC) $(CFLAG) -o main Test_ACC.o -lcunit
 
