@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "ACC_Code.h"
 
 struct ACCenable{
     bool ACC_enabled;
@@ -85,6 +84,3 @@ struct ACCcontrol{
             return i;
         }
     }
-
-
-
