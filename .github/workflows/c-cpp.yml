@@ -14,11 +14,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install CUnit
-      run: sudo apt-get install libcunit1-dev
-    - name: Build and Test
+      run: sudo apt-get install libcunit1-dev 
+      
+    - name: Changing diretory
       run: cd TestCode
-            make build
-            ./main
-            make coverage
+      
+    - name: Build
+      run:  make build
+      
+    - name: Testing
+      run:  ./main
+            
+    - name: Checking test coverage
+      run: make coverage
       
    
