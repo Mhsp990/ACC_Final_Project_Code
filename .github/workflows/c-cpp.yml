@@ -16,7 +16,9 @@ jobs:
     - name: Install CUnit
       run: sudo apt-get install libcunit1-dev
     - name: Build and Test
-      run:  gcc -o test_suite ./TestCode/Test_ACC.c -lcunit
-            ./test_suite
+      run: cd TestCode
+            make build
+            ./main
+            make coverage
       
    
