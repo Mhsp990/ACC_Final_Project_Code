@@ -16,13 +16,13 @@ jobs:
     - name: Install CUnit
       run: sudo apt-get install libcunit1-dev 
       
-    - name: Changing diretory and build
+    - name: Build tests and coverage
       run: cd TestCode && make build
           
-    - name: Testing
-      run:  ./main
+    - name: Run tests
+      run:  cd TestCode && ./main
             
-    - name: Checking test coverage
-      run: make coverage
+    - name: Run coverage
+      run: cd TestCode && make coverage
       
    
