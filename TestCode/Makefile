@@ -13,13 +13,13 @@ build: Test_ACC.o ## Make build
 coverage:
 	gcov Test_ACC.c 
 
-gcovr-report: coverage ## Generate gcovr report
-	mkdir gcovr-report
-	gcovr --root . --html --html-details --output gcovr-report/coverage.html
-
 deps: ## Install dependencies
 	sudo apt-get install lcov clang-format
 	pip install gcovr
+
+gcovr-report: coverage ## Generate gcovr report
+	mkdir gcovr-report
+	gcovr --root . --html --html-details --output gcovr-report/coverage.html
 
 clean: ## Clean all generate files
 	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
