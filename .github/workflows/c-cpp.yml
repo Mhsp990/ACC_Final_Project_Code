@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install CUnit
-      run: sudo apt-get install libcunit1-dev 
+      run:  sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
       
     - name: Build tests and coverage
       run: cd TestCode && make build
@@ -24,5 +24,11 @@ jobs:
             
     - name: Run coverage
       run: cd TestCode && make coverage
+      
+    - name: Install html report labraries 
+      run: sudo apt-get install lcov clang-format && pip install gcovr
+      
+    - name: Test and coverage report 
+      run: mkdir gcovr-report && gcovr --root . --html --html-details --output gcovr-report/coverage.html
       
    
