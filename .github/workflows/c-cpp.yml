@@ -1,0 +1,28 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install CUnit
+      run: sudo apt-get install libcunit1-dev 
+      
+    - name: Build tests and coverage
+      run: cd TestCode && make build
+          
+    - name: Run tests
+      run:  cd TestCode && ./main
+            
+    - name: Run coverage
+      run: cd TestCode && make coverage
+      
+   
