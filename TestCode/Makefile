@@ -6,7 +6,7 @@ RM	= rm -rf
 Test_ACC.o: Test_ACC.c
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 
-build: Test_ACC.o ACC_Code.o ## Make build
+build: Test_ACC.o ## Make build
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 	$(CC) $(CFLAG) -o main Test_ACC.o -lcunit
 
@@ -14,7 +14,12 @@ coverage:
 	gcov Test_ACC.c 
 
 deps: ## Install dependencies
+	sudo apt-get install lcov clang-format
 	pip install gcovr
+
+gcovr-report: coverage ## Generate gcovr report
+	mkdir gcovr-report
+	gcovr --root . --html --html-details --output gcovr-report/coverage.html
 
 clean: ## Clean all generate files
 	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
