@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include<stdbool.h>
 
-bool checkCollision(bool ACC_enable, float relativeDistance) {
+bool checkCollision(bool ACC_enable/**<  Checks if ACC is Enabled */,
+                    float relativeDistance/**<  Relative Distance Between Ego and Lead Car */) {
+
     if(ACC_enable == true && relativeDistance <= 0){
         printf("Collision detected. Take the necessary actions...\n");
         return true;
@@ -10,7 +12,10 @@ bool checkCollision(bool ACC_enable, float relativeDistance) {
     }   
 }
 
-bool checkValidationSensors(bool ACC_enable, bool Fault_signal, bool Gas_pedal, bool Brake_pedal) {
+bool checkValidationSensors(bool ACC_enable/**<  Checks if ACC is Enabled */,
+                            bool Fault_signal/**<  Checks if all sensors are working */, 
+                            bool Gas_pedal/**<  Checks if gas pedal was pressed */, 
+                            bool Brake_pedal/**<  Checks if break pedal was pressed */) {
     short int flag = 0;
 
     if(ACC_enable){
@@ -35,7 +40,12 @@ bool checkValidationSensors(bool ACC_enable, bool Fault_signal, bool Gas_pedal, 
     return 0;
 }
 
-bool checkRainSafeDistance(bool ACC_enable, bool rain_signal, const float D_distance, float V_ego, float safeDistance){
+bool checkRainSafeDistance(bool ACC_enable/**<  Checks if ACC is Enabled */, 
+                           bool rain_signal/**<  checks the presence of rain on the track */, 
+                           const float D_distance/**<  default distance */, 
+                           float V_ego/**<  velocity of ego car */, 
+                           float safeDistance/**<  Safe distance */){
+                            
     if(ACC_enable && rain_signal){
         if(safeDistance != (D_distance + V_ego*6)){
             printf("Safe distance is not correct for a wet street\n");

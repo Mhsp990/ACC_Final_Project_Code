@@ -1,0 +1,406 @@
+.TH "Simulation.c" 3 "Version 1.0.0" "ACC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Simulation.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include 'Validation\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "float \fBcalculateLeadSpeed\fP (float Vo, float Acc, float dT)"
+.br
+.RI "Simulation function to calculate lead car speed\&. "
+.ti -1c
+.RI "float \fBcalculateLeadPosition\fP (float So, float Vo, float dT, float Acc)"
+.br
+.RI "Simulation function to calculate lead car position\&. "
+.ti -1c
+.RI "float \fBgenerateLeadAcceleration\fP (float \fBAmplitude_move_lead\fP)"
+.br
+.RI "Simulation function to calculate lead car sacceleration\&. "
+.ti -1c
+.RI "float \fBcalculateEgoSpeed\fP (float Vo, float Acc, float dT)"
+.br
+.RI "Simulation function to calculate Ego car speed\&. "
+.ti -1c
+.RI "float \fBcalculateEgoPosition\fP (float So, float Vo, float dT, float Acc)"
+.br
+.RI "Simulation function to calculate Ego car position\&. "
+.ti -1c
+.RI "float \fBsetTimeGap\fP ()"
+.br
+.RI "Simulation function to define time gap between lead and ego car\&. "
+.ti -1c
+.RI "float \fBcontrol\fP ()"
+.br
+.RI "Simulation function to define control block\&. "
+.ti -1c
+.RI "float \fBACC_FUNCTION\fP ()"
+.br
+.RI "Simulation function to execute ACC\&. "
+.ti -1c
+.RI "int \fBmain\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "float \fBstep\fP = 0\&.001"
+.br
+.ti -1c
+.RI "float \fBD_time_gap\fP = 3"
+.br
+.ti -1c
+.RI "float \fBD_distance\fP = 10"
+.br
+.ti -1c
+.RI "float \fBV_set\fP = 21"
+.br
+.ti -1c
+.RI "int \fBrain_signal\fP = 0"
+.br
+.ti -1c
+.RI "short int \fBACC_enable\fP = 0"
+.br
+.ti -1c
+.RI "const float \fBKverr_gain\fP = 0\&.5"
+.br
+.ti -1c
+.RI "const float \fBKxerr_gain\fP = 0\&.0"
+.br
+.ti -1c
+.RI "const float \fBKvx_gain\fP = 0\&.04"
+.br
+.ti -1c
+.RI "const float \fBEgo_acceleration_min\fP = \-5\&.0"
+.br
+.ti -1c
+.RI "const float \fBEgo_acceleration_max\fP = 1\&.47"
+.br
+.ti -1c
+.RI "int \fBACC_input\fP = 0"
+.br
+.ti -1c
+.RI "int \fBFault_signal\fP = 0"
+.br
+.ti -1c
+.RI "int \fBGas_pedal\fP = 0"
+.br
+.ti -1c
+.RI "int \fBBrake_pedal\fP = 0"
+.br
+.ti -1c
+.RI "int \fBcounter\fP = 0"
+.br
+.ti -1c
+.RI "const int \fBmaxCounter\fP = 10000"
+.br
+.ti -1c
+.RI "float \fBV_lead\fP = 25"
+.br
+.ti -1c
+.RI "float \fBPos_lead\fP = 100"
+.br
+.ti -1c
+.RI "float \fBAcceleration_lead\fP = 0"
+.br
+.ti -1c
+.RI "float \fBAmplitude_move_lead\fP = 0\&.1"
+.br
+.ti -1c
+.RI "float \fBPos_ego\fP = 0"
+.br
+.ti -1c
+.RI "float \fBV_ego\fP = 17"
+.br
+.ti -1c
+.RI "float \fBACC_acceleration\fP = 0"
+.br
+.ti -1c
+.RI "float \fBrelativeDistance\fP = 15"
+.br
+.ti -1c
+.RI "float \fBrelativeSpeed\fP = 10"
+.br
+.ti -1c
+.RI "float \fBsafeDistance\fP = 15"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "float ACC_FUNCTION ()"
+
+.PP
+Simulation function to execute ACC\&. .PP
+.nf
+145 {
+146     if (ACC_enable){
+147         float Control_x =0, Control_v=0;
+148         float Acceleration = 0;
+149         Control_x = (relativeSpeed * Kvx_gain) \- ((safeDistance \- relativeDistance) * Kxerr_gain);
+150         Control_v = (V_set \- V_ego) * Kverr_gain;
+151 
+152         if (safeDistance <= relativeDistance){
+153             
+154             Acceleration = (relativeSpeed * Kvx_gain) \- ((safeDistance \- relativeDistance) * Kxerr_gain);
+155             
+156         }else{
+157             if (Control_x < Control_v){
+158                 Acceleration = Control_x;
+159             }else{
+160                 Acceleration = Control_v;
+161             }
+162         }
+163         if (Acceleration < Ego_acceleration_min){
+164             
+165             Acceleration = Ego_acceleration_min;
+166             
+167         }else if (Acceleration > Ego_acceleration_max) {
+168             
+169             Acceleration = Ego_acceleration_max;
+170             
+171         }
+172         return Acceleration;
+173         }
+174         return 0;
+175 }       
+.fi
+
+.SS "float calculateEgoPosition (float So, float Vo, float dT, float Acc)"
+
+.PP
+Simulation function to calculate Ego car position\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fISo\fP amplitude of the sine function  
+.br
+\fIVo\fP initial speed  
+.br
+\fIdT\fP time interval  
+.br
+\fIAcc\fP acceleration 
+.RE
+.PP
+.PP
+.nf
+121 {
+122     return So+(Vo*dT)+ (pow(Acc*dT,2))/2;
+123 }
+.fi
+
+.SS "float calculateEgoSpeed (float Vo, float Acc, float dT)"
+
+.PP
+Simulation function to calculate Ego car speed\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIVo\fP initial speed  
+.br
+\fIAcc\fP acceleration  
+.br
+\fIdT\fP time interval 
+.RE
+.PP
+.PP
+.nf
+113 {
+114     return Vo+(Acc*dT);
+115 }
+.fi
+
+.SS "float calculateLeadPosition (float So, float Vo, float dT, float Acc)"
+
+.PP
+Simulation function to calculate lead car position\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fISo\fP initial position  
+.br
+\fIVo\fP initial speed  
+.br
+\fIdT\fP time interval  
+.br
+\fIAcc\fP acceleration 
+.RE
+.PP
+.PP
+.nf
+99 {
+100     return So+(Vo*dT)+(pow((Acc*dT),2))/2;
+101 }
+.fi
+
+.SS "float calculateLeadSpeed (float Vo, float Acc, float dT)"
+
+.PP
+Simulation function to calculate lead car speed\&. safeDistance = (D_time_Gap*2) + D_distance 
+.PP
+\fBParameters\fP
+.RS 4
+\fIVo\fP initial speed  
+.br
+\fIAcc\fP acceleration  
+.br
+\fIdT\fP time interval 
+.RE
+.PP
+.PP
+.nf
+91 {
+92     return Vo+(Acc*dT);
+93 }
+.fi
+
+.SS "float control ()"
+
+.PP
+Simulation function to define control block\&. .PP
+.nf
+134 {
+135     if(ACC_input == 1 && Fault_signal == 0 && (V_ego >= 11 || V_ego <= 33) && Gas_pedal == 0 && Brake_pedal == 0){
+136         return 1;
+137     }
+138     else {
+139         return 0;
+140     }
+141 }
+.fi
+
+.SS "float generateLeadAcceleration (float Amplitude_move_lead)"
+
+.PP
+Simulation function to calculate lead car sacceleration\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIAmplitude_move_lead\fP amplitude of the sine function 
+.RE
+.PP
+.PP
+.nf
+104 {
+105     return 0; //Use a Sin function with amplitude to variate the lead car speed
+106 }
+.fi
+
+.SS "int main ()"
+.PP
+.nf
+52           {
+53 
+54     do
+55     {
+56     //Generating Lead car data for this interaction\&. Based on previous values
+57     Acceleration_lead = generateLeadAcceleration(Amplitude_move_lead);
+58     V_lead = calculateLeadSpeed(V_lead, Acceleration_lead, step);
+59     Pos_lead =calculateEgoPosition(Pos_lead,V_lead,step,Acceleration_lead);
+60 
+61     safeDistance = D_distance + V_ego*(setTimeGap()); //Calculating safe distance
+62     relativeDistance = Pos_lead \- Pos_ego; //Calculating relative distance
+63     relativeSpeed = V_lead \- V_ego; //Calculating relative speed
+64     
+65     //if(ACC_input) V_ego_INITIAL = V_ego;
+66 
+67     //Using the ACC system with generated data from simulation
+68     ACC_enable = control(); //Check if ACC can be enabled
+69     ACC_acceleration = ACC_FUNCTION(); //Calculate ACC\&. If ACC is disable, returns 0;
+70 
+71     //Generating Ego car data for this interaction\&. Based on previous values
+72     V_ego = calculateEgoSpeed(Pos_ego, V_ego, step); //Calculating new speed
+73     Pos_lead = calculateEgoPosition(Pos_ego,V_ego,step,ACC_acceleration); //Calculating new pos
+74 
+75     //Run test for this interaction, such as check if there is colision
+76 
+77     counter++;
+78     } while (counter<=maxCounter);
+79 
+80     printf("SIMULATION ENDED");
+81     printf("\\n%d",counter);
+82     
+83 }
+.fi
+
+.SS "float setTimeGap ()"
+
+.PP
+Simulation function to define time gap between lead and ego car\&. .PP
+.nf
+126 {
+127     if(rain_signal == 0) return D_time_gap;
+128     else return D_time_gap*2;
+129 }
+.fi
+
+.SH "Variable Documentation"
+.PP 
+.SS "float ACC_acceleration = 0"
+Ego car initial speed (meters per second) 
+.SS "short int ACC_enable = 0"
+Signal from rain sensor\&. Indicates rain surface, affecting required time gap\&. 
+.SS "int ACC_input = 0"
+Max acceleration value - More than this and will be unconfortable 
+.SS "float Acceleration_lead = 0"
+Initial front car position (meters) 
+.SS "float Amplitude_move_lead = 0\&.1"
+Base front car acceleration - Causes variation in front car speed 
+.SS "int Brake_pedal = 0"
+User input indicating the Gas pedal has been pressed and ACC must be disabled\&. 
+.SS "int counter = 0"
+User input indicating the Brake pedal has been pressed and ACC must be disabled\&. 
+.SS "float D_distance = 10"
+Base time gap between the ACC car (Ego) and front car (Lead)\&. 
+.SS "float D_time_gap = 3"
+
+.SS "const float Ego_acceleration_max = 1\&.47"
+Max brake value 
+.SS "const float Ego_acceleration_min = \-5\&.0"
+Gains 
+.SS "int Fault_signal = 0"
+User input to enable ACC\&. Does not mean the acc is enabled (yet)\&. 
+.SS "int Gas_pedal = 0"
+System input indicating fault in at least one sensor\&. If true, ACC must be disabled\&. 
+.SS "const float Kverr_gain = 0\&.5"
+Represents the system input when the ACC is enabled\&. 
+.SS "const float Kvx_gain = 0\&.04"
+Gains 
+.SS "const float Kxerr_gain = 0\&.0"
+Gains 
+.SS "const int maxCounter = 10000"
+Counter of iteractions for this simulation 
+.SS "float Pos_ego = 0"
+Determines how much the front car acceleration should vary 
+.SS "float Pos_lead = 100"
+Initial front car speed in meters per second 
+.SS "int rain_signal = 0"
+User defined velocity for ACC\&. 
+.SS "float relativeDistance = 15"
+Ego car initial acceleration\&. Changed by ACC output during runtime\&. 
+.SS "float relativeSpeed = 10"
+relativeDistance = Pos_lead - Pos_ego 
+.SS "float safeDistance = 15"
+relativeSpeed = V_lead - V_ego 
+.SS "float step = 0\&.001"
+Time between iteractions 
+.SS "float V_ego = 17"
+Ego car initial position (meters) 
+.SS "float V_lead = 25"
+Max number of iteractions for this simulation 
+.SS "float V_set = 21"
+Base distance between cars, regardless of timegap\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ACC from the source code\&.

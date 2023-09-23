@@ -1,0 +1,190 @@
+\doxysection{ACC\+\_\+\+Code.\+c File Reference}
+\label{_a_c_c___code_8c}\index{ACC\_Code.c@{ACC\_Code.c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \textbf{ ACCenable}
+\item 
+struct \textbf{ ACCcontrol}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \textbf{ ACCenable} \textbf{ logic\+Block\+Acc\+Enable} (bool \textbf{ aux}, bool \textbf{ ACC\+\_\+input}, bool \textbf{ Fault\+\_\+signal}, float \textbf{ Ego\+\_\+velo}, bool \textbf{ Gas\+\_\+pedal}, bool \textbf{ Brake\+\_\+pedal})
+\begin{DoxyCompactList}\small\item\em ACC enable logic block. \end{DoxyCompactList}\item 
+float \textbf{ time\+Gap} (bool \textbf{ Rain\+\_\+sensor})
+\begin{DoxyCompactList}\small\item\em Time Gap. \end{DoxyCompactList}\item 
+float \textbf{ speed\+Set} (float \textbf{ ACC\+\_\+speed\+\_\+set})
+\begin{DoxyCompactList}\small\item\em Speed Set. \end{DoxyCompactList}\item 
+struct \textbf{ ACCcontrol} \textbf{ acceleration\+Control} (bool \textbf{ ACC\+\_\+enabled}, float \textbf{ Ego\+\_\+velo}, float \textbf{ Time\+\_\+\+Gap}, float \textbf{ ACC\+\_\+speed\+\_\+set}, float \textbf{ Relative\+\_\+velo}, float \textbf{ Relative\+\_\+distance\+\_\+pres})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\label{_a_c_c___code_8c_a386f000156b63f3dff0448300a879c9b} 
+\index{ACC\_Code.c@{ACC\_Code.c}!accelerationControl@{accelerationControl}}
+\index{accelerationControl@{accelerationControl}!ACC\_Code.c@{ACC\_Code.c}}
+\doxysubsubsection{accelerationControl()}
+{\footnotesize\ttfamily struct \textbf{ ACCcontrol} acceleration\+Control (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enabled,  }\item[{float}]{Ego\+\_\+velo,  }\item[{float}]{Time\+\_\+\+Gap,  }\item[{float}]{ACC\+\_\+speed\+\_\+set,  }\item[{float}]{Relative\+\_\+velo,  }\item[{float}]{Relative\+\_\+distance\+\_\+pres }\end{DoxyParamCaption})}
+
+Acceleration Control
+
+Function responsible for calculating and defining the acceleration to reach the setspeed or reduce the speed to meet the safety distance
+\begin{DoxyParams}{Parameters}
+{\em ACC\+\_\+enabled} & Variable that defines whether ACC is on or off  \\
+\hline
+{\em Ego\+\_\+velo} & Car speed  \\
+\hline
+{\em Time\+\_\+\+Gap} & Time gap between ego car and lead car  \\
+\hline
+{\em ACC\+\_\+speed\+\_\+set} & Setspeed defined by user  \\
+\hline
+{\em Relative\+\_\+velo} & Relative speed between ego and lead car  \\
+\hline
+{\em Relative\+\_\+distance\+\_\+pres} & Relative distance between ego car and lead car \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{struct\ }ACCcontrol\ i;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{float}\ SafeD\_relD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Difference\ between\ safe\ and\ relative\ distance}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ D\_default\ \ \ \ \ \ \ \ \ \ \ \ =\ 10;\ \ \textcolor{comment}{//\ Standard\ distance}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{float}\ Control\_x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance\ }}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{float}\ Control\_v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kverr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.5;\ \textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kxerr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.02;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kvx\_gain\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0.04;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_min\ =\ -\/5;\ \ \textcolor{comment}{//\ Minimum\ ego\ car\ acceleration}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_max\ =\ 1.47;\textcolor{comment}{//\ Max\ ego\ car\ acceleration}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (ACC\_enabled)\ \{\textcolor{comment}{//\ Test\ if\ acc\ is\ ON/OFF}}
+\DoxyCodeLine{00089\ \ \ \ \ i.Safe\_distance\ =\ (Ego\_velo\ *\ Time\_Gap)\ +\ D\_default;}
+\DoxyCodeLine{00090\ \ \ \ \ SafeD\_relD\ =\ i.Safe\_distance\ -\/\ Relative\_distance\_pres;}
+\DoxyCodeLine{00091\ \ \ \ \ Control\_x\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ ((i.Safe\_distance\ -\/\ Relative\_distance\_pres)\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00092\ \ \ \ \ Control\_v\ =\ (ACC\_speed\_set\ -\/\ Ego\_velo)\ *\ Kverr\_gain;}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Test\ whether\ it\ is\ possible\ to\ use\ ACC\ safely}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (SafeD\_relD\ >\ 0)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ i.Acceleration\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ (SafeD\_relD\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ i.Acceleration\ =\ (Control\_x\ <\ Control\_v)\ ?\ Control\_x\ :\ Control\_v;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ i.Acceleration\ =\ (i.Acceleration\ <\ Ego\_acceleration\_min)\ ?}
+\DoxyCodeLine{00101\ \ \ \ \ Ego\_acceleration\_min\ :\ (i.Acceleration\ >\ Ego\_acceleration\_max)\ ?\ }
+\DoxyCodeLine{00102\ \ \ \ \ Ego\_acceleration\_max\ :\ i.Acceleration;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ If\ the\ safety\ conditions\ are\ not\ accepted,\ do\ not\ accelerate\ the\ car}}
+\DoxyCodeLine{00105\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ i.Acceleration\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ \}}
+
+\end{DoxyCode}
+\label{_a_c_c___code_8c_a9702c702ceac6b23c0340bc23f03fca3} 
+\index{ACC\_Code.c@{ACC\_Code.c}!logicBlockAccEnable@{logicBlockAccEnable}}
+\index{logicBlockAccEnable@{logicBlockAccEnable}!ACC\_Code.c@{ACC\_Code.c}}
+\doxysubsubsection{logicBlockAccEnable()}
+{\footnotesize\ttfamily struct \textbf{ ACCenable} logic\+Block\+Acc\+Enable (\begin{DoxyParamCaption}\item[{bool}]{aux,  }\item[{bool}]{ACC\+\_\+input,  }\item[{bool}]{Fault\+\_\+signal,  }\item[{float}]{Ego\+\_\+velo,  }\item[{bool}]{Gas\+\_\+pedal,  }\item[{bool}]{Brake\+\_\+pedal }\end{DoxyParamCaption})}
+
+
+
+ACC enable logic block. 
+
+This function has the role of checking whether or not it is possible to activate the ACC 
+\begin{DoxyParams}{Parameters}
+{\em aux} & Auxiliary variable  \\
+\hline
+{\em ACC\+\_\+input} & ACC input is the variable that defines whether or not the user-\/defined ACC works  \\
+\hline
+{\em Fault\+\_\+signal} & Fault signal is the variable that checks whether the sensors are working correctly  \\
+\hline
+{\em Ego\+\_\+velo} & Ego velocity is the current speed of the vehicle  \\
+\hline
+{\em Gas\+\_\+pedal} & It is the variable that identifies whether the accelerator pedal is pressed  \\
+\hline
+{\em Brake\+\_\+pedal} & It is the variable that identifies whether the brake pedal is pressed \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{struct\ }ACCenable\ index;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}\ (aux\ ==\ 0\ \&\&\ ACC\_input\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Ego\_velo\ >=\ 11\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ index.aux\ =\ 1;}
+\DoxyCodeLine{00030\ \ \ \ \ index.ACC\_enabled\ =\ 1;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (ACC\_input\ ==\ 1\ \&\&\ aux\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ index.ACC\_enabled\ =\ 1;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00038\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ index.ACC\_enabled\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ index.aux\ =\ 0;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+\label{_a_c_c___code_8c_a5799c10c74a8123d1d52caea9e5827a7} 
+\index{ACC\_Code.c@{ACC\_Code.c}!speedSet@{speedSet}}
+\index{speedSet@{speedSet}!ACC\_Code.c@{ACC\_Code.c}}
+\doxysubsubsection{speedSet()}
+{\footnotesize\ttfamily float speed\+Set (\begin{DoxyParamCaption}\item[{float}]{ACC\+\_\+speed\+\_\+set }\end{DoxyParamCaption})}
+
+
+
+Speed Set. 
+
+This variable\textquotesingle{}s function is to receive the desired speed value from the user and check whether it is possible to turn on the ACC by checking the speed range defined in the requirements. ~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em ACC\+\_\+speed\+\_\+set} & Setspeed defined by user \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_max\ =\ 120.0;}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_min\ =\ 40.0;}
+\DoxyCodeLine{00060\ \ \ ACC\_speed\_set\ =\ (ACC\_speed\_set\ <\ ACC\_speed\_set\_min)\ ?}
+\DoxyCodeLine{00061\ \ \ ACC\_speed\_set\_min\ :\ (ACC\_speed\_set\ >\ ACC\_speed\_set\_max)\ ?\ }
+\DoxyCodeLine{00062\ \ \ ACC\_speed\_set\_max\ :\ ACC\_speed\_set;}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ ACC\_speed\_set;}
+\DoxyCodeLine{00064\ \}}
+
+\end{DoxyCode}
+\label{_a_c_c___code_8c_a0e4499ee6d6488c81c271b3a66a4ccbe} 
+\index{ACC\_Code.c@{ACC\_Code.c}!timeGap@{timeGap}}
+\index{timeGap@{timeGap}!ACC\_Code.c@{ACC\_Code.c}}
+\doxysubsubsection{timeGap()}
+{\footnotesize\ttfamily float time\+Gap (\begin{DoxyParamCaption}\item[{bool}]{Rain\+\_\+sensor }\end{DoxyParamCaption})}
+
+
+
+Time Gap. 
+
+This function focuses on calculating the time gap between the car and the lead car 
+\begin{DoxyParams}{Parameters}
+{\em Rain\+\_\+sensor} & Variable that receives whether there is rain or not \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{float}\ Time\_Gap\ =\ 3;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Default\_Time\_Gap\ =\ 3;}
+\DoxyCodeLine{00051\ \ \ Time\_Gap\ =\ Rain\_sensor\ ?\ Default\_Time\_Gap\ *\ 2\ :\ Default\_Time\_Gap;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{return}\ Time\_Gap;}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}

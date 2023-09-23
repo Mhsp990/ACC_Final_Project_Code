@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__validation_8h" xml:lang="en-US">
+<title>Validation.h File Reference</title>
+<indexterm><primary>Validation.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;Validation.c&quot;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>bool <link linkend="__validation_8h_1a29f65dfccab410add4c062f22aeabc95">checkCollision</link> (bool <link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>, float <link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>)</para>
+</listitem>
+            <listitem><para>bool <link linkend="__validation_8h_1a513ddee1c80e0586fcc887ceb5502626">checkValidationSensors</link> (bool <link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>, bool <link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>, bool <link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>, bool <link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>)</para>
+</listitem>
+            <listitem><para>bool <link linkend="__validation_8h_1a1f64d1353d11c7a3e1ff5b6d27c5ca8e">checkRainSafeDistance</link> (bool <link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>, bool <link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>, const float <link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>, float <link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>, float <link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="__validation_8h_1a29f65dfccab410add4c062f22aeabc95"/><section>
+    <title>checkCollision()</title>
+<indexterm><primary>checkCollision</primary><secondary>Validation.h</secondary></indexterm>
+<indexterm><primary>Validation.h</primary><secondary>checkCollision</secondary></indexterm>
+<para><computeroutput>bool checkCollision (bool ACC_enable, float relativeDistance)</computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ACC_enable</entry><entry>
+<para>Checks if ACC is Enabled  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>relativeDistance</entry><entry>
+<para>Relative Distance Between Ego and Lead Car </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">5 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+6 
+7 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>&#32;==&#32;<emphasis role="keyword">true</emphasis>&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>&#32;&lt;=&#32;0){
+8 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Collision&#32;detected.&#32;Take&#32;the&#32;necessary&#32;actions...\n&quot;</emphasis>);
+9 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+10 &#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+11 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+12 &#32;&#32;&#32;&#32;}&#32;&#32;&#32;
+13 }
+</programlisting></section>
+<anchor xml:id="__validation_8h_1a1f64d1353d11c7a3e1ff5b6d27c5ca8e"/><section>
+    <title>checkRainSafeDistance()</title>
+<indexterm><primary>checkRainSafeDistance</primary><secondary>Validation.h</secondary></indexterm>
+<indexterm><primary>Validation.h</primary><secondary>checkRainSafeDistance</secondary></indexterm>
+<para><computeroutput>bool checkRainSafeDistance (bool ACC_enable, bool rain_signal, const float D_distance, float V_ego, float safeDistance)</computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ACC_enable</entry><entry>
+<para>Checks if ACC is Enabled  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rain_signal</entry><entry>
+<para>checks the presence of rain on the track  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>D_distance</entry><entry>
+<para>default distance  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>V_ego</entry><entry>
+<para>velocity of ego car  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>safeDistance</entry><entry>
+<para>Safe distance </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">47 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+48 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+49 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>){
+50 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;!=&#32;(<link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>&#32;+&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>*6)){
+51 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Safe&#32;distance&#32;is&#32;not&#32;correct&#32;for&#32;a&#32;wet&#32;street\n&quot;</emphasis>);
+52 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+53 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+54 &#32;&#32;&#32;&#32;}
+55 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+56 }
+</programlisting></section>
+<anchor xml:id="__validation_8h_1a513ddee1c80e0586fcc887ceb5502626"/><section>
+    <title>checkValidationSensors()</title>
+<indexterm><primary>checkValidationSensors</primary><secondary>Validation.h</secondary></indexterm>
+<indexterm><primary>Validation.h</primary><secondary>checkValidationSensors</secondary></indexterm>
+<para><computeroutput>bool checkValidationSensors (bool ACC_enable, bool Fault_signal, bool Gas_pedal, bool Brake_pedal)</computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ACC_enable</entry><entry>
+<para>Checks if ACC is Enabled  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Fault_signal</entry><entry>
+<para>Checks if all sensors are working  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Gas_pedal</entry><entry>
+<para>Checks if gas pedal was pressed  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Brake_pedal</entry><entry>
+<para>Checks if break pedal was pressed </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">18 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+19 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">short</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;flag&#32;=&#32;0;
+20 
+21 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>){
+22 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>){
+23 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Fault&#32;signal&#32;on\n&quot;</emphasis>);
+24 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+25 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+26 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>){
+27 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Gas&#32;pedal&#32;signal&#32;on\n&quot;</emphasis>);
+28 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+29 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+30 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>){
+31 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Break&#32;pedal&#32;signal&#32;on\n&quot;</emphasis>);
+32 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+33 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+34 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(flag){
+35 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+36 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+37 &#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+38 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+39 &#32;&#32;&#32;&#32;}
+40 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+41 }
+</programlisting></section>
+</section>
+</section>

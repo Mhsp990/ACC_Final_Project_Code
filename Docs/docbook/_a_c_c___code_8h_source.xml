@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__a_c_c___code_8h_source" xml:lang="en-US">
+<title>ACC_Code.h</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered">1 
+2 <emphasis role="preprocessor">#ifndef&#32;ACC_CODE_H</emphasis>
+3 <emphasis role="preprocessor">#define&#32;ACC_CODE_H</emphasis>
+4 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="__a_c_c___code_8c">ACC_Code.c</link>&quot;</emphasis>
+5 <emphasis role="preprocessor">#include&#32;&lt;stdbool.h&gt;</emphasis>
+6 
+7 <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_a_c_cenable">ACCenable</link>&#32;<link linkend="__a_c_c___code_8h_1a9702c702ceac6b23c0340bc23f03fca3">logicBlockAccEnable</link>(bool&#32;<link linkend="__simulation_a_c_c___code_8c_1a9470c26598e7647a6dc6405c215bb22e">aux</link>,&#32;bool&#32;<link linkend="__simulation_8c_1acbc4f4aaa886a5dc0da0757aa853cf85">ACC_input</link>,
+8 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bool&#32;<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>,&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>,
+9 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bool&#32;<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>,&#32;bool&#32;<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>);
+10 <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_a_c_ccontrol">ACCcontrol</link>&#32;<link linkend="__a_c_c___code_8h_1a386f000156b63f3dff0448300a879c9b">accelerationControl</link>(bool&#32;<link linkend="__simulation_a_c_c___code_8c_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link>,&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>,
+11 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1abf3e935bafcae937d559251be96f0054">Time_Gap</link>,&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link>,
+12 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1a34acfd270620b972681e56e1073e157a">Relative_velo</link>,
+13 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>);
+14 <emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__a_c_c___code_8h_1a0e4499ee6d6488c81c271b3a66a4ccbe">timeGap</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_a_c_c___code_8c_1a1cde5d5ce80220d52bb5767d2301e17d">Rain_sensor</link>);
+15 <emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__a_c_c___code_8h_1a5799c10c74a8123d1d52caea9e5827a7">speedSet</link>(<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link>);
+16 
+17 <emphasis role="preprocessor">#endif</emphasis>
+</programlisting></section>

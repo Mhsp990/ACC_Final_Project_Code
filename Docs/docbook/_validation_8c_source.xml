@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__validation_8c_source" xml:lang="en-US">
+<title>Validation.c</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered">1 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+2 <emphasis role="preprocessor">#include&lt;stdbool.h&gt;</emphasis>
+3 
+4 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8c_1a29f65dfccab410add4c062f22aeabc95">checkCollision</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,
+5 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>)&#32;{
+6 
+7 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>&#32;==&#32;<emphasis role="keyword">true</emphasis>&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>&#32;&lt;=&#32;0){
+8 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Collision&#32;detected.&#32;Take&#32;the&#32;necessary&#32;actions...\n&quot;</emphasis>);
+9 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+10 &#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+11 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+12 &#32;&#32;&#32;&#32;}&#32;&#32;&#32;
+13 }
+14 
+15 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8c_1a513ddee1c80e0586fcc887ceb5502626">checkValidationSensors</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,
+16 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>,&#32;
+17 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>,&#32;
+18 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>)&#32;{
+19 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">short</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;flag&#32;=&#32;0;
+20 
+21 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>){
+22 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>){
+23 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Fault&#32;signal&#32;on\n&quot;</emphasis>);
+24 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+25 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+26 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>){
+27 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Gas&#32;pedal&#32;signal&#32;on\n&quot;</emphasis>);
+28 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+29 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+30 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>){
+31 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;ACC&#32;could&#32;not&#32;have&#32;triggered&#32;with&#32;a&#32;Break&#32;pedal&#32;signal&#32;on\n&quot;</emphasis>);
+32 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flag++;
+33 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+34 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(flag){
+35 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+36 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+37 &#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+38 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+39 &#32;&#32;&#32;&#32;}
+40 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+41 }
+42 
+43 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8c_1a1f64d1353d11c7a3e1ff5b6d27c5ca8e">checkRainSafeDistance</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,&#32;
+44 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>,&#32;
+45 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>,&#32;
+46 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>,&#32;
+47 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>){
+48 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+49 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>){
+50 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;!=&#32;(<link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>&#32;+&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>*6)){
+51 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Safe&#32;distance&#32;is&#32;not&#32;correct&#32;for&#32;a&#32;wet&#32;street\n&quot;</emphasis>);
+52 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+53 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+54 &#32;&#32;&#32;&#32;}
+55 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+56 }
+57 
+58 <emphasis role="comment">/*bool&#32;checkRelativeSafeDistance(bool&#32;ACC_enable,&#32;float&#32;safeDistance,&#32;float&#32;relativeDistance){</emphasis>
+59 <emphasis role="comment">&#32;&#32;&#32;&#32;if(ACC_enable){</emphasis>
+60 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if(relativeDistance&#32;&lt;&#32;safeDistance){</emphasis>
+61 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(&quot;The&#32;vehicle&#32;is&#32;closer&#32;than&#32;the&#32;limit\n&quot;);&#32;//This&#32;is&#32;not&#32;a&#32;error,&#32;is&#32;a&#32;mode&#32;change</emphasis>
+62 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;//This&#32;change&#32;from&#32;speed&#32;control&#32;to&#32;distance&#32;control&#32;mode</emphasis>
+63 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;1;</emphasis>
+64 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}</emphasis>
+65 <emphasis role="comment">&#32;&#32;&#32;&#32;}</emphasis>
+66 <emphasis role="comment">&#32;&#32;&#32;&#32;return&#32;0;</emphasis>
+67 <emphasis role="comment">}*/</emphasis>
+68 
+69 
+70 
+71 
+72 <emphasis role="comment">//----------------------&#32;simulating&#32;calling&#32;the&#32;check&#32;functions------------------</emphasis>
+73 <emphasis role="comment">/*</emphasis>
+74 <emphasis role="comment">int&#32;main()&#32;{</emphasis>
+75 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;ACC_enable&#32;=&#32;1;</emphasis>
+76 <emphasis role="comment">&#32;&#32;&#32;&#32;float&#32;relativeDistance&#32;=&#32;0;</emphasis>
+77 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;Fault_signal&#32;=&#32;1;&#32;</emphasis>
+78 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;Gas_pedal&#32;=&#32;1;&#32;</emphasis>
+79 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;Brake_pedal&#32;=&#32;1;</emphasis>
+80 <emphasis role="comment"></emphasis>
+81 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;rain_signal&#32;=&#32;1;</emphasis>
+82 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;D_distance&#32;=&#32;10;</emphasis>
+83 <emphasis role="comment">&#32;&#32;&#32;&#32;int&#32;V_ego&#32;=&#32;17;</emphasis>
+84 <emphasis role="comment">&#32;&#32;&#32;&#32;float&#32;safeDistance&#32;=&#32;112;&#32;//distance&#32;for&#32;a&#32;wet&#32;street&#32;</emphasis>
+85 <emphasis role="comment"></emphasis>
+86 <emphasis role="comment">&#32;&#32;&#32;&#32;checkCollision(ACC_enable,&#32;relativeDistance);</emphasis>
+87 <emphasis role="comment">&#32;&#32;&#32;&#32;checkValidationSensors(ACC_enable,&#32;Fault_signal,&#32;Gas_pedal,&#32;Brake_pedal);</emphasis>
+88 <emphasis role="comment">&#32;&#32;&#32;&#32;checkRainSafeDistance(ACC_enable&#32;,rain_signal,&#32;D_distance,&#32;V_ego,&#32;safeDistance);</emphasis>
+89 <emphasis role="comment">&#32;&#32;&#32;&#32;checkRelativeSafeDistance(ACC_enable,&#32;safeDistance,&#32;relativeDistance);</emphasis>
+90 <emphasis role="comment">&#32;&#32;&#32;&#32;return&#32;0;</emphasis>
+91 <emphasis role="comment">}</emphasis>
+92 <emphasis role="comment"></emphasis>
+93 <emphasis role="comment">*/</emphasis>
+</programlisting></section>

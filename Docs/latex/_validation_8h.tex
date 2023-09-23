@@ -1,0 +1,119 @@
+\doxysection{Validation.\+h File Reference}
+\label{_validation_8h}\index{Validation.h@{Validation.h}}
+{\ttfamily \#include "{}Validation.\+c"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ check\+Collision} (bool \textbf{ ACC\+\_\+enable}, float \textbf{ relative\+Distance})
+\item 
+bool \textbf{ check\+Validation\+Sensors} (bool \textbf{ ACC\+\_\+enable}, bool \textbf{ Fault\+\_\+signal}, bool \textbf{ Gas\+\_\+pedal}, bool \textbf{ Brake\+\_\+pedal})
+\item 
+bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool \textbf{ rain\+\_\+signal}, const float \textbf{ D\+\_\+distance}, float \textbf{ V\+\_\+ego}, float \textbf{ safe\+Distance})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\label{_validation_8h_a29f65dfccab410add4c062f22aeabc95} 
+\index{Validation.h@{Validation.h}!checkCollision@{checkCollision}}
+\index{checkCollision@{checkCollision}!Validation.h@{Validation.h}}
+\doxysubsubsection{checkCollision()}
+{\footnotesize\ttfamily bool check\+Collision (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{float}]{relative\+Distance }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ACC\+\_\+enable} & Checks if ACC is Enabled  \\
+\hline
+{\em relative\+Distance} & Relative Distance Between Ego and Lead Car \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ ==\ \textcolor{keyword}{true}\ \&\&\ relativeDistance\ <=\ 0)\{}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Collision\ detected.\ Take\ the\ necessary\ actions...\(\backslash\)n"{}});}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00010\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00012\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00013\ \}}
+
+\end{DoxyCode}
+\label{_validation_8h_a1f64d1353d11c7a3e1ff5b6d27c5ca8e} 
+\index{Validation.h@{Validation.h}!checkRainSafeDistance@{checkRainSafeDistance}}
+\index{checkRainSafeDistance@{checkRainSafeDistance}!Validation.h@{Validation.h}}
+\doxysubsubsection{checkRainSafeDistance()}
+{\footnotesize\ttfamily bool check\+Rain\+Safe\+Distance (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{bool}]{rain\+\_\+signal,  }\item[{const float}]{D\+\_\+distance,  }\item[{float}]{V\+\_\+ego,  }\item[{float}]{safe\+Distance }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ACC\+\_\+enable} & Checks if ACC is Enabled  \\
+\hline
+{\em rain\+\_\+signal} & checks the presence of rain on the track  \\
+\hline
+{\em D\+\_\+distance} & default distance  \\
+\hline
+{\em V\+\_\+ego} & velocity of ego car  \\
+\hline
+{\em safe\+Distance} & Safe distance \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ \&\&\ rain\_signal)\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(safeDistance\ !=\ (D\_distance\ +\ V\_ego*6))\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Safe\ distance\ is\ not\ correct\ for\ a\ wet\ street\(\backslash\)n"{}});}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00056\ \}}
+
+\end{DoxyCode}
+\label{_validation_8h_a513ddee1c80e0586fcc887ceb5502626} 
+\index{Validation.h@{Validation.h}!checkValidationSensors@{checkValidationSensors}}
+\index{checkValidationSensors@{checkValidationSensors}!Validation.h@{Validation.h}}
+\doxysubsubsection{checkValidationSensors()}
+{\footnotesize\ttfamily bool check\+Validation\+Sensors (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{bool}]{Fault\+\_\+signal,  }\item[{bool}]{Gas\+\_\+pedal,  }\item[{bool}]{Brake\+\_\+pedal }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ACC\+\_\+enable} & Checks if ACC is Enabled  \\
+\hline
+{\em Fault\+\_\+signal} & Checks if all sensors are working  \\
+\hline
+{\em Gas\+\_\+pedal} & Checks if gas pedal was pressed  \\
+\hline
+{\em Brake\+\_\+pedal} & Checks if break pedal was pressed \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable)\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Fault\_signal)\{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Fault\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Gas\_pedal)\{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Gas\ pedal\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Brake\_pedal)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Break\ pedal\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(flag)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00041\ \}}
+
+\end{DoxyCode}

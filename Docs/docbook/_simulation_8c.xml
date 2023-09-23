@@ -1,0 +1,625 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__simulation_8c" xml:lang="en-US">
+<title>Simulation.c File Reference</title>
+<indexterm><primary>Simulation.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;stdio.h&gt;<?linebreak?>#include &lt;math.h&gt;<?linebreak?>#include &quot;Validation.h&quot;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="__simulation_8c_1a7c1d1b0927a4ead62732285e30ac90e8">calculateLeadSpeed</link> (float Vo, float Acc, float dT)</para>
+
+<para>Simulation function to calculate lead car speed. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a81055d9301084d4324fef5c0cd6de0d8">calculateLeadPosition</link> (float So, float Vo, float dT, float Acc)</para>
+
+<para>Simulation function to calculate lead car position. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a9bf16dca346a76e02b69f4294d4aae0b">generateLeadAcceleration</link> (float <link linkend="__simulation_8c_1aa0ea152f25d8d75fca542b2987ad4c26">Amplitude_move_lead</link>)</para>
+
+<para>Simulation function to calculate lead car sacceleration. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1ae825d5bd0a44403bd0b374ba6afb5c58">calculateEgoSpeed</link> (float Vo, float Acc, float dT)</para>
+
+<para>Simulation function to calculate Ego car speed. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a939656fa586dcc1d48f583e13157b41d">calculateEgoPosition</link> (float So, float Vo, float dT, float Acc)</para>
+
+<para>Simulation function to calculate Ego car position. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aa433a1f6c1c6e656a7f020468916ff45">setTimeGap</link> ()</para>
+
+<para>Simulation function to define time gap between lead and ego car. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aec14e90b6f95b48c921690111448881a">control</link> ()</para>
+
+<para>Simulation function to define control block. </para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aa37779b685d67683fb2409e719b8ba47">ACC_FUNCTION</link> ()</para>
+
+<para>Simulation function to execute ACC. </para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa">step</link> = 0.001</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aaa00d6deaba7bc13c8f03fc1b638106e">D_time_gap</link> = 3</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link> = 10</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aa927134014151ea1451a02794db39d00">V_set</link> = 21</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link> = 0</para>
+</listitem>
+            <listitem><para>short int <link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link> = 0</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_8c_1a19f9c8d588c878138bb53677277486d2">Kverr_gain</link> = 0.5</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e">Kxerr_gain</link> = 0.0</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88">Kvx_gain</link> = 0.04</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_8c_1ad8c674482d700191da4df4dc627729d3">Ego_acceleration_min</link> = -5.0</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_8c_1a3112cac93f77e9cc17c218a63204bf96">Ego_acceleration_max</link> = 1.47</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1acbc4f4aaa886a5dc0da0757aa853cf85">ACC_input</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_8c_1a617a47c70795bcff659815ad0efd2266">counter</link> = 0</para>
+</listitem>
+            <listitem><para>const int <link linkend="__simulation_8c_1a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff">maxCounter</link> = 10000</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42">V_lead</link> = 25</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aa908554740714f0d33597e95c412a215">Pos_lead</link> = 100</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1ade2d2b5f9c0b152f97ca2e6c6c90e38e">Acceleration_lead</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1aa0ea152f25d8d75fca542b2987ad4c26">Amplitude_move_lead</link> = 0.1</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1af720e5ece426ad568df9a06151ca4c4e">Pos_ego</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link> = 17</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1afd340d6fb70d61744efa058238326252">ACC_acceleration</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link> = 15</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1ab2fc382d81dbd7faa4bbc8f1331290ac">relativeSpeed</link> = 10</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link> = 15</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="__simulation_8c_1aa37779b685d67683fb2409e719b8ba47"/><section>
+    <title>ACC_FUNCTION()</title>
+<indexterm><primary>ACC_FUNCTION</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>ACC_FUNCTION</secondary></indexterm>
+<para><computeroutput>float ACC_FUNCTION ( )</computeroutput></para><para>
+
+<para>Simulation function to execute ACC. </para>
+</para>
+<programlisting linenumbering="unnumbered">145 {
+146 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>){
+147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791">Control_x</link>&#32;=0,&#32;<link linkend="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1">Control_v</link>=0;
+148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;0;
+149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791">Control_x</link>&#32;=&#32;(<link linkend="__simulation_8c_1ab2fc382d81dbd7faa4bbc8f1331290ac">relativeSpeed</link>&#32;*&#32;<link linkend="__simulation_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88">Kvx_gain</link>)&#32;-&#32;((<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;-&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>)&#32;*&#32;<link linkend="__simulation_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e">Kxerr_gain</link>);
+150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1">Control_v</link>&#32;=&#32;(<link linkend="__simulation_8c_1aa927134014151ea1451a02794db39d00">V_set</link>&#32;-&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>)&#32;*&#32;<link linkend="__simulation_8c_1a19f9c8d588c878138bb53677277486d2">Kverr_gain</link>;
+151 
+152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;&lt;=&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>){
+153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;(<link linkend="__simulation_8c_1ab2fc382d81dbd7faa4bbc8f1331290ac">relativeSpeed</link>&#32;*&#32;<link linkend="__simulation_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88">Kvx_gain</link>)&#32;-&#32;((<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;-&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>)&#32;*&#32;<link linkend="__simulation_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e">Kxerr_gain</link>);
+155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791">Control_x</link>&#32;&lt;&#32;<link linkend="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1">Control_v</link>){
+158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791">Control_x</link>;
+159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1">Control_v</link>;
+161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;&lt;&#32;<link linkend="__simulation_8c_1ad8c674482d700191da4df4dc627729d3">Ego_acceleration_min</link>){
+164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;<link linkend="__simulation_8c_1ad8c674482d700191da4df4dc627729d3">Ego_acceleration_min</link>;
+166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;&gt;&#32;<link linkend="__simulation_8c_1a3112cac93f77e9cc17c218a63204bf96">Ego_acceleration_max</link>)&#32;{
+168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;<link linkend="__simulation_8c_1a3112cac93f77e9cc17c218a63204bf96">Ego_acceleration_max</link>;
+170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>;
+173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+175 }&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1a939656fa586dcc1d48f583e13157b41d"/><section>
+    <title>calculateEgoPosition()</title>
+<indexterm><primary>calculateEgoPosition</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>calculateEgoPosition</secondary></indexterm>
+<para><computeroutput>float calculateEgoPosition (float So, float Vo, float dT, float Acc)</computeroutput></para><para>
+
+<para>Simulation function to calculate Ego car position. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>So</entry><entry>
+<para>amplitude of the sine function  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Vo</entry><entry>
+<para>initial speed  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dT</entry><entry>
+<para>time interval  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Acc</entry><entry>
+<para>acceleration </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">121 {
+122 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;So+(Vo*dT)+&#32;(pow(Acc*dT,2))/2;
+123 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1ae825d5bd0a44403bd0b374ba6afb5c58"/><section>
+    <title>calculateEgoSpeed()</title>
+<indexterm><primary>calculateEgoSpeed</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>calculateEgoSpeed</secondary></indexterm>
+<para><computeroutput>float calculateEgoSpeed (float Vo, float Acc, float dT)</computeroutput></para><para>
+
+<para>Simulation function to calculate Ego car speed. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Vo</entry><entry>
+<para>initial speed  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Acc</entry><entry>
+<para>acceleration  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dT</entry><entry>
+<para>time interval </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">113 {
+114 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Vo+(Acc*dT);
+115 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1a81055d9301084d4324fef5c0cd6de0d8"/><section>
+    <title>calculateLeadPosition()</title>
+<indexterm><primary>calculateLeadPosition</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>calculateLeadPosition</secondary></indexterm>
+<para><computeroutput>float calculateLeadPosition (float So, float Vo, float dT, float Acc)</computeroutput></para><para>
+
+<para>Simulation function to calculate lead car position. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>So</entry><entry>
+<para>initial position  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Vo</entry><entry>
+<para>initial speed  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dT</entry><entry>
+<para>time interval  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Acc</entry><entry>
+<para>acceleration </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">99 {
+100 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;So+(Vo*dT)+(pow((Acc*dT),2))/2;
+101 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1a7c1d1b0927a4ead62732285e30ac90e8"/><section>
+    <title>calculateLeadSpeed()</title>
+<indexterm><primary>calculateLeadSpeed</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>calculateLeadSpeed</secondary></indexterm>
+<para><computeroutput>float calculateLeadSpeed (float Vo, float Acc, float dT)</computeroutput></para><para>
+
+<para>Simulation function to calculate lead car speed. </para>
+</para>
+
+<para>safeDistance = (D_time_Gap*2) + D_distance </para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Vo</entry><entry>
+<para>initial speed  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Acc</entry><entry>
+<para>acceleration  </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dT</entry><entry>
+<para>time interval </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">91 {
+92 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Vo+(Acc*dT);
+93 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1aec14e90b6f95b48c921690111448881a"/><section>
+    <title>control()</title>
+<indexterm><primary>control</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>control</secondary></indexterm>
+<para><computeroutput>float control ( )</computeroutput></para><para>
+
+<para>Simulation function to define control block. </para>
+</para>
+<programlisting linenumbering="unnumbered">134 {
+135 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1acbc4f4aaa886a5dc0da0757aa853cf85">ACC_input</link>&#32;==&#32;1&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>&#32;==&#32;0&#32;&amp;&amp;&#32;(<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>&#32;&gt;=&#32;11&#32;||&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>&#32;&lt;=&#32;33)&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>&#32;==&#32;0&#32;&amp;&amp;&#32;<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>&#32;==&#32;0){
+136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+137 &#32;&#32;&#32;&#32;}
+138 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+140 &#32;&#32;&#32;&#32;}
+141 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1a9bf16dca346a76e02b69f4294d4aae0b"/><section>
+    <title>generateLeadAcceleration()</title>
+<indexterm><primary>generateLeadAcceleration</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>generateLeadAcceleration</secondary></indexterm>
+<para><computeroutput>float generateLeadAcceleration (float Amplitude_move_lead)</computeroutput></para><para>
+
+<para>Simulation function to calculate lead car sacceleration. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Amplitude_move_lead</entry><entry>
+<para>amplitude of the sine function </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<programlisting linenumbering="unnumbered">104 {
+105 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;&#32;<emphasis role="comment">//Use&#32;a&#32;Sin&#32;function&#32;with&#32;amplitude&#32;to&#32;variate&#32;the&#32;lead&#32;car&#32;speed</emphasis>
+106 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main ( )</computeroutput></para><programlisting linenumbering="unnumbered">52 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+53 
+54 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">do</emphasis>
+55 &#32;&#32;&#32;&#32;{
+56 &#32;&#32;&#32;&#32;<emphasis role="comment">//Generating&#32;Lead&#32;car&#32;data&#32;for&#32;this&#32;interaction.&#32;Based&#32;on&#32;previous&#32;values</emphasis>
+57 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1ade2d2b5f9c0b152f97ca2e6c6c90e38e">Acceleration_lead</link>&#32;=&#32;<link linkend="__simulation_8c_1a9bf16dca346a76e02b69f4294d4aae0b">generateLeadAcceleration</link>(<link linkend="__simulation_8c_1aa0ea152f25d8d75fca542b2987ad4c26">Amplitude_move_lead</link>);
+58 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42">V_lead</link>&#32;=&#32;<link linkend="__simulation_8c_1a7c1d1b0927a4ead62732285e30ac90e8">calculateLeadSpeed</link>(<link linkend="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42">V_lead</link>,&#32;<link linkend="__simulation_8c_1ade2d2b5f9c0b152f97ca2e6c6c90e38e">Acceleration_lead</link>,&#32;<link linkend="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa">step</link>);
+59 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1aa908554740714f0d33597e95c412a215">Pos_lead</link>&#32;=<link linkend="__simulation_8c_1a939656fa586dcc1d48f583e13157b41d">calculateEgoPosition</link>(<link linkend="__simulation_8c_1aa908554740714f0d33597e95c412a215">Pos_lead</link>,<link linkend="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42">V_lead</link>,<link linkend="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa">step</link>,<link linkend="__simulation_8c_1ade2d2b5f9c0b152f97ca2e6c6c90e38e">Acceleration_lead</link>);
+60 
+61 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>&#32;=&#32;<link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>&#32;+&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>*(<link linkend="__simulation_8c_1aa433a1f6c1c6e656a7f020468916ff45">setTimeGap</link>());&#32;<emphasis role="comment">//Calculating&#32;safe&#32;distance</emphasis>
+62 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>&#32;=&#32;<link linkend="__simulation_8c_1aa908554740714f0d33597e95c412a215">Pos_lead</link>&#32;-&#32;<link linkend="__simulation_8c_1af720e5ece426ad568df9a06151ca4c4e">Pos_ego</link>;&#32;<emphasis role="comment">//Calculating&#32;relative&#32;distance</emphasis>
+63 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1ab2fc382d81dbd7faa4bbc8f1331290ac">relativeSpeed</link>&#32;=&#32;<link linkend="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42">V_lead</link>&#32;-&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>;&#32;<emphasis role="comment">//Calculating&#32;relative&#32;speed</emphasis>
+64 &#32;&#32;&#32;&#32;
+65 &#32;&#32;&#32;&#32;<emphasis role="comment">//if(ACC_input)&#32;V_ego_INITIAL&#32;=&#32;V_ego;</emphasis>
+66 
+67 &#32;&#32;&#32;&#32;<emphasis role="comment">//Using&#32;the&#32;ACC&#32;system&#32;with&#32;generated&#32;data&#32;from&#32;simulation</emphasis>
+68 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>&#32;=&#32;<link linkend="__simulation_8c_1aec14e90b6f95b48c921690111448881a">control</link>();&#32;<emphasis role="comment">//Check&#32;if&#32;ACC&#32;can&#32;be&#32;enabled</emphasis>
+69 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1afd340d6fb70d61744efa058238326252">ACC_acceleration</link>&#32;=&#32;<link linkend="__simulation_8c_1aa37779b685d67683fb2409e719b8ba47">ACC_FUNCTION</link>();&#32;<emphasis role="comment">//Calculate&#32;ACC.&#32;If&#32;ACC&#32;is&#32;disable,&#32;returns&#32;0;</emphasis>
+70 
+71 &#32;&#32;&#32;&#32;<emphasis role="comment">//Generating&#32;Ego&#32;car&#32;data&#32;for&#32;this&#32;interaction.&#32;Based&#32;on&#32;previous&#32;values</emphasis>
+72 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>&#32;=&#32;<link linkend="__simulation_8c_1ae825d5bd0a44403bd0b374ba6afb5c58">calculateEgoSpeed</link>(<link linkend="__simulation_8c_1af720e5ece426ad568df9a06151ca4c4e">Pos_ego</link>,&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>,&#32;<link linkend="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa">step</link>);&#32;<emphasis role="comment">//Calculating&#32;new&#32;speed</emphasis>
+73 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1aa908554740714f0d33597e95c412a215">Pos_lead</link>&#32;=&#32;<link linkend="__simulation_8c_1a939656fa586dcc1d48f583e13157b41d">calculateEgoPosition</link>(<link linkend="__simulation_8c_1af720e5ece426ad568df9a06151ca4c4e">Pos_ego</link>,<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>,<link linkend="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa">step</link>,<link linkend="__simulation_8c_1afd340d6fb70d61744efa058238326252">ACC_acceleration</link>);&#32;<emphasis role="comment">//Calculating&#32;new&#32;pos</emphasis>
+74 
+75 &#32;&#32;&#32;&#32;<emphasis role="comment">//Run&#32;test&#32;for&#32;this&#32;interaction,&#32;such&#32;as&#32;check&#32;if&#32;there&#32;is&#32;colision</emphasis>
+76 
+77 &#32;&#32;&#32;&#32;<link linkend="__simulation_8c_1a617a47c70795bcff659815ad0efd2266">counter</link>++;
+78 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">while</emphasis>&#32;(<link linkend="__simulation_8c_1a617a47c70795bcff659815ad0efd2266">counter</link>&lt;=<link linkend="__simulation_8c_1a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff">maxCounter</link>);
+79 
+80 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;SIMULATION&#32;ENDED&quot;</emphasis>);
+81 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;\n%d&quot;</emphasis>,<link linkend="__simulation_8c_1a617a47c70795bcff659815ad0efd2266">counter</link>);
+82 &#32;&#32;&#32;&#32;
+83 }
+</programlisting></section>
+<anchor xml:id="__simulation_8c_1aa433a1f6c1c6e656a7f020468916ff45"/><section>
+    <title>setTimeGap()</title>
+<indexterm><primary>setTimeGap</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>setTimeGap</secondary></indexterm>
+<para><computeroutput>float setTimeGap ( )</computeroutput></para><para>
+
+<para>Simulation function to define time gap between lead and ego car. </para>
+</para>
+<programlisting linenumbering="unnumbered">126 {
+127 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>&#32;==&#32;0)&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="__simulation_8c_1aaa00d6deaba7bc13c8f03fc1b638106e">D_time_gap</link>;
+128 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="__simulation_8c_1aaa00d6deaba7bc13c8f03fc1b638106e">D_time_gap</link>*2;
+129 }
+</programlisting></section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="__simulation_8c_1afd340d6fb70d61744efa058238326252"/><section>
+    <title>ACC_acceleration</title>
+<indexterm><primary>ACC_acceleration</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>ACC_acceleration</secondary></indexterm>
+<para><computeroutput>float ACC_acceleration = 0</computeroutput></para>
+<para>Ego car initial speed (meters per second) </para>
+</section>
+<anchor xml:id="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428"/><section>
+    <title>ACC_enable</title>
+<indexterm><primary>ACC_enable</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>ACC_enable</secondary></indexterm>
+<para><computeroutput>short int ACC_enable = 0</computeroutput></para>
+<para>Signal from rain sensor. Indicates rain surface, affecting required time gap. </para>
+</section>
+<anchor xml:id="__simulation_8c_1acbc4f4aaa886a5dc0da0757aa853cf85"/><section>
+    <title>ACC_input</title>
+<indexterm><primary>ACC_input</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>ACC_input</secondary></indexterm>
+<para><computeroutput>int ACC_input = 0</computeroutput></para>
+<para>Max acceleration value - More than this and will be unconfortable </para>
+</section>
+<anchor xml:id="__simulation_8c_1ade2d2b5f9c0b152f97ca2e6c6c90e38e"/><section>
+    <title>Acceleration_lead</title>
+<indexterm><primary>Acceleration_lead</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Acceleration_lead</secondary></indexterm>
+<para><computeroutput>float Acceleration_lead = 0</computeroutput></para>
+<para>Initial front car position (meters) </para>
+</section>
+<anchor xml:id="__simulation_8c_1aa0ea152f25d8d75fca542b2987ad4c26"/><section>
+    <title>Amplitude_move_lead</title>
+<indexterm><primary>Amplitude_move_lead</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Amplitude_move_lead</secondary></indexterm>
+<para><computeroutput>float Amplitude_move_lead = 0.1</computeroutput></para>
+<para>Base front car acceleration - Causes variation in front car speed </para>
+</section>
+<anchor xml:id="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38"/><section>
+    <title>Brake_pedal</title>
+<indexterm><primary>Brake_pedal</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Brake_pedal</secondary></indexterm>
+<para><computeroutput>int Brake_pedal = 0</computeroutput></para>
+<para>User input indicating the Gas pedal has been pressed and ACC must be disabled. </para>
+</section>
+<anchor xml:id="__simulation_8c_1a617a47c70795bcff659815ad0efd2266"/><section>
+    <title>counter</title>
+<indexterm><primary>counter</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>counter</secondary></indexterm>
+<para><computeroutput>int counter = 0</computeroutput></para>
+<para>User input indicating the Brake pedal has been pressed and ACC must be disabled. </para>
+</section>
+<anchor xml:id="__simulation_8c_1a956811f7965a657e3606df19862b3ec8"/><section>
+    <title>D_distance</title>
+<indexterm><primary>D_distance</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>D_distance</secondary></indexterm>
+<para><computeroutput>float D_distance = 10</computeroutput></para>
+<para>Base time gap between the ACC car (Ego) and front car (Lead). </para>
+</section>
+<anchor xml:id="__simulation_8c_1aaa00d6deaba7bc13c8f03fc1b638106e"/><section>
+    <title>D_time_gap</title>
+<indexterm><primary>D_time_gap</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>D_time_gap</secondary></indexterm>
+<para><computeroutput>float D_time_gap = 3</computeroutput></para></section>
+<anchor xml:id="__simulation_8c_1a3112cac93f77e9cc17c218a63204bf96"/><section>
+    <title>Ego_acceleration_max</title>
+<indexterm><primary>Ego_acceleration_max</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Ego_acceleration_max</secondary></indexterm>
+<para><computeroutput>const float Ego_acceleration_max = 1.47</computeroutput></para>
+<para>Max brake value </para>
+</section>
+<anchor xml:id="__simulation_8c_1ad8c674482d700191da4df4dc627729d3"/><section>
+    <title>Ego_acceleration_min</title>
+<indexterm><primary>Ego_acceleration_min</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Ego_acceleration_min</secondary></indexterm>
+<para><computeroutput>const float Ego_acceleration_min = -5.0</computeroutput></para>
+<para>Gains </para>
+</section>
+<anchor xml:id="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e"/><section>
+    <title>Fault_signal</title>
+<indexterm><primary>Fault_signal</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Fault_signal</secondary></indexterm>
+<para><computeroutput>int Fault_signal = 0</computeroutput></para>
+<para>User input to enable ACC. Does not mean the acc is enabled (yet). </para>
+</section>
+<anchor xml:id="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90"/><section>
+    <title>Gas_pedal</title>
+<indexterm><primary>Gas_pedal</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Gas_pedal</secondary></indexterm>
+<para><computeroutput>int Gas_pedal = 0</computeroutput></para>
+<para>System input indicating fault in at least one sensor. If true, ACC must be disabled. </para>
+</section>
+<anchor xml:id="__simulation_8c_1a19f9c8d588c878138bb53677277486d2"/><section>
+    <title>Kverr_gain</title>
+<indexterm><primary>Kverr_gain</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Kverr_gain</secondary></indexterm>
+<para><computeroutput>const float Kverr_gain = 0.5</computeroutput></para>
+<para>Represents the system input when the ACC is enabled. </para>
+</section>
+<anchor xml:id="__simulation_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88"/><section>
+    <title>Kvx_gain</title>
+<indexterm><primary>Kvx_gain</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Kvx_gain</secondary></indexterm>
+<para><computeroutput>const float Kvx_gain = 0.04</computeroutput></para>
+<para>Gains </para>
+</section>
+<anchor xml:id="__simulation_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e"/><section>
+    <title>Kxerr_gain</title>
+<indexterm><primary>Kxerr_gain</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Kxerr_gain</secondary></indexterm>
+<para><computeroutput>const float Kxerr_gain = 0.0</computeroutput></para>
+<para>Gains </para>
+</section>
+<anchor xml:id="__simulation_8c_1a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff"/><section>
+    <title>maxCounter</title>
+<indexterm><primary>maxCounter</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>maxCounter</secondary></indexterm>
+<para><computeroutput>const int maxCounter = 10000</computeroutput></para>
+<para>Counter of iteractions for this simulation </para>
+</section>
+<anchor xml:id="__simulation_8c_1af720e5ece426ad568df9a06151ca4c4e"/><section>
+    <title>Pos_ego</title>
+<indexterm><primary>Pos_ego</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Pos_ego</secondary></indexterm>
+<para><computeroutput>float Pos_ego = 0</computeroutput></para>
+<para>Determines how much the front car acceleration should vary </para>
+</section>
+<anchor xml:id="__simulation_8c_1aa908554740714f0d33597e95c412a215"/><section>
+    <title>Pos_lead</title>
+<indexterm><primary>Pos_lead</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>Pos_lead</secondary></indexterm>
+<para><computeroutput>float Pos_lead = 100</computeroutput></para>
+<para>Initial front car speed in meters per second </para>
+</section>
+<anchor xml:id="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa"/><section>
+    <title>rain_signal</title>
+<indexterm><primary>rain_signal</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>rain_signal</secondary></indexterm>
+<para><computeroutput>int rain_signal = 0</computeroutput></para>
+<para>User defined velocity for ACC. </para>
+</section>
+<anchor xml:id="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e"/><section>
+    <title>relativeDistance</title>
+<indexterm><primary>relativeDistance</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>relativeDistance</secondary></indexterm>
+<para><computeroutput>float relativeDistance = 15</computeroutput></para>
+<para>Ego car initial acceleration. Changed by ACC output during runtime. </para>
+</section>
+<anchor xml:id="__simulation_8c_1ab2fc382d81dbd7faa4bbc8f1331290ac"/><section>
+    <title>relativeSpeed</title>
+<indexterm><primary>relativeSpeed</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>relativeSpeed</secondary></indexterm>
+<para><computeroutput>float relativeSpeed = 10</computeroutput></para>
+<para>relativeDistance = Pos_lead - Pos_ego </para>
+</section>
+<anchor xml:id="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674"/><section>
+    <title>safeDistance</title>
+<indexterm><primary>safeDistance</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>safeDistance</secondary></indexterm>
+<para><computeroutput>float safeDistance = 15</computeroutput></para>
+<para>relativeSpeed = V_lead - V_ego </para>
+</section>
+<anchor xml:id="__simulation_8c_1a863c86bdfd96bf9c461846689c2614aa"/><section>
+    <title>step</title>
+<indexterm><primary>step</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>step</secondary></indexterm>
+<para><computeroutput>float step = 0.001</computeroutput></para>
+<para>Time between iteractions </para>
+</section>
+<anchor xml:id="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53"/><section>
+    <title>V_ego</title>
+<indexterm><primary>V_ego</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>V_ego</secondary></indexterm>
+<para><computeroutput>float V_ego = 17</computeroutput></para>
+<para>Ego car initial position (meters) </para>
+</section>
+<anchor xml:id="__simulation_8c_1abdb8b047ec78f6b3b1277a909250dc42"/><section>
+    <title>V_lead</title>
+<indexterm><primary>V_lead</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>V_lead</secondary></indexterm>
+<para><computeroutput>float V_lead = 25</computeroutput></para>
+<para>Max number of iteractions for this simulation </para>
+</section>
+<anchor xml:id="__simulation_8c_1aa927134014151ea1451a02794db39d00"/><section>
+    <title>V_set</title>
+<indexterm><primary>V_set</primary><secondary>Simulation.c</secondary></indexterm>
+<indexterm><primary>Simulation.c</primary><secondary>V_set</secondary></indexterm>
+<para><computeroutput>float V_set = 21</computeroutput></para>
+<para>Base distance between cars, regardless of timegap. </para>
+</section>
+</section>
+</section>

@@ -1,0 +1,105 @@
+\doxysection{ACC\+\_\+\+Code.\+c}
+\label{_a_c_c___code_8c_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ ACC\_code\ functions}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }ACCenable\ \{}
+\DoxyCodeLine{00007\ \ \ \textcolor{keywordtype}{bool}\ ACC\_enabled;}
+\DoxyCodeLine{00008\ \ \ \textcolor{keywordtype}{bool}\ aux;}
+\DoxyCodeLine{00009\ \};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }ACCcontrol\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{float}\ Acceleration;}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordtype}{float}\ Safe\_distance;}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }ACCenable\ logicBlockAccEnable(bool\ aux,\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ ACC\_input,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ Fault\_signal,\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Ego\_velo,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ Gas\_pedal,\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ Brake\_pedal}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \{}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{struct\ }ACCenable\ index;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}\ (aux\ ==\ 0\ \&\&\ ACC\_input\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Ego\_velo\ >=\ 11\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ index.aux\ =\ 1;}
+\DoxyCodeLine{00030\ \ \ \ \ index.ACC\_enabled\ =\ 1;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (ACC\_input\ ==\ 1\ \&\&\ aux\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ index.ACC\_enabled\ =\ 1;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00038\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ index.ACC\_enabled\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ index.aux\ =\ 0;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{float}\ timeGap(\textcolor{keywordtype}{bool}\ Rain\_sensor)\ \{\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{float}\ Time\_Gap\ =\ 3;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Default\_Time\_Gap\ =\ 3;}
+\DoxyCodeLine{00051\ \ \ Time\_Gap\ =\ Rain\_sensor\ ?\ Default\_Time\_Gap\ *\ 2\ :\ Default\_Time\_Gap;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{return}\ Time\_Gap;}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{float}\ speedSet(\textcolor{keywordtype}{float}\ ACC\_speed\_set)\ \{\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_max\ =\ 120.0;}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_min\ =\ 40.0;}
+\DoxyCodeLine{00060\ \ \ ACC\_speed\_set\ =\ (ACC\_speed\_set\ <\ ACC\_speed\_set\_min)\ ?}
+\DoxyCodeLine{00061\ \ \ ACC\_speed\_set\_min\ :\ (ACC\_speed\_set\ >\ ACC\_speed\_set\_max)\ ?\ }
+\DoxyCodeLine{00062\ \ \ ACC\_speed\_set\_max\ :\ ACC\_speed\_set;}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ ACC\_speed\_set;}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }ACCcontrol\ accelerationControl(bool\ ACC\_enabled,\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Ego\_velo,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Time\_Gap,\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ ACC\_speed\_set,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Relative\_velo,\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Relative\_distance\_pres)\ \{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{struct\ }ACCcontrol\ i;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{float}\ SafeD\_relD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Difference\ between\ safe\ and\ relative\ distance}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ D\_default\ \ \ \ \ \ \ \ \ \ \ \ =\ 10;\ \ \textcolor{comment}{//\ Standard\ distance}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{float}\ Control\_x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance\ }}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{float}\ Control\_v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kverr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.5;\ \textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kxerr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.02;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kvx\_gain\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0.04;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_min\ =\ -\/5;\ \ \textcolor{comment}{//\ Minimum\ ego\ car\ acceleration}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_max\ =\ 1.47;\textcolor{comment}{//\ Max\ ego\ car\ acceleration}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (ACC\_enabled)\ \{\textcolor{comment}{//\ Test\ if\ acc\ is\ ON/OFF}}
+\DoxyCodeLine{00089\ \ \ \ \ i.Safe\_distance\ =\ (Ego\_velo\ *\ Time\_Gap)\ +\ D\_default;}
+\DoxyCodeLine{00090\ \ \ \ \ SafeD\_relD\ =\ i.Safe\_distance\ -\/\ Relative\_distance\_pres;}
+\DoxyCodeLine{00091\ \ \ \ \ Control\_x\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ ((i.Safe\_distance\ -\/\ Relative\_distance\_pres)\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00092\ \ \ \ \ Control\_v\ =\ (ACC\_speed\_set\ -\/\ Ego\_velo)\ *\ Kverr\_gain;}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Test\ whether\ it\ is\ possible\ to\ use\ ACC\ safely}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (SafeD\_relD\ >\ 0)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ i.Acceleration\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ (SafeD\_relD\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ i.Acceleration\ =\ (Control\_x\ <\ Control\_v)\ ?\ Control\_x\ :\ Control\_v;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ i.Acceleration\ =\ (i.Acceleration\ <\ Ego\_acceleration\_min)\ ?}
+\DoxyCodeLine{00101\ \ \ \ \ Ego\_acceleration\_min\ :\ (i.Acceleration\ >\ Ego\_acceleration\_max)\ ?\ }
+\DoxyCodeLine{00102\ \ \ \ \ Ego\_acceleration\_max\ :\ i.Acceleration;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ If\ the\ safety\ conditions\ are\ not\ accepted,\ do\ not\ accelerate\ the\ car}}
+\DoxyCodeLine{00105\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ i.Acceleration\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ \}}
+
+\end{DoxyCode}

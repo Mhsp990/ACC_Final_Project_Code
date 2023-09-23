@@ -1,0 +1,98 @@
+\doxysection{Validation.\+c}
+\label{_validation_8c_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include<stdbool.h>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{bool}\ checkCollision(\textcolor{keywordtype}{bool}\ ACC\_enable,}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ relativeDistance)\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ ==\ \textcolor{keyword}{true}\ \&\&\ relativeDistance\ <=\ 0)\{}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Collision\ detected.\ Take\ the\ necessary\ actions...\(\backslash\)n"{}});}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00010\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00012\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{bool}\ checkValidationSensors(\textcolor{keywordtype}{bool}\ ACC\_enable,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Fault\_signal,\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Gas\_pedal,\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Brake\_pedal)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable)\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Fault\_signal)\{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Fault\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Gas\_pedal)\{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Gas\ pedal\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Brake\_pedal)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Break\ pedal\ signal\ on\(\backslash\)n"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(flag)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{bool}\ checkRainSafeDistance(\textcolor{keywordtype}{bool}\ ACC\_enable,\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ rain\_signal,\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ D\_distance,\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ V\_ego,\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ safeDistance)\{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ \&\&\ rain\_signal)\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(safeDistance\ !=\ (D\_distance\ +\ V\_ego*6))\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Safe\ distance\ is\ not\ correct\ for\ a\ wet\ street\(\backslash\)n"{}});}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*bool\ checkRelativeSafeDistance(bool\ ACC\_enable,\ float\ safeDistance,\ float\ relativeDistance)\{}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ if(ACC\_enable)\{}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(relativeDistance\ <\ safeDistance)\{}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ printf("{}The\ vehicle\ is\ closer\ than\ the\ limit\(\backslash\)n"{});\ //This\ is\ not\ a\ error,\ is\ a\ mode\ change}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ //This\ change\ from\ speed\ control\ to\ distance\ control\ mode}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ return\ 1;}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ return\ 0;}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\}*/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ simulating\ calling\ the\ check\ functions-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00073\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00074\ \textcolor{comment}{int\ main()\ \{}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ \ int\ ACC\_enable\ =\ 1;}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ \ float\ relativeDistance\ =\ 0;}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ \ int\ Fault\_signal\ =\ 1;\ }}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ \ int\ Gas\_pedal\ =\ 1;\ }}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ int\ Brake\_pedal\ =\ 1;}}
+\DoxyCodeLine{00080\ \textcolor{comment}{}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ int\ rain\_signal\ =\ 1;}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ \ int\ D\_distance\ =\ 10;}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ int\ V\_ego\ =\ 17;}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ \ float\ safeDistance\ =\ 112;\ //distance\ for\ a\ wet\ street\ }}
+\DoxyCodeLine{00085\ \textcolor{comment}{}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ \ checkCollision(ACC\_enable,\ relativeDistance);}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ \ checkValidationSensors(ACC\_enable,\ Fault\_signal,\ Gas\_pedal,\ Brake\_pedal);}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ checkRainSafeDistance(ACC\_enable\ ,rain\_signal,\ D\_distance,\ V\_ego,\ safeDistance);}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ checkRelativeSafeDistance(ACC\_enable,\ safeDistance,\ relativeDistance);}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ return\ 0;}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\}}}
+\DoxyCodeLine{00092\ \textcolor{comment}{}}
+\DoxyCodeLine{00093\ \textcolor{comment}{*/}}
+
+\end{DoxyCode}

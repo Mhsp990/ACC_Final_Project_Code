@@ -1,0 +1,22 @@
+\doxysection{ACC\+\_\+\+Code.\+h}
+\label{_a_c_c___code_8h_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ ACC\_CODE\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ ACC\_CODE\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}ACC\_Code.c"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }ACCenable\ logicBlockAccEnable(bool\ aux,\ bool\ ACC\_input,}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ Fault\_signal,\ float\ Ego\_velo,}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ Gas\_pedal,\ bool\ Brake\_pedal);}
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }ACCcontrol\ accelerationControl(bool\ ACC\_enabled,\ float\ Ego\_velo,}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Time\_Gap,\ float\ ACC\_speed\_set,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Relative\_velo,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ Relative\_distance\_pres);}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{float}\ timeGap(\textcolor{keywordtype}{bool}\ Rain\_sensor);}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{float}\ speedSet(\textcolor{keywordtype}{float}\ ACC\_speed\_set);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

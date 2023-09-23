@@ -1,0 +1,319 @@
+.TH "SimulationACC_Code.c" 3 "Version 1.0.0" "ACC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SimulationACC_Code.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdbool\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include 'ACC_Code\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "float \fBEgo_ace\fP = 0"
+.br
+.ti -1c
+.RI "float \fBLead_ace\fP = 0"
+.br
+.ti -1c
+.RI "float \fBRelative_velo\fP = 0"
+.br
+.ti -1c
+.RI "float \fBLead_pos\fP = 30\&.0"
+.br
+.ti -1c
+.RI "float \fBEgo_pos\fP = 10\&.0"
+.br
+.ti -1c
+.RI "float \fBRelative_distance_pres\fP = 20"
+.br
+.ti -1c
+.RI "float \fBRelative_distance_past\fP = 20"
+.br
+.ti -1c
+.RI "float \fBLead_velo\fP = 70\&.0/3\&.6"
+.br
+.ti -1c
+.RI "float \fBEgo_velo\fP = 70\&.0/3\&.6"
+.br
+.ti -1c
+.RI "float \fBinterval\fP = 0\&.001"
+.br
+.ti -1c
+.RI "int \fBcounter\fP = 1"
+.br
+.ti -1c
+.RI "const float \fBD_default\fP = 10"
+.br
+.ti -1c
+.RI "const float \fBDefault_Time_Gap\fP = 3"
+.br
+.ti -1c
+.RI "float \fBTime_Gap\fP = 3"
+.br
+.ti -1c
+.RI "const float \fBKverr_gain\fP = 0\&.5"
+.br
+.ti -1c
+.RI "const float \fBKxerr_gain\fP = 0\&.02"
+.br
+.ti -1c
+.RI "const float \fBKvx_gain\fP = 0\&.04"
+.br
+.ti -1c
+.RI "float \fBAcceleration\fP = 0"
+.br
+.ti -1c
+.RI "float \fBSafe_distance\fP = 15"
+.br
+.ti -1c
+.RI "float \fBControl_v\fP = 0"
+.br
+.ti -1c
+.RI "float \fBControl_x\fP = 0"
+.br
+.ti -1c
+.RI "float \fBSafeD_relD\fP = 0"
+.br
+.ti -1c
+.RI "const float \fBEgo_acceleration_min\fP = \-5"
+.br
+.ti -1c
+.RI "const float \fBEgo_acceleration_max\fP = 1\&.47"
+.br
+.ti -1c
+.RI "bool \fBACC_input\fP = 1"
+.br
+.ti -1c
+.RI "bool \fBRain_sensor\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBGas_pedal\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBBrake_pedal\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBFault_signal\fP = 0"
+.br
+.ti -1c
+.RI "float \fBACC_speed_set\fP = 100"
+.br
+.ti -1c
+.RI "bool \fBACC_enabled\fP = false"
+.br
+.ti -1c
+.RI "bool \fBaux\fP = 0"
+.br
+.ti -1c
+.RI "float \fBACC_acceleration\fP = 0"
+.br
+.ti -1c
+.RI "float \fBACC_brake_acceleration\fP = 0"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main ()"
+.PP
+.nf
+56 {
+57   char *filename = "simulation_copy\&.txt";  
+58   FILE *fp = fopen(filename, "w");   // open the file for writing 
+59    if (fp == NULL)
+60     {
+61         printf("Error opening the file %s",filename);
+62         return \-1;
+63     }
+64 
+65   //Number of times of looping
+66   while (counter < 10000)
+67   {
+68   
+69   Ego_ace = Acceleration;
+70   //Storage of the last value of Relative Distance
+71   Relative_distance_past = Relative_distance_pres;
+72 
+73   //Simulation of vehicles behavior
+74   Ego_velo = Ego_velo + interval*Ego_ace;
+75   Lead_velo = Lead_velo + interval*Lead_ace;
+76 
+77   //Calculation of Ego Car position
+78   Ego_pos += (Ego_velo*interval);
+79 
+80   //Calculation of Lead Car position
+81   Lead_pos += (Lead_velo*interval);
+82 
+83   //Relative distance between Ego and Lead Car\&.
+84   Relative_distance_pres = Lead_pos \- Ego_pos;
+85   //Value of relative distance\&.
+86   Relative_velo = Lead_velo \- Ego_velo;
+87 
+88   // Sensor range
+89   if(Relative_distance_pres > 200){
+90       Relative_distance_pres = 200;
+91   }else{
+92       Relative_distance_pres = Relative_distance_pres;
+93   }
+94   
+95   
+96   
+97   //ACC enable logic block
+98     struct ACCenable index = logicBlockAccEnable(aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal);
+99   ACC_enabled = index\&.ACC_enabled;
+100   aux = index\&.aux;
+101   //\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-Control block\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-//
+102 
+103   //Detection of rain and change the Time_Gap
+104   Time_Gap = timeGap(Rain_sensor);
+105 
+106   //Limit of Ego_velo setup to don't exceed the safe velocity in ACC_enebled on
+107   ACC_speed_set = speedSet(ACC_speed_set);
+108 
+109   //ACC Model returning Acceleration
+110   struct ACCcontrol i = accelerationControl(ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_velo, Relative_distance_pres);
+111   Acceleration = i\&.Acceleration;
+112   Safe_distance = i\&.Safe_distance;
+113   counter++;
+114 
+115  /*
+116  // Data validation 
+117   bool checkOne = checkCollision(ACC_enabled, Relative_distance_pres);
+118   bool checkTwo = checkValidationSensors(ACC_enabled,  Fault_signal,  Gas_pedal,  Brake_pedal);
+119   bool checkThree = checkRainSafeDistance( ACC_enabled,  Rain_sensor,  D_default,  Ego_velo,  Safe_distance);
+120   if(checkOne || checkTwo || checkThree) counter=100000;*/
+121 
+122 
+123   // write to the text file
+124   fprintf(fp,"\\nAcceleration: %\&.2f, ",Acceleration);
+125   fprintf(fp,"RelativeDistance: %\&.2f, ", Relative_distance_pres);
+126   fprintf(fp,"SafeDistance: %\&.2f, ", Safe_distance);
+127   fprintf(fp,"EgoVelocity: %\&.2f, ", Ego_velo);
+128   fprintf(fp,"LeadVelocity: %\&.2f, ", Lead_velo);
+129   }
+130 
+131   fclose(fp);   // close the file
+132 }
+.fi
+
+.SH "Variable Documentation"
+.PP 
+.SS "float ACC_acceleration = 0"
+ACC defined acceleration 
+.br
+ 
+.SS "float ACC_brake_acceleration = 0"
+Return from acc in use of breaks 
+.br
+ 
+.SS "bool ACC_enabled = false"
+variable that defines whether ACC is on or not 
+.br
+ 
+.SS "bool ACC_input = 1"
+User input variable, on or off 
+.br
+ 
+.SS "float ACC_speed_set = 100"
+start set spedd of ACC 
+.br
+ 
+.SS "float Acceleration = 0"
+Acceleration 
+.SS "bool aux = 0"
+auxiliar variable 
+.br
+ 
+.SS "bool Brake_pedal = 0"
+Variable that receives whether the brake pedal was pressed or not 
+.br
+ 
+.SS "float Control_v = 0"
+K gain 
+.br
+ 
+.SS "float Control_x = 0"
+K gain 
+.br
+ 
+.SS "int counter = 1"
+Interactions limiter 
+.SS "const float D_default = 10"
+initial safe distance (at least) 
+.SS "const float Default_Time_Gap = 3"
+minimum time gap 
+.SS "const float Ego_acceleration_max = 1\&.47"
+Ego acceleration maximum 
+.br
+ 
+.SS "const float Ego_acceleration_min = \-5"
+Ego accleration minimum 
+.br
+ 
+.SS "float Ego_ace = 0"
+ego car acceleration 
+.SS "float Ego_pos = 10\&.0"
+Initial ego car position (m) 
+.SS "float Ego_velo = 70\&.0/3\&.6"
+Initial ego car position (m/s) 
+.SS "bool Fault_signal = 0"
+Variable that checks whether the sensors are working correctly or not 
+.br
+ 
+.SS "bool Gas_pedal = 0"
+Variable that receives whether the gas pedal was pressed or not 
+.br
+ 
+.SS "float interval = 0\&.001"
+simulation clock 
+.SS "const float Kverr_gain = 0\&.5"
+K gain 
+.SS "const float Kvx_gain = 0\&.04"
+K gain 
+.br
+ 
+.SS "const float Kxerr_gain = 0\&.02"
+K gain 
+.SS "float Lead_ace = 0"
+lead car acceleration 
+.SS "float Lead_pos = 30\&.0"
+Initial lead car position (m) 
+.SS "float Lead_velo = 70\&.0/3\&.6"
+Initial lead car position (m/s) 
+.SS "bool Rain_sensor = 0"
+Variable that receives whether the rain sensor detected a wet road or not 
+.SS "float Relative_distance_past = 20"
+Initial past value of relative distance\&. 
+.SS "float Relative_distance_pres = 20"
+Relative distance between Ego and Lead Car\&. 
+.SS "float Relative_velo = 0"
+relative distance between ego and lead car 
+.SS "float Safe_distance = 15"
+Safe distance 
+.br
+ 
+.SS "float SafeD_relD = 0"
+relative distance 
+.br
+ 
+.SS "float Time_Gap = 3"
+Time gap add(add to safe distance) 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ACC from the source code\&.
