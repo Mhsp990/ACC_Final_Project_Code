@@ -25,59 +25,62 @@ void test_accelerationControl(void) {
   CU_ASSERT_DOUBLE_EQUAL(60.00, i.Safe_distance, 0.2);
 }
 
-//----------Test line 22 MC/DC------------------//
+//----------Test cases of "aux" output MC/DC----//
+//----------Test ID 22 MC/DC------------------//
 void test_logicBLockAccEnable(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 1, 0, 11, 0,1); 
   CU_ASSERT(0 == i.aux);
 }
 
-//----------Test line 38 MC/DC------------------//
+//----------Test ID 38 MC/DC------------------//
 void test_logicBLockAccEnable2(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 1, 0, 11, 1,0); 
   CU_ASSERT(0 == i.aux);
 }
 
-//----------Test line 50 MC/DC------------------//
+//----------Test ID 50 MC/DC------------------//
 void test_logicBLockAccEnable3(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 1, 1, 11, 0,0); 
   CU_ASSERT(0 == i.aux);
 }
 
-//----------Test line 53 MC/DC------------------//
+//----------Test ID 53 MC/DC------------------//
 void test_logicBLockAccEnable4(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(1, 1, 0, 11, 0,0); 
   CU_ASSERT(0 == i.aux);
 }
 
-//----------Test line 54 MC/DC------------------//
+//----------Test ID 54 MC/DC------------------//
 void test_logicBLockAccEnable5(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 1, 0, 11, 0,0); 
   CU_ASSERT(1 == i.aux);
 }
 
-//----------Test line 56 MC/DC------------------//
+//----------Test ID 56 MC/DC------------------//
 void test_logicBLockAccEnable6(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 0, 0, 11, 0,0); 
   CU_ASSERT(0 == i.aux);
 }
 
-//----------Test line 62 MC/DC------------------//
+//----------Test ID 62 MC/DC------------------//
 void test_logicBLockAccEnable7(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(0, 1, 0, 10, 0,0); 
   CU_ASSERT(0 == i.aux);
 }
+//--Finished test cases of "aux" output MC/DC---//
 
+//----------Test cases of "Acc_enabled" output MC/DC----//
 
 int main(void) {
 
-  CU_pSuite pSuite1 = NULL;
+  CU_pSuite pSuite1, pSuite2 = NULL;
 
   if (CUE_SUCCESS != CU_initialize_registry())
     return CU_get_error();
@@ -118,53 +121,61 @@ int main(void) {
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "Acceleration Control function Testing",
-                           test_accelerationControl))) {
+  if ((NULL == 
+    CU_add_test(pSuite1, "Acceleration Control function Testing",test_accelerationControl))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing",
+   pSuite2 = CU_add_suite("Test Suite of Aux output from logic block", init_suite, clean_suite);
+  if (NULL == pSuite2) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 1",
                            test_logicBLockAccEnable))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 2",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 2",
                            test_logicBLockAccEnable2))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 3",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 3",
                            test_logicBLockAccEnable3))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 4",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 4",
                            test_logicBLockAccEnable4))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 5",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 5",
                            test_logicBLockAccEnable5))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 6",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 6",
                            test_logicBLockAccEnable6))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
-  if ((NULL == CU_add_test(pSuite1, "ACC Enable Control function Testing 7",
+  if ((NULL == CU_add_test(pSuite2, "Aux Control function Testing 7",
                            test_logicBLockAccEnable7))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
+
+
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
   CU_basic_run_tests();
