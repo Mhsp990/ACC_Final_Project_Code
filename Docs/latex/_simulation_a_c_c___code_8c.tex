@@ -1,0 +1,396 @@
+\doxysection{Simulation\+ACC\+\_\+\+Code.\+c File Reference}
+\label{_simulation_a_c_c___code_8c}\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}ACC\+\_\+\+Code.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \textbf{ Ego\+\_\+ace} = 0
+\item 
+float \textbf{ Lead\+\_\+ace} = 0
+\item 
+float \textbf{ Relative\+\_\+velo} = 0
+\item 
+float \textbf{ Lead\+\_\+pos} = 30.\+0
+\item 
+float \textbf{ Ego\+\_\+pos} = 10.\+0
+\item 
+float \textbf{ Relative\+\_\+distance\+\_\+pres} = 20
+\item 
+float \textbf{ Relative\+\_\+distance\+\_\+past} = 20
+\item 
+float \textbf{ Lead\+\_\+velo} = 70.\+0/3.\+6
+\item 
+float \textbf{ Ego\+\_\+velo} = 70.\+0/3.\+6
+\item 
+float \textbf{ interval} = 0.\+001
+\item 
+int \textbf{ counter} = 1
+\item 
+const float \textbf{ D\+\_\+default} = 10
+\item 
+const float \textbf{ Default\+\_\+\+Time\+\_\+\+Gap} = 3
+\item 
+float \textbf{ Time\+\_\+\+Gap} = 3
+\item 
+const float \textbf{ Kverr\+\_\+gain} = 0.\+5
+\item 
+const float \textbf{ Kxerr\+\_\+gain} = 0.\+02
+\item 
+const float \textbf{ Kvx\+\_\+gain} = 0.\+04
+\item 
+float \textbf{ Acceleration} = 0
+\item 
+float \textbf{ Safe\+\_\+distance} = 15
+\item 
+float \textbf{ Control\+\_\+v} = 0
+\item 
+float \textbf{ Control\+\_\+x} = 0
+\item 
+float \textbf{ Safe\+D\+\_\+relD} = 0
+\item 
+const float \textbf{ Ego\+\_\+acceleration\+\_\+min} = -\/5
+\item 
+const float \textbf{ Ego\+\_\+acceleration\+\_\+max} = 1.\+47
+\item 
+bool \textbf{ ACC\+\_\+input} = 1
+\item 
+bool \textbf{ Rain\+\_\+sensor} = 0
+\item 
+bool \textbf{ Gas\+\_\+pedal} = 0
+\item 
+bool \textbf{ Brake\+\_\+pedal} = 0
+\item 
+bool \textbf{ Fault\+\_\+signal} = 0
+\item 
+float \textbf{ ACC\+\_\+speed\+\_\+set} = 100
+\item 
+bool \textbf{ ACC\+\_\+enabled} = false
+\item 
+bool \textbf{ aux} = 0
+\item 
+float \textbf{ ACC\+\_\+acceleration} = 0
+\item 
+float \textbf{ ACC\+\_\+brake\+\_\+acceleration} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\label{_simulation_a_c_c___code_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!main@{main}}
+\index{main@{main}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{char}\ *filename\ =\ \textcolor{stringliteral}{"{}simulation\_copy.txt"{}};\ \ }
+\DoxyCodeLine{00058\ \ \ FILE\ *fp\ =\ fopen(filename,\ \textcolor{stringliteral}{"{}w"{}});\ \ \ \textcolor{comment}{//\ open\ the\ file\ for\ writing\ }}
+\DoxyCodeLine{00059\ \ \ \ \textcolor{keywordflow}{if}\ (fp\ ==\ NULL)}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ opening\ the\ file\ \%s"{}},filename);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//Number\ of\ times\ of\ looping}}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordflow}{while}\ (counter\ <\ 10000)}
+\DoxyCodeLine{00067\ \ \ \{}
+\DoxyCodeLine{00068\ \ \ }
+\DoxyCodeLine{00069\ \ \ Ego\_ace\ =\ Acceleration;}
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//Storage\ of\ the\ last\ value\ of\ Relative\ Distance}}
+\DoxyCodeLine{00071\ \ \ Relative\_distance\_past\ =\ Relative\_distance\_pres;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//Simulation\ of\ vehicles\ behavior}}
+\DoxyCodeLine{00074\ \ \ Ego\_velo\ =\ Ego\_velo\ +\ interval*Ego\_ace;}
+\DoxyCodeLine{00075\ \ \ Lead\_velo\ =\ Lead\_velo\ +\ interval*Lead\_ace;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{comment}{//Calculation\ of\ Ego\ Car\ position}}
+\DoxyCodeLine{00078\ \ \ Ego\_pos\ +=\ (Ego\_velo*interval);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//Calculation\ of\ Lead\ Car\ position}}
+\DoxyCodeLine{00081\ \ \ Lead\_pos\ +=\ (Lead\_velo*interval);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{comment}{//Relative\ distance\ between\ Ego\ and\ Lead\ Car.}}
+\DoxyCodeLine{00084\ \ \ Relative\_distance\_pres\ =\ Lead\_pos\ -\/\ Ego\_pos;}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//Value\ of\ relative\ distance.}}
+\DoxyCodeLine{00086\ \ \ Relative\_velo\ =\ Lead\_velo\ -\/\ Ego\_velo;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Sensor\ range}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{if}(Relative\_distance\_pres\ >\ 200)\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ Relative\_distance\_pres\ =\ 200;}
+\DoxyCodeLine{00091\ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ Relative\_distance\_pres\ =\ Relative\_distance\_pres;}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ \ \ }
+\DoxyCodeLine{00095\ \ \ }
+\DoxyCodeLine{00096\ \ \ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//ACC\ enable\ logic\ block}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{struct\ }ACCenable\ index\ =\ logicBlockAccEnable(aux,\ ACC\_input,\ Fault\_signal,\ Ego\_velo,\ Gas\_pedal,\ Brake\_pedal);}
+\DoxyCodeLine{00099\ \ \ ACC\_enabled\ =\ index.ACC\_enabled;}
+\DoxyCodeLine{00100\ \ \ aux\ =\ index.aux;}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Control\ block-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//Detection\ of\ rain\ and\ change\ the\ Time\_Gap}}
+\DoxyCodeLine{00104\ \ \ Time\_Gap\ =\ timeGap(Rain\_sensor);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//Limit\ of\ Ego\_velo\ setup\ to\ don't\ exceed\ the\ safe\ velocity\ in\ ACC\_enebled\ on}}
+\DoxyCodeLine{00107\ \ \ ACC\_speed\_set\ =\ speedSet(ACC\_speed\_set);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//ACC\ Model\ returning\ Acceleration}}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{struct\ }ACCcontrol\ i\ =\ accelerationControl(ACC\_enabled,\ Ego\_velo,\ Time\_Gap,\ ACC\_speed\_set,\ Relative\_velo,\ Relative\_distance\_pres);}
+\DoxyCodeLine{00111\ \ \ Acceleration\ =\ i.Acceleration;}
+\DoxyCodeLine{00112\ \ \ Safe\_distance\ =\ i.Safe\_distance;}
+\DoxyCodeLine{00113\ \ \ counter++;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ //\ Data\ validation\  }}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ bool\ checkOne\ =\ checkCollision(ACC\_enabled,\ Relative\_distance\_pres); }}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ bool\ checkTwo\ =\ checkValidationSensors(ACC\_enabled,\ \ Fault\_signal,\ \ Gas\_pedal,\ \ Brake\_pedal); }}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ bool\ checkThree\ =\ checkRainSafeDistance(\ ACC\_enabled,\ \ Rain\_sensor,\ \ D\_default,\ \ Ego\_velo,\ \ Safe\_distance); }}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ if(checkOne\ ||\ checkTwo\ ||\ checkThree)\ counter=100000;*/}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ write\ to\ the\ text\ file}}
+\DoxyCodeLine{00124\ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\(\backslash\)nAcceleration:\ \%.2f,\ "{}},Acceleration);}
+\DoxyCodeLine{00125\ \ \ fprintf(fp,\textcolor{stringliteral}{"{}RelativeDistance:\ \%.2f,\ "{}},\ Relative\_distance\_pres);}
+\DoxyCodeLine{00126\ \ \ fprintf(fp,\textcolor{stringliteral}{"{}SafeDistance:\ \%.2f,\ "{}},\ Safe\_distance);}
+\DoxyCodeLine{00127\ \ \ fprintf(fp,\textcolor{stringliteral}{"{}EgoVelocity:\ \%.2f,\ "{}},\ Ego\_velo);}
+\DoxyCodeLine{00128\ \ \ fprintf(fp,\textcolor{stringliteral}{"{}LeadVelocity:\ \%.2f,\ "{}},\ Lead\_velo);}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ fclose(fp);\ \ \ \textcolor{comment}{//\ close\ the\ file}}
+\DoxyCodeLine{00132\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\label{_simulation_a_c_c___code_8c_afd340d6fb70d61744efa058238326252} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!ACC\_acceleration@{ACC\_acceleration}}
+\index{ACC\_acceleration@{ACC\_acceleration}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{ACC\_acceleration}
+{\footnotesize\ttfamily float ACC\+\_\+acceleration = 0}
+
+ACC defined acceleration ~\newline
+ \label{_simulation_a_c_c___code_8c_aadf34db2bb89d54f4509e4f5f5974be5} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!ACC\_brake\_acceleration@{ACC\_brake\_acceleration}}
+\index{ACC\_brake\_acceleration@{ACC\_brake\_acceleration}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{ACC\_brake\_acceleration}
+{\footnotesize\ttfamily float ACC\+\_\+brake\+\_\+acceleration = 0}
+
+Return from acc in use of breaks ~\newline
+ \label{_simulation_a_c_c___code_8c_ac21a71322990ef380730f0c211071a6c} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!ACC\_enabled@{ACC\_enabled}}
+\index{ACC\_enabled@{ACC\_enabled}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{ACC\_enabled}
+{\footnotesize\ttfamily bool ACC\+\_\+enabled = false}
+
+variable that defines whether ACC is on or not ~\newline
+ \label{_simulation_a_c_c___code_8c_adee743eefae5e536c1f60b4461d5a835} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!ACC\_input@{ACC\_input}}
+\index{ACC\_input@{ACC\_input}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{ACC\_input}
+{\footnotesize\ttfamily bool ACC\+\_\+input = 1}
+
+User input variable, on or off ~\newline
+ \label{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!ACC\_speed\_set@{ACC\_speed\_set}}
+\index{ACC\_speed\_set@{ACC\_speed\_set}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{ACC\_speed\_set}
+{\footnotesize\ttfamily float ACC\+\_\+speed\+\_\+set = 100}
+
+start set spedd of ACC ~\newline
+ \label{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Acceleration@{Acceleration}}
+\index{Acceleration@{Acceleration}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Acceleration}
+{\footnotesize\ttfamily float Acceleration = 0}
+
+Acceleration \label{_simulation_a_c_c___code_8c_a9470c26598e7647a6dc6405c215bb22e} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!aux@{aux}}
+\index{aux@{aux}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{aux}
+{\footnotesize\ttfamily bool aux = 0}
+
+auxiliar variable ~\newline
+ \label{_simulation_a_c_c___code_8c_a95c68a6553670ca4b510dae13e0d1a2f} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Brake\_pedal@{Brake\_pedal}}
+\index{Brake\_pedal@{Brake\_pedal}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Brake\_pedal}
+{\footnotesize\ttfamily bool Brake\+\_\+pedal = 0}
+
+Variable that receives whether the brake pedal was pressed or not ~\newline
+ \label{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Control\_v@{Control\_v}}
+\index{Control\_v@{Control\_v}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Control\_v}
+{\footnotesize\ttfamily float Control\+\_\+v = 0}
+
+K gain ~\newline
+ \label{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Control\_x@{Control\_x}}
+\index{Control\_x@{Control\_x}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Control\_x}
+{\footnotesize\ttfamily float Control\+\_\+x = 0}
+
+K gain ~\newline
+ \label{_simulation_a_c_c___code_8c_a617a47c70795bcff659815ad0efd2266} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!counter@{counter}}
+\index{counter@{counter}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{counter}
+{\footnotesize\ttfamily int counter = 1}
+
+Interactions limiter \label{_simulation_a_c_c___code_8c_a6f8d6e73b450c1a075effff099511a07} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!D\_default@{D\_default}}
+\index{D\_default@{D\_default}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{D\_default}
+{\footnotesize\ttfamily const float D\+\_\+default = 10}
+
+initial safe distance (at least) \label{_simulation_a_c_c___code_8c_ab8b2c911e40397febd1d7c32a452ab9b} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Default\_Time\_Gap@{Default\_Time\_Gap}}
+\index{Default\_Time\_Gap@{Default\_Time\_Gap}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Default\_Time\_Gap}
+{\footnotesize\ttfamily const float Default\+\_\+\+Time\+\_\+\+Gap = 3}
+
+minimum time gap \label{_simulation_a_c_c___code_8c_a3112cac93f77e9cc17c218a63204bf96} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Ego\_acceleration\_max@{Ego\_acceleration\_max}}
+\index{Ego\_acceleration\_max@{Ego\_acceleration\_max}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Ego\_acceleration\_max}
+{\footnotesize\ttfamily const float Ego\+\_\+acceleration\+\_\+max = 1.\+47}
+
+Ego acceleration maximum ~\newline
+ \label{_simulation_a_c_c___code_8c_ad8c674482d700191da4df4dc627729d3} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Ego\_acceleration\_min@{Ego\_acceleration\_min}}
+\index{Ego\_acceleration\_min@{Ego\_acceleration\_min}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Ego\_acceleration\_min}
+{\footnotesize\ttfamily const float Ego\+\_\+acceleration\+\_\+min = -\/5}
+
+Ego accleration minimum ~\newline
+ \label{_simulation_a_c_c___code_8c_ab86c690e2c4d104a6fa9054e1d33a31f} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Ego\_ace@{Ego\_ace}}
+\index{Ego\_ace@{Ego\_ace}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Ego\_ace}
+{\footnotesize\ttfamily float Ego\+\_\+ace = 0}
+
+ego car acceleration \label{_simulation_a_c_c___code_8c_a161dd8f0e53c92b6350e6076c9f1608c} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Ego\_pos@{Ego\_pos}}
+\index{Ego\_pos@{Ego\_pos}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Ego\_pos}
+{\footnotesize\ttfamily float Ego\+\_\+pos = 10.\+0}
+
+Initial ego car position (m) \label{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Ego\_velo@{Ego\_velo}}
+\index{Ego\_velo@{Ego\_velo}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Ego\_velo}
+{\footnotesize\ttfamily float Ego\+\_\+velo = 70.\+0/3.\+6}
+
+Initial ego car position (m/s) \label{_simulation_a_c_c___code_8c_ac40243eb78d8a5e02272e257f55acc23} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Fault\_signal@{Fault\_signal}}
+\index{Fault\_signal@{Fault\_signal}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Fault\_signal}
+{\footnotesize\ttfamily bool Fault\+\_\+signal = 0}
+
+Variable that checks whether the sensors are working correctly or not ~\newline
+ \label{_simulation_a_c_c___code_8c_a9677e153d2c0d047b41e7b4013d795a8} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Gas\_pedal@{Gas\_pedal}}
+\index{Gas\_pedal@{Gas\_pedal}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Gas\_pedal}
+{\footnotesize\ttfamily bool Gas\+\_\+pedal = 0}
+
+Variable that receives whether the gas pedal was pressed or not ~\newline
+ \label{_simulation_a_c_c___code_8c_a97df6cb71ca1ed54f2f4fadb312c9bb3} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!interval@{interval}}
+\index{interval@{interval}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{interval}
+{\footnotesize\ttfamily float interval = 0.\+001}
+
+simulation clock \label{_simulation_a_c_c___code_8c_a19f9c8d588c878138bb53677277486d2} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Kverr\_gain@{Kverr\_gain}}
+\index{Kverr\_gain@{Kverr\_gain}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Kverr\_gain}
+{\footnotesize\ttfamily const float Kverr\+\_\+gain = 0.\+5}
+
+K gain \label{_simulation_a_c_c___code_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Kvx\_gain@{Kvx\_gain}}
+\index{Kvx\_gain@{Kvx\_gain}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Kvx\_gain}
+{\footnotesize\ttfamily const float Kvx\+\_\+gain = 0.\+04}
+
+K gain ~\newline
+ \label{_simulation_a_c_c___code_8c_acd139192a15ab7e2e0a7d55d60cd1d9e} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Kxerr\_gain@{Kxerr\_gain}}
+\index{Kxerr\_gain@{Kxerr\_gain}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Kxerr\_gain}
+{\footnotesize\ttfamily const float Kxerr\+\_\+gain = 0.\+02}
+
+K gain \label{_simulation_a_c_c___code_8c_a1dc40e5abcf7ef3005c87c1efa693b67} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Lead\_ace@{Lead\_ace}}
+\index{Lead\_ace@{Lead\_ace}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Lead\_ace}
+{\footnotesize\ttfamily float Lead\+\_\+ace = 0}
+
+lead car acceleration \label{_simulation_a_c_c___code_8c_a457b56379a3b20ec08b4edd6d55bb9a7} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Lead\_pos@{Lead\_pos}}
+\index{Lead\_pos@{Lead\_pos}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Lead\_pos}
+{\footnotesize\ttfamily float Lead\+\_\+pos = 30.\+0}
+
+Initial lead car position (m) \label{_simulation_a_c_c___code_8c_ad69d9e6f8609827e50ba20936ae75e7c} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Lead\_velo@{Lead\_velo}}
+\index{Lead\_velo@{Lead\_velo}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Lead\_velo}
+{\footnotesize\ttfamily float Lead\+\_\+velo = 70.\+0/3.\+6}
+
+Initial lead car position (m/s) \label{_simulation_a_c_c___code_8c_a1cde5d5ce80220d52bb5767d2301e17d} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Rain\_sensor@{Rain\_sensor}}
+\index{Rain\_sensor@{Rain\_sensor}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Rain\_sensor}
+{\footnotesize\ttfamily bool Rain\+\_\+sensor = 0}
+
+Variable that receives whether the rain sensor detected a wet road or not \label{_simulation_a_c_c___code_8c_a58393594a855ef2117c681d823af1952} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Relative\_distance\_past@{Relative\_distance\_past}}
+\index{Relative\_distance\_past@{Relative\_distance\_past}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Relative\_distance\_past}
+{\footnotesize\ttfamily float Relative\+\_\+distance\+\_\+past = 20}
+
+Initial past value of relative distance. \label{_simulation_a_c_c___code_8c_abec8e6854791ca180fd45812ac392e58} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Relative\_distance\_pres@{Relative\_distance\_pres}}
+\index{Relative\_distance\_pres@{Relative\_distance\_pres}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Relative\_distance\_pres}
+{\footnotesize\ttfamily float Relative\+\_\+distance\+\_\+pres = 20}
+
+Relative distance between Ego and Lead Car. \label{_simulation_a_c_c___code_8c_a34acfd270620b972681e56e1073e157a} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Relative\_velo@{Relative\_velo}}
+\index{Relative\_velo@{Relative\_velo}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Relative\_velo}
+{\footnotesize\ttfamily float Relative\+\_\+velo = 0}
+
+relative distance between ego and lead car \label{_simulation_a_c_c___code_8c_a100acb7cdf1ca545aefa7723dc9d3b57} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Safe\_distance@{Safe\_distance}}
+\index{Safe\_distance@{Safe\_distance}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Safe\_distance}
+{\footnotesize\ttfamily float Safe\+\_\+distance = 15}
+
+Safe distance ~\newline
+ \label{_simulation_a_c_c___code_8c_a4afee67ae19c4a23846ae4f4fe8f6581} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!SafeD\_relD@{SafeD\_relD}}
+\index{SafeD\_relD@{SafeD\_relD}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{SafeD\_relD}
+{\footnotesize\ttfamily float Safe\+D\+\_\+relD = 0}
+
+relative distance ~\newline
+ \label{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054} 
+\index{SimulationACC\_Code.c@{SimulationACC\_Code.c}!Time\_Gap@{Time\_Gap}}
+\index{Time\_Gap@{Time\_Gap}!SimulationACC\_Code.c@{SimulationACC\_Code.c}}
+\doxysubsubsection{Time\_Gap}
+{\footnotesize\ttfamily float Time\+\_\+\+Gap = 3}
+
+Time gap add(add to safe distance) 

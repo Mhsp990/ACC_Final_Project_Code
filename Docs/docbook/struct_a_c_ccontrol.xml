@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_struct_a_c_ccontrol" xml:lang="en-US">
+<title>ACCcontrol Struct Reference</title>
+<indexterm><primary>ACCcontrol</primary></indexterm>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="_struct_a_c_ccontrol_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link></para>
+</listitem>
+            <listitem><para>float <link linkend="_struct_a_c_ccontrol_1a100acb7cdf1ca545aefa7723dc9d3b57">Safe_distance</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_struct_a_c_ccontrol_1a9fb7b7e941fa4bce2acd85fd08a2e36e"/><section>
+    <title>Acceleration</title>
+<indexterm><primary>Acceleration</primary><secondary>ACCcontrol</secondary></indexterm>
+<indexterm><primary>ACCcontrol</primary><secondary>Acceleration</secondary></indexterm>
+<para><computeroutput>float Acceleration</computeroutput></para></section>
+<anchor xml:id="_struct_a_c_ccontrol_1a100acb7cdf1ca545aefa7723dc9d3b57"/><section>
+    <title>Safe_distance</title>
+<indexterm><primary>Safe_distance</primary><secondary>ACCcontrol</secondary></indexterm>
+<indexterm><primary>ACCcontrol</primary><secondary>Safe_distance</secondary></indexterm>
+<para><computeroutput>float Safe_distance</computeroutput></para></section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+<link linkend="__a_c_c___code_8c">ACC_Code.c</link></section>
+</section>

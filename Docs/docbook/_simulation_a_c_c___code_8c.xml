@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__simulation_a_c_c___code_8c" xml:lang="en-US">
+<title>SimulationACC_Code.c File Reference</title>
+<indexterm><primary>SimulationACC_Code.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdbool.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &quot;ACC_Code.h&quot;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="__simulation_a_c_c___code_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1ab86c690e2c4d104a6fa9054e1d33a31f">Ego_ace</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a1dc40e5abcf7ef3005c87c1efa693b67">Lead_ace</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a34acfd270620b972681e56e1073e157a">Relative_velo</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a457b56379a3b20ec08b4edd6d55bb9a7">Lead_pos</link> = 30.0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a161dd8f0e53c92b6350e6076c9f1608c">Ego_pos</link> = 10.0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link> = 20</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a58393594a855ef2117c681d823af1952">Relative_distance_past</link> = 20</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link> = 70.0/3.6</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link> = 70.0/3.6</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3">interval</link> = 0.001</para>
+</listitem>
+            <listitem><para>int <link linkend="__simulation_a_c_c___code_8c_1a617a47c70795bcff659815ad0efd2266">counter</link> = 1</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1a6f8d6e73b450c1a075effff099511a07">D_default</link> = 10</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1ab8b2c911e40397febd1d7c32a452ab9b">Default_Time_Gap</link> = 3</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1abf3e935bafcae937d559251be96f0054">Time_Gap</link> = 3</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1a19f9c8d588c878138bb53677277486d2">Kverr_gain</link> = 0.5</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e">Kxerr_gain</link> = 0.02</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88">Kvx_gain</link> = 0.04</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a100acb7cdf1ca545aefa7723dc9d3b57">Safe_distance</link> = 15</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1">Control_v</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791">Control_x</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1a4afee67ae19c4a23846ae4f4fe8f6581">SafeD_relD</link> = 0</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1ad8c674482d700191da4df4dc627729d3">Ego_acceleration_min</link> = -5</para>
+</listitem>
+            <listitem><para>const float <link linkend="__simulation_a_c_c___code_8c_1a3112cac93f77e9cc17c218a63204bf96">Ego_acceleration_max</link> = 1.47</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1adee743eefae5e536c1f60b4461d5a835">ACC_input</link> = 1</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1a1cde5d5ce80220d52bb5767d2301e17d">Rain_sensor</link> = 0</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1a9677e153d2c0d047b41e7b4013d795a8">Gas_pedal</link> = 0</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1a95c68a6553670ca4b510dae13e0d1a2f">Brake_pedal</link> = 0</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1ac40243eb78d8a5e02272e257f55acc23">Fault_signal</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link> = 100</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link> = false</para>
+</listitem>
+            <listitem><para>bool <link linkend="__simulation_a_c_c___code_8c_1a9470c26598e7647a6dc6405c215bb22e">aux</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1afd340d6fb70d61744efa058238326252">ACC_acceleration</link> = 0</para>
+</listitem>
+            <listitem><para>float <link linkend="__simulation_a_c_c___code_8c_1aadf34db2bb89d54f4509e4f5f5974be5">ACC_brake_acceleration</link> = 0</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main ( )</computeroutput></para><programlisting linenumbering="unnumbered">56 {
+57 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*filename&#32;=&#32;<emphasis role="stringliteral">&quot;simulation_copy.txt&quot;</emphasis>;&#32;&#32;
+58 &#32;&#32;FILE&#32;*fp&#32;=&#32;fopen(filename,&#32;<emphasis role="stringliteral">&quot;w&quot;</emphasis>);&#32;&#32;&#32;<emphasis role="comment">//&#32;open&#32;the&#32;file&#32;for&#32;writing&#32;</emphasis>
+59 &#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(fp&#32;==&#32;NULL)
+60 &#32;&#32;&#32;&#32;{
+61 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Error&#32;opening&#32;the&#32;file&#32;%s&quot;</emphasis>,filename);
+62 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
+63 &#32;&#32;&#32;&#32;}
+64 
+65 &#32;&#32;<emphasis role="comment">//Number&#32;of&#32;times&#32;of&#32;looping</emphasis>
+66 &#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(<link linkend="__simulation_a_c_c___code_8c_1a617a47c70795bcff659815ad0efd2266">counter</link>&#32;&lt;&#32;10000)
+67 &#32;&#32;{
+68 &#32;&#32;
+69 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1ab86c690e2c4d104a6fa9054e1d33a31f">Ego_ace</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>;
+70 &#32;&#32;<emphasis role="comment">//Storage&#32;of&#32;the&#32;last&#32;value&#32;of&#32;Relative&#32;Distance</emphasis>
+71 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a58393594a855ef2117c681d823af1952">Relative_distance_past</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>;
+72 
+73 &#32;&#32;<emphasis role="comment">//Simulation&#32;of&#32;vehicles&#32;behavior</emphasis>
+74 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>&#32;+&#32;<link linkend="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3">interval</link>*<link linkend="__simulation_a_c_c___code_8c_1ab86c690e2c4d104a6fa9054e1d33a31f">Ego_ace</link>;
+75 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link>&#32;+&#32;<link linkend="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3">interval</link>*<link linkend="__simulation_a_c_c___code_8c_1a1dc40e5abcf7ef3005c87c1efa693b67">Lead_ace</link>;
+76 
+77 &#32;&#32;<emphasis role="comment">//Calculation&#32;of&#32;Ego&#32;Car&#32;position</emphasis>
+78 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a161dd8f0e53c92b6350e6076c9f1608c">Ego_pos</link>&#32;+=&#32;(<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>*<link linkend="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3">interval</link>);
+79 
+80 &#32;&#32;<emphasis role="comment">//Calculation&#32;of&#32;Lead&#32;Car&#32;position</emphasis>
+81 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a457b56379a3b20ec08b4edd6d55bb9a7">Lead_pos</link>&#32;+=&#32;(<link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link>*<link linkend="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3">interval</link>);
+82 
+83 &#32;&#32;<emphasis role="comment">//Relative&#32;distance&#32;between&#32;Ego&#32;and&#32;Lead&#32;Car.</emphasis>
+84 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1a457b56379a3b20ec08b4edd6d55bb9a7">Lead_pos</link>&#32;-&#32;<link linkend="__simulation_a_c_c___code_8c_1a161dd8f0e53c92b6350e6076c9f1608c">Ego_pos</link>;
+85 &#32;&#32;<emphasis role="comment">//Value&#32;of&#32;relative&#32;distance.</emphasis>
+86 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a34acfd270620b972681e56e1073e157a">Relative_velo</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link>&#32;-&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>;
+87 
+88 &#32;&#32;<emphasis role="comment">//&#32;Sensor&#32;range</emphasis>
+89 &#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>&#32;&gt;&#32;200){
+90 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>&#32;=&#32;200;
+91 &#32;&#32;}<emphasis role="keywordflow">else</emphasis>{
+92 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>&#32;=&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>;
+93 &#32;&#32;}
+94 &#32;&#32;
+95 &#32;&#32;
+96 &#32;&#32;
+97 &#32;&#32;<emphasis role="comment">//ACC&#32;enable&#32;logic&#32;block</emphasis>
+98 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_a_c_cenable">ACCenable</link>&#32;index&#32;=&#32;<link linkend="__a_c_c___code_8c_1a9702c702ceac6b23c0340bc23f03fca3">logicBlockAccEnable</link>(<link linkend="__simulation_a_c_c___code_8c_1a9470c26598e7647a6dc6405c215bb22e">aux</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1adee743eefae5e536c1f60b4461d5a835">ACC_input</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1ac40243eb78d8a5e02272e257f55acc23">Fault_signal</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1a9677e153d2c0d047b41e7b4013d795a8">Gas_pedal</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1a95c68a6553670ca4b510dae13e0d1a2f">Brake_pedal</link>);
+99 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link>&#32;=&#32;index.<link linkend="_struct_a_c_cenable_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link>;
+100 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9470c26598e7647a6dc6405c215bb22e">aux</link>&#32;=&#32;index.<link linkend="_struct_a_c_cenable_1a9470c26598e7647a6dc6405c215bb22e">aux</link>;
+101 &#32;&#32;<emphasis role="comment">//----------------------Control&#32;block---------------------//</emphasis>
+102 
+103 &#32;&#32;<emphasis role="comment">//Detection&#32;of&#32;rain&#32;and&#32;change&#32;the&#32;Time_Gap</emphasis>
+104 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1abf3e935bafcae937d559251be96f0054">Time_Gap</link>&#32;=&#32;<link linkend="__a_c_c___code_8c_1a0e4499ee6d6488c81c271b3a66a4ccbe">timeGap</link>(<link linkend="__simulation_a_c_c___code_8c_1a1cde5d5ce80220d52bb5767d2301e17d">Rain_sensor</link>);
+105 
+106 &#32;&#32;<emphasis role="comment">//Limit&#32;of&#32;Ego_velo&#32;setup&#32;to&#32;don&apos;t&#32;exceed&#32;the&#32;safe&#32;velocity&#32;in&#32;ACC_enebled&#32;on</emphasis>
+107 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link>&#32;=&#32;<link linkend="__a_c_c___code_8c_1a5799c10c74a8123d1d52caea9e5827a7">speedSet</link>(<link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link>);
+108 
+109 &#32;&#32;<emphasis role="comment">//ACC&#32;Model&#32;returning&#32;Acceleration</emphasis>
+110 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_a_c_ccontrol">ACCcontrol</link>&#32;i&#32;=&#32;<link linkend="__a_c_c___code_8c_1a386f000156b63f3dff0448300a879c9b">accelerationControl</link>(<link linkend="__simulation_a_c_c___code_8c_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1abf3e935bafcae937d559251be96f0054">Time_Gap</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242">ACC_speed_set</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1a34acfd270620b972681e56e1073e157a">Relative_velo</link>,&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>);
+111 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>&#32;=&#32;i.<link linkend="_struct_a_c_ccontrol_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>;
+112 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a100acb7cdf1ca545aefa7723dc9d3b57">Safe_distance</link>&#32;=&#32;i.<link linkend="_struct_a_c_ccontrol_1a100acb7cdf1ca545aefa7723dc9d3b57">Safe_distance</link>;
+113 &#32;&#32;<link linkend="__simulation_a_c_c___code_8c_1a617a47c70795bcff659815ad0efd2266">counter</link>++;
+114 
+115 &#32;<emphasis role="comment">/*</emphasis>
+116 <emphasis role="comment">&#32;//&#32;Data&#32;validation&#32;&#x240D;</emphasis>
+117 <emphasis role="comment">&#32;&#32;bool&#32;checkOne&#32;=&#32;checkCollision(ACC_enabled,&#32;Relative_distance_pres);&#x240D;</emphasis>
+118 <emphasis role="comment">&#32;&#32;bool&#32;checkTwo&#32;=&#32;checkValidationSensors(ACC_enabled,&#32;&#32;Fault_signal,&#32;&#32;Gas_pedal,&#32;&#32;Brake_pedal);&#x240D;</emphasis>
+119 <emphasis role="comment">&#32;&#32;bool&#32;checkThree&#32;=&#32;checkRainSafeDistance(&#32;ACC_enabled,&#32;&#32;Rain_sensor,&#32;&#32;D_default,&#32;&#32;Ego_velo,&#32;&#32;Safe_distance);&#x240D;</emphasis>
+120 <emphasis role="comment">&#32;&#32;if(checkOne&#32;||&#32;checkTwo&#32;||&#32;checkThree)&#32;counter=100000;*/</emphasis>
+121 
+122 
+123 &#32;&#32;<emphasis role="comment">//&#32;write&#32;to&#32;the&#32;text&#32;file</emphasis>
+124 &#32;&#32;fprintf(fp,<emphasis role="stringliteral">&quot;\nAcceleration:&#32;%.2f,&#32;&quot;</emphasis>,<link linkend="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e">Acceleration</link>);
+125 &#32;&#32;fprintf(fp,<emphasis role="stringliteral">&quot;RelativeDistance:&#32;%.2f,&#32;&quot;</emphasis>,&#32;<link linkend="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58">Relative_distance_pres</link>);
+126 &#32;&#32;fprintf(fp,<emphasis role="stringliteral">&quot;SafeDistance:&#32;%.2f,&#32;&quot;</emphasis>,&#32;<link linkend="__simulation_a_c_c___code_8c_1a100acb7cdf1ca545aefa7723dc9d3b57">Safe_distance</link>);
+127 &#32;&#32;fprintf(fp,<emphasis role="stringliteral">&quot;EgoVelocity:&#32;%.2f,&#32;&quot;</emphasis>,&#32;<link linkend="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e">Ego_velo</link>);
+128 &#32;&#32;fprintf(fp,<emphasis role="stringliteral">&quot;LeadVelocity:&#32;%.2f,&#32;&quot;</emphasis>,&#32;<link linkend="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c">Lead_velo</link>);
+129 &#32;&#32;}
+130 
+131 &#32;&#32;fclose(fp);&#32;&#32;&#32;<emphasis role="comment">//&#32;close&#32;the&#32;file</emphasis>
+132 }
+</programlisting></section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="__simulation_a_c_c___code_8c_1afd340d6fb70d61744efa058238326252"/><section>
+    <title>ACC_acceleration</title>
+<indexterm><primary>ACC_acceleration</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>ACC_acceleration</secondary></indexterm>
+<para><computeroutput>float ACC_acceleration = 0</computeroutput></para>
+<para>ACC defined acceleration <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1aadf34db2bb89d54f4509e4f5f5974be5"/><section>
+    <title>ACC_brake_acceleration</title>
+<indexterm><primary>ACC_brake_acceleration</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>ACC_brake_acceleration</secondary></indexterm>
+<para><computeroutput>float ACC_brake_acceleration = 0</computeroutput></para>
+<para>Return from acc in use of breaks <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ac21a71322990ef380730f0c211071a6c"/><section>
+    <title>ACC_enabled</title>
+<indexterm><primary>ACC_enabled</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>ACC_enabled</secondary></indexterm>
+<para><computeroutput>bool ACC_enabled = false</computeroutput></para>
+<para>variable that defines whether ACC is on or not <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1adee743eefae5e536c1f60b4461d5a835"/><section>
+    <title>ACC_input</title>
+<indexterm><primary>ACC_input</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>ACC_input</secondary></indexterm>
+<para><computeroutput>bool ACC_input = 1</computeroutput></para>
+<para>User input variable, on or off <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1af0638d1d343f8057eb4417f3258f4242"/><section>
+    <title>ACC_speed_set</title>
+<indexterm><primary>ACC_speed_set</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>ACC_speed_set</secondary></indexterm>
+<para><computeroutput>float ACC_speed_set = 100</computeroutput></para>
+<para>start set spedd of ACC <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a9fb7b7e941fa4bce2acd85fd08a2e36e"/><section>
+    <title>Acceleration</title>
+<indexterm><primary>Acceleration</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Acceleration</secondary></indexterm>
+<para><computeroutput>float Acceleration = 0</computeroutput></para>
+<para>Acceleration </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a9470c26598e7647a6dc6405c215bb22e"/><section>
+    <title>aux</title>
+<indexterm><primary>aux</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>aux</secondary></indexterm>
+<para><computeroutput>bool aux = 0</computeroutput></para>
+<para>auxiliar variable <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a95c68a6553670ca4b510dae13e0d1a2f"/><section>
+    <title>Brake_pedal</title>
+<indexterm><primary>Brake_pedal</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Brake_pedal</secondary></indexterm>
+<para><computeroutput>bool Brake_pedal = 0</computeroutput></para>
+<para>Variable that receives whether the brake pedal was pressed or not <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a26907b6c3e4a1be2a4a2456d906469a1"/><section>
+    <title>Control_v</title>
+<indexterm><primary>Control_v</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Control_v</secondary></indexterm>
+<para><computeroutput>float Control_v = 0</computeroutput></para>
+<para>K gain <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a3ad2e1d26cda4f171c7e97b9d4754791"/><section>
+    <title>Control_x</title>
+<indexterm><primary>Control_x</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Control_x</secondary></indexterm>
+<para><computeroutput>float Control_x = 0</computeroutput></para>
+<para>K gain <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a617a47c70795bcff659815ad0efd2266"/><section>
+    <title>counter</title>
+<indexterm><primary>counter</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>counter</secondary></indexterm>
+<para><computeroutput>int counter = 1</computeroutput></para>
+<para>Interactions limiter </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a6f8d6e73b450c1a075effff099511a07"/><section>
+    <title>D_default</title>
+<indexterm><primary>D_default</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>D_default</secondary></indexterm>
+<para><computeroutput>const float D_default = 10</computeroutput></para>
+<para>initial safe distance (at least) </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ab8b2c911e40397febd1d7c32a452ab9b"/><section>
+    <title>Default_Time_Gap</title>
+<indexterm><primary>Default_Time_Gap</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Default_Time_Gap</secondary></indexterm>
+<para><computeroutput>const float Default_Time_Gap = 3</computeroutput></para>
+<para>minimum time gap </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a3112cac93f77e9cc17c218a63204bf96"/><section>
+    <title>Ego_acceleration_max</title>
+<indexterm><primary>Ego_acceleration_max</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Ego_acceleration_max</secondary></indexterm>
+<para><computeroutput>const float Ego_acceleration_max = 1.47</computeroutput></para>
+<para>Ego acceleration maximum <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ad8c674482d700191da4df4dc627729d3"/><section>
+    <title>Ego_acceleration_min</title>
+<indexterm><primary>Ego_acceleration_min</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Ego_acceleration_min</secondary></indexterm>
+<para><computeroutput>const float Ego_acceleration_min = -5</computeroutput></para>
+<para>Ego accleration minimum <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ab86c690e2c4d104a6fa9054e1d33a31f"/><section>
+    <title>Ego_ace</title>
+<indexterm><primary>Ego_ace</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Ego_ace</secondary></indexterm>
+<para><computeroutput>float Ego_ace = 0</computeroutput></para>
+<para>ego car acceleration </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a161dd8f0e53c92b6350e6076c9f1608c"/><section>
+    <title>Ego_pos</title>
+<indexterm><primary>Ego_pos</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Ego_pos</secondary></indexterm>
+<para><computeroutput>float Ego_pos = 10.0</computeroutput></para>
+<para>Initial ego car position (m) </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ac4044dc15be87ac6a279b81143444f2e"/><section>
+    <title>Ego_velo</title>
+<indexterm><primary>Ego_velo</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Ego_velo</secondary></indexterm>
+<para><computeroutput>float Ego_velo = 70.0/3.6</computeroutput></para>
+<para>Initial ego car position (m/s) </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ac40243eb78d8a5e02272e257f55acc23"/><section>
+    <title>Fault_signal</title>
+<indexterm><primary>Fault_signal</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Fault_signal</secondary></indexterm>
+<para><computeroutput>bool Fault_signal = 0</computeroutput></para>
+<para>Variable that checks whether the sensors are working correctly or not <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a9677e153d2c0d047b41e7b4013d795a8"/><section>
+    <title>Gas_pedal</title>
+<indexterm><primary>Gas_pedal</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Gas_pedal</secondary></indexterm>
+<para><computeroutput>bool Gas_pedal = 0</computeroutput></para>
+<para>Variable that receives whether the gas pedal was pressed or not <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a97df6cb71ca1ed54f2f4fadb312c9bb3"/><section>
+    <title>interval</title>
+<indexterm><primary>interval</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>interval</secondary></indexterm>
+<para><computeroutput>float interval = 0.001</computeroutput></para>
+<para>simulation clock </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a19f9c8d588c878138bb53677277486d2"/><section>
+    <title>Kverr_gain</title>
+<indexterm><primary>Kverr_gain</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Kverr_gain</secondary></indexterm>
+<para><computeroutput>const float Kverr_gain = 0.5</computeroutput></para>
+<para>K gain </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a3a67f9dc88562eeddb9c0abe7d8b9d88"/><section>
+    <title>Kvx_gain</title>
+<indexterm><primary>Kvx_gain</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Kvx_gain</secondary></indexterm>
+<para><computeroutput>const float Kvx_gain = 0.04</computeroutput></para>
+<para>K gain <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1acd139192a15ab7e2e0a7d55d60cd1d9e"/><section>
+    <title>Kxerr_gain</title>
+<indexterm><primary>Kxerr_gain</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Kxerr_gain</secondary></indexterm>
+<para><computeroutput>const float Kxerr_gain = 0.02</computeroutput></para>
+<para>K gain </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a1dc40e5abcf7ef3005c87c1efa693b67"/><section>
+    <title>Lead_ace</title>
+<indexterm><primary>Lead_ace</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Lead_ace</secondary></indexterm>
+<para><computeroutput>float Lead_ace = 0</computeroutput></para>
+<para>lead car acceleration </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a457b56379a3b20ec08b4edd6d55bb9a7"/><section>
+    <title>Lead_pos</title>
+<indexterm><primary>Lead_pos</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Lead_pos</secondary></indexterm>
+<para><computeroutput>float Lead_pos = 30.0</computeroutput></para>
+<para>Initial lead car position (m) </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1ad69d9e6f8609827e50ba20936ae75e7c"/><section>
+    <title>Lead_velo</title>
+<indexterm><primary>Lead_velo</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Lead_velo</secondary></indexterm>
+<para><computeroutput>float Lead_velo = 70.0/3.6</computeroutput></para>
+<para>Initial lead car position (m/s) </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a1cde5d5ce80220d52bb5767d2301e17d"/><section>
+    <title>Rain_sensor</title>
+<indexterm><primary>Rain_sensor</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Rain_sensor</secondary></indexterm>
+<para><computeroutput>bool Rain_sensor = 0</computeroutput></para>
+<para>Variable that receives whether the rain sensor detected a wet road or not </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a58393594a855ef2117c681d823af1952"/><section>
+    <title>Relative_distance_past</title>
+<indexterm><primary>Relative_distance_past</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Relative_distance_past</secondary></indexterm>
+<para><computeroutput>float Relative_distance_past = 20</computeroutput></para>
+<para>Initial past value of relative distance. </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1abec8e6854791ca180fd45812ac392e58"/><section>
+    <title>Relative_distance_pres</title>
+<indexterm><primary>Relative_distance_pres</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Relative_distance_pres</secondary></indexterm>
+<para><computeroutput>float Relative_distance_pres = 20</computeroutput></para>
+<para>Relative distance between Ego and Lead Car. </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a34acfd270620b972681e56e1073e157a"/><section>
+    <title>Relative_velo</title>
+<indexterm><primary>Relative_velo</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Relative_velo</secondary></indexterm>
+<para><computeroutput>float Relative_velo = 0</computeroutput></para>
+<para>relative distance between ego and lead car </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a100acb7cdf1ca545aefa7723dc9d3b57"/><section>
+    <title>Safe_distance</title>
+<indexterm><primary>Safe_distance</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Safe_distance</secondary></indexterm>
+<para><computeroutput>float Safe_distance = 15</computeroutput></para>
+<para>Safe distance <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1a4afee67ae19c4a23846ae4f4fe8f6581"/><section>
+    <title>SafeD_relD</title>
+<indexterm><primary>SafeD_relD</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>SafeD_relD</secondary></indexterm>
+<para><computeroutput>float SafeD_relD = 0</computeroutput></para>
+<para>relative distance <?linebreak?> </para>
+</section>
+<anchor xml:id="__simulation_a_c_c___code_8c_1abf3e935bafcae937d559251be96f0054"/><section>
+    <title>Time_Gap</title>
+<indexterm><primary>Time_Gap</primary><secondary>SimulationACC_Code.c</secondary></indexterm>
+<indexterm><primary>SimulationACC_Code.c</primary><secondary>Time_Gap</secondary></indexterm>
+<para><computeroutput>float Time_Gap = 3</computeroutput></para>
+<para>Time gap add(add to safe distance) </para>
+</section>
+</section>
+</section>

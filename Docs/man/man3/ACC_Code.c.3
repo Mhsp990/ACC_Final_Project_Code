@@ -1,0 +1,196 @@
+.TH "ACC_Code.c" 3 "Version 1.0.0" "ACC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ACC_Code.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdbool\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBACCenable\fP"
+.br
+.ti -1c
+.RI "struct \fBACCcontrol\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "struct \fBACCenable\fP \fBlogicBlockAccEnable\fP (bool \fBaux\fP, bool \fBACC_input\fP, bool \fBFault_signal\fP, float \fBEgo_velo\fP, bool \fBGas_pedal\fP, bool \fBBrake_pedal\fP)"
+.br
+.RI "ACC enable logic block\&. "
+.ti -1c
+.RI "float \fBtimeGap\fP (bool \fBRain_sensor\fP)"
+.br
+.RI "Time Gap\&. "
+.ti -1c
+.RI "float \fBspeedSet\fP (float \fBACC_speed_set\fP)"
+.br
+.RI "Speed Set\&. "
+.ti -1c
+.RI "struct \fBACCcontrol\fP \fBaccelerationControl\fP (bool \fBACC_enabled\fP, float \fBEgo_velo\fP, float \fBTime_Gap\fP, float \fBACC_speed_set\fP, float \fBRelative_velo\fP, float \fBRelative_distance_pres\fP)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "struct \fBACCcontrol\fP accelerationControl (bool ACC_enabled, float Ego_velo, float Time_Gap, float ACC_speed_set, float Relative_velo, float Relative_distance_pres)"
+Acceleration Control
+.PP
+Function responsible for calculating and defining the acceleration to reach the setspeed or reduce the speed to meet the safety distance
+.PP
+\fBParameters\fP
+.RS 4
+\fIACC_enabled\fP Variable that defines whether ACC is on or off  
+.br
+\fIEgo_velo\fP Car speed  
+.br
+\fITime_Gap\fP Time gap between ego car and lead car  
+.br
+\fIACC_speed_set\fP Setspeed defined by user  
+.br
+\fIRelative_velo\fP Relative speed between ego and lead car  
+.br
+\fIRelative_distance_pres\fP Relative distance between ego car and lead car 
+.RE
+.PP
+.PP
+.nf
+71                                                                      {
+72   struct ACCcontrol i;
+74 
+78   float SafeD_relD                 = 0;   // Difference between safe and relative distance
+79   const float D_default            = 10;  // Standard distance
+80   float Control_x                  = 0;   // Intermediate variable to calculate relative distance 
+81   float Control_v                  = 0;   // Intermediate variable to calculate relative distance
+82   const float Kverr_gain           = 0\&.5; // Model gain
+83   const float Kxerr_gain           = 0\&.02;// Model gain
+84   const float Kvx_gain             = 0\&.04;// Model gain
+85   const float Ego_acceleration_min = \-5;  // Minimum ego car acceleration
+86   const float Ego_acceleration_max = 1\&.47;// Max ego car acceleration
+87 
+88   if (ACC_enabled) {// Test if acc is ON/OFF
+89     i\&.Safe_distance = (Ego_velo * Time_Gap) + D_default;
+90     SafeD_relD = i\&.Safe_distance \- Relative_distance_pres;
+91     Control_x = (Relative_velo * Kvx_gain) \- ((i\&.Safe_distance \- Relative_distance_pres) * Kxerr_gain);
+92     Control_v = (ACC_speed_set \- Ego_velo) * Kverr_gain;
+93   // Test whether it is possible to use ACC safely
+94     if (SafeD_relD > 0) {
+95       i\&.Acceleration = (Relative_velo * Kvx_gain) \- (SafeD_relD * Kxerr_gain);
+96 
+97     } else {
+98       i\&.Acceleration = (Control_x < Control_v) ? Control_x : Control_v;
+99     }
+100     i\&.Acceleration = (i\&.Acceleration < Ego_acceleration_min) ?
+101     Ego_acceleration_min : (i\&.Acceleration > Ego_acceleration_max) ? 
+102     Ego_acceleration_max : i\&.Acceleration;
+103     return i;
+104     // If the safety conditions are not accepted, do not accelerate the car
+105   } else {
+106     i\&.Acceleration = 0;
+107     return i;
+108   }
+109 }
+.fi
+
+.SS "struct \fBACCenable\fP logicBlockAccEnable (bool aux, bool ACC_input, bool Fault_signal, float Ego_velo, bool Gas_pedal, bool Brake_pedal)"
+
+.PP
+ACC enable logic block\&. This function has the role of checking whether or not it is possible to activate the ACC 
+.PP
+\fBParameters\fP
+.RS 4
+\fIaux\fP Auxiliary variable  
+.br
+\fIACC_input\fP ACC input is the variable that defines whether or not the user-defined ACC works  
+.br
+\fIFault_signal\fP Fault signal is the variable that checks whether the sensors are working correctly  
+.br
+\fIEgo_velo\fP Ego velocity is the current speed of the vehicle  
+.br
+\fIGas_pedal\fP It is the variable that identifies whether the accelerator pedal is pressed  
+.br
+\fIBrake_pedal\fP It is the variable that identifies whether the brake pedal is pressed 
+.RE
+.PP
+.PP
+.nf
+25                                        {
+26   struct ACCenable index;
+27 
+28   if (aux == 0 && ACC_input == 1 && Fault_signal == 0 && Ego_velo >= 11 && Gas_pedal == 0 && Brake_pedal == 0) {
+29     index\&.aux = 1;
+30     index\&.ACC_enabled = 1;
+31     return index;
+32 
+33   } else {
+34     if (ACC_input == 1 && aux == 1 && Fault_signal == 0 && Gas_pedal == 0 && Brake_pedal == 0) {
+35       index\&.ACC_enabled = 1;
+36 
+37       return index;
+38     } else {
+39       index\&.ACC_enabled = 0;
+40       index\&.aux = 0;
+41       return index;
+42     }
+43   }
+44 }
+.fi
+
+.SS "float speedSet (float ACC_speed_set)"
+
+.PP
+Speed Set\&. This variable's function is to receive the desired speed value from the user and check whether it is possible to turn on the ACC by checking the speed range defined in the requirements\&. 
+.br
+ 
+.PP
+\fBParameters\fP
+.RS 4
+\fIACC_speed_set\fP Setspeed defined by user 
+.RE
+.PP
+.PP
+.nf
+57                                      { 
+58   float ACC_speed_set_max = 120\&.0;
+59   float ACC_speed_set_min = 40\&.0;
+60   ACC_speed_set = (ACC_speed_set < ACC_speed_set_min) ?
+61   ACC_speed_set_min : (ACC_speed_set > ACC_speed_set_max) ? 
+62   ACC_speed_set_max : ACC_speed_set;
+63   return ACC_speed_set;
+64 }
+.fi
+
+.SS "float timeGap (bool Rain_sensor)"
+
+.PP
+Time Gap\&. This function focuses on calculating the time gap between the car and the lead car 
+.PP
+\fBParameters\fP
+.RS 4
+\fIRain_sensor\fP Variable that receives whether there is rain or not 
+.RE
+.PP
+.PP
+.nf
+48                                  { 
+49   float Time_Gap = 3;
+50   const float Default_Time_Gap = 3;
+51   Time_Gap = Rain_sensor ? Default_Time_Gap * 2 : Default_Time_Gap;
+52   return Time_Gap;
+53 }
+.fi
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ACC from the source code\&.

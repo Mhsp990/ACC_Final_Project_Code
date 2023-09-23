@@ -16,9 +16,13 @@ struct ACCcontrol {
 //! ACC enable logic block
 /*! This function has the role of checking whether or not it is possible to activate the ACC */
 
-struct ACCenable logicBlockAccEnable(bool aux, bool ACC_input,
-                                     bool Fault_signal, float Ego_velo,
-                                     bool Gas_pedal, bool Brake_pedal) {
+struct ACCenable logicBlockAccEnable(bool aux/**<  Auxiliary variable */, 
+                                     bool ACC_input/**<  ACC input is the variable that defines whether or not the user-defined ACC works */,
+                                     bool Fault_signal/**< Fault signal is the variable that checks whether the sensors are working correctly */, 
+                                     float Ego_velo/**< Ego velocity is the current speed of the vehicle*/,
+                                     bool Gas_pedal/**< It is the variable that identifies whether the accelerator pedal is pressed*/, 
+                                     bool Brake_pedal/**< It is the variable that identifies whether the brake pedal is pressed*/
+                                     ) {
   struct ACCenable index;
 
   if (aux == 0 && ACC_input == 1 && Fault_signal == 0 && Ego_velo >= 11 && Gas_pedal == 0 && Brake_pedal == 0) {
@@ -41,16 +45,16 @@ struct ACCenable logicBlockAccEnable(bool aux, bool ACC_input,
 
 //! Time Gap
 /*! This function focuses on calculating the time gap between the car and the lead car */
-float timeGap(bool Rain_sensor) { 
+float timeGap(bool Rain_sensor/**<  Variable that receives whether there is rain or not */) { 
   float Time_Gap = 3;
   const float Default_Time_Gap = 3;
   Time_Gap = Rain_sensor ? Default_Time_Gap * 2 : Default_Time_Gap;
   return Time_Gap;
 }
 //! Speed Set
-/*! This function has the role of checking whether or not it is possible to activate the ACC */
-/*! Limit of Ego_velo to dont exceed the safe velocity */
-float speedSet(float ACC_speed_set) { 
+/*! This variable's function is to receive the desired speed value from the user and check whether it is possible to turn on the ACC by checking the speed range defined in the requirements.  */
+
+float speedSet(float ACC_speed_set/**<  Setspeed defined by user */) { 
   float ACC_speed_set_max = 120.0;
   float ACC_speed_set_min = 40.0;
   ACC_speed_set = (ACC_speed_set < ACC_speed_set_min) ?
@@ -59,9 +63,12 @@ float speedSet(float ACC_speed_set) {
   return ACC_speed_set/3.6;
 }
 
-struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,
-                                      float Time_Gap, float ACC_speed_set,
-                                      float Relative_distance_past, float Relative_distance_pres, float interval) {
+struct ACCcontrol accelerationControl(bool ACC_enabled/**<  Variable that defines whether ACC is on or off */, 
+                                      float Ego_velo/**<  Car speed */,
+                                      float Time_Gap/**<  Time gap between ego car and lead car */, 
+                                      float ACC_speed_set/**<  Setspeed defined by user */,
+                                      float Relative_distance_past/**<  Relative speed between ego and lead car */, 
+                                      float Relative_distance_pres/**<  Relative distance between ego car and lead car */, float interval) {
   struct ACCcontrol i;
   //! Acceleration Control
   /*!

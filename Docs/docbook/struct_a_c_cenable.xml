@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_struct_a_c_cenable" xml:lang="en-US">
+<title>ACCenable Struct Reference</title>
+<indexterm><primary>ACCenable</primary></indexterm>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>bool <link linkend="_struct_a_c_cenable_1ac21a71322990ef380730f0c211071a6c">ACC_enabled</link></para>
+</listitem>
+            <listitem><para>bool <link linkend="_struct_a_c_cenable_1a9470c26598e7647a6dc6405c215bb22e">aux</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_struct_a_c_cenable_1ac21a71322990ef380730f0c211071a6c"/><section>
+    <title>ACC_enabled</title>
+<indexterm><primary>ACC_enabled</primary><secondary>ACCenable</secondary></indexterm>
+<indexterm><primary>ACCenable</primary><secondary>ACC_enabled</secondary></indexterm>
+<para><computeroutput>bool ACC_enabled</computeroutput></para></section>
+<anchor xml:id="_struct_a_c_cenable_1a9470c26598e7647a6dc6405c215bb22e"/><section>
+    <title>aux</title>
+<indexterm><primary>aux</primary><secondary>ACCenable</secondary></indexterm>
+<indexterm><primary>ACCenable</primary><secondary>aux</secondary></indexterm>
+<para><computeroutput>bool aux</computeroutput></para></section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+<link linkend="__a_c_c___code_8c">ACC_Code.c</link></section>
+</section>

@@ -3,51 +3,51 @@
 #include "Validation.h"
 
 
-//Calibration Variables
-float step = 0.001; //Time between iteractions
-float D_time_gap = 3; //Base time gap between the ACC car (Ego) and front car (Lead).
-float D_distance = 10; //Base distance between cars, regardless of timegap. 
-float V_set = 21; //User defined velocity for ACC.
-int rain_signal = 0; //Signal from rain sensor. Indicates rain surface, affecting required time gap.
-short int ACC_enable = 0; //Represents the system input when the ACC is enabled.
-const float Kverr_gain = 0.5;  //Gains
-const float Kxerr_gain = 0.0;
-const float Kvx_gain   = 0.04;
-const float Ego_acceleration_min = -5.0;  //Max brake value
-const float Ego_acceleration_max = 1.47;  //Max acceleration value - More than this and will be unconfortable
+// Calibration Variables 
+float step = 0.001; /*!< Time between iteractions*/
+float D_time_gap = 3; /*!Base time gap between the ACC car (Ego) and front car (Lead).*/
+float D_distance = 10; /*! Base distance between cars, regardless of timegap. */
+float V_set = 21; /*! User defined velocity for ACC. */
+int rain_signal = 0; /*! Signal from rain sensor. Indicates rain surface, affecting required time gap.*/
+short int ACC_enable = 0; /*! Represents the system input when the ACC is enabled.*/
+const float Kverr_gain = 0.5;  /*! Gains*/
+const float Kxerr_gain = 0.0;/*! Gains*/
+const float Kvx_gain   = 0.04;/*! Gains*/
+const float Ego_acceleration_min = -5.0;  /*! Max brake value */
+const float Ego_acceleration_max = 1.47;  /*! Max acceleration value - More than this and will be unconfortable */
 
 //Logic control variables
-int ACC_input = 0;   //User input to enable ACC. Does not mean the acc is enabled (yet).
-int Fault_signal = 0;  //System input indicating fault in at least one sensor. If true, ACC must be disabled.
-int Gas_pedal = 0;  //User input indicating the Gas pedal has been pressed and ACC must be disabled.
-int Brake_pedal = 0; //User input indicating the Brake pedal has been pressed and ACC must be disabled.
+int ACC_input = 0;   /*! User input to enable ACC. Does not mean the acc is enabled (yet). */
+int Fault_signal = 0;  /*! System input indicating fault in at least one sensor. If true, ACC must be disabled. */
+int Gas_pedal = 0;  /*! User input indicating the Gas pedal has been pressed and ACC must be disabled. */
+int Brake_pedal = 0; /*! User input indicating the Brake pedal has been pressed and ACC must be disabled. */
 
-int counter = 0; // Counter of iteractions for this simulation
-const int maxCounter = 10000; //Max number of iteractions for this simulation
+int counter = 0; /*!  Counter of iteractions for this simulation */
+const int maxCounter = 10000; /*! Max number of iteractions for this simulation */
 
-//SIMULATION VALUES - Used to simulate sensors inputs for the ACC system
-float V_lead = 25; //Initial front car speed in meters per second 
-float Pos_lead = 100; //Initial front car position (meters)
-float Acceleration_lead = 0; //Base front car acceleration - Causes variation in front car speed
-float Amplitude_move_lead = 0.1; //Determines how much the front car acceleration should vary
+//SIMULATION VALUES - Used to simulate sensors inputs for the ACC system */
+float V_lead = 25; /*! Initial front car speed in meters per second */
+float Pos_lead = 100; /*! Initial front car position (meters) */
+float Acceleration_lead = 0; /*! Base front car acceleration - Causes variation in front car speed */
+float Amplitude_move_lead = 0.1; /*! Determines how much the front car acceleration should vary */
 
-float Pos_ego = 0; //Ego car initial position (meters)
-float V_ego = 17; //Ego car initial speed (meters per second)
-//float V_ego_INITIAL = 17; //Velocity when the ACC_input is pressed
-float ACC_acceleration = 0; //Ego car initial acceleration. Changed by ACC output during runtime.
+float Pos_ego = 0; /*! Ego car initial position (meters) */
+float V_ego = 17; /*! Ego car initial speed (meters per second) */
+//float V_ego_INITIAL = 17; //Velocity when the ACC_input is pressed */
+float ACC_acceleration = 0; /*! Ego car initial acceleration. Changed by ACC output during runtime. */
 
-float relativeDistance = 15; // relativeDistance = Pos_lead - Pos_ego
-float relativeSpeed = 10;   // relativeSpeed = V_lead - V_ego
-float safeDistance = 15;   //  safeDistance = (D_time_Gap*2) + D_distance
+float relativeDistance = 15; /*!  relativeDistance = Pos_lead - Pos_ego */
+float relativeSpeed = 10;   /*!  relativeSpeed = V_lead - V_ego */
+float safeDistance = 15;   /*!   safeDistance = (D_time_Gap*2) + D_distance */
 
-float calculateLeadSpeed(float Vo, float Acc, float dT );
-float calculateLeadPosition(float So, float Vo, float dT, float Acc);
-float generateLeadAcceleration(float Amplitude_move_lead);
-float calculateEgoSpeed(float Vo, float Acc, float dT );
-float calculateEgoPosition(float So, float Vo, float dT, float Acc);
-float setTimeGap();
-float control();
-float ACC_FUNCTION();
+float calculateLeadSpeed(float Vo, float Acc, float dT ); //!< Simulation function to calculate lead car speed
+float calculateLeadPosition(float So, float Vo, float dT, float Acc); //!< Simulation function to calculate lead car position
+float generateLeadAcceleration(float Amplitude_move_lead); //!< Simulation function to calculate lead car sacceleration
+float calculateEgoSpeed(float Vo, float Acc, float dT ); //!< Simulation function to calculate Ego car speed
+float calculateEgoPosition(float So, float Vo, float dT, float Acc);//!< Simulation function to calculate Ego car position
+float setTimeGap();//!< Simulation function to define time gap between lead and ego car 
+float control();//!< Simulation function to define control block
+float ACC_FUNCTION(); //!< Simulation function to execute ACC 
 
 int main(){
 
@@ -85,29 +85,39 @@ int main(){
 
 //Functions
 
-float calculateLeadSpeed(float Vo, float Acc, float dT )
+float calculateLeadSpeed(float Vo/**<  initial speed */, 
+                         float Acc/**<  acceleration */, 
+                         float dT /**<  time interval */ )
 {
     return Vo+(Acc*dT);
 }
 
-float calculateLeadPosition(float So, float Vo, float dT, float Acc)
+float calculateLeadPosition(float So /**<  initial position */, 
+                            float Vo/**<  initial speed */, 
+                            float dT/**<  time interval */, 
+                            float Acc/**<  acceleration */)
 {
     return So+(Vo*dT)+(pow((Acc*dT),2))/2;
 }
 
-float generateLeadAcceleration(float Amplitude_move_lead)
+float generateLeadAcceleration(float Amplitude_move_lead/**<  amplitude of the sine function */)
 {
     return 0; //Use a Sin function with amplitude to variate the lead car speed
 }
 
 //EGO RELATED FUNCTIONS----------------------
 
-float calculateEgoSpeed(float Vo, float Acc, float dT )
+float calculateEgoSpeed(float Vo/**<  initial speed */, 
+                        float Acc/**<  acceleration */, 
+                        float dT /**<  time interval */)
 {
     return Vo+(Acc*dT);
 }
 
-float calculateEgoPosition(float So, float Vo, float dT, float Acc)
+float calculateEgoPosition(float So,/**<  amplitude of the sine function */
+                           float Vo,/**<  initial speed */
+                           float dT, /**<  time interval */
+                           float Acc/**<  acceleration */)
 {
     return So+(Vo*dT)+ (pow(Acc*dT,2))/2;
 }

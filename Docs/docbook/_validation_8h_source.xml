@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__validation_8h_source" xml:lang="en-US">
+<title>Validation.h</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered">1 <emphasis role="preprocessor">#ifndef&#32;VALIDATION_H</emphasis>
+2 <emphasis role="preprocessor">#define&#32;VALIDATION_H</emphasis>
+3 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="__validation_8c">Validation.c</link>&quot;</emphasis>
+4 
+5 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8h_1a29f65dfccab410add4c062f22aeabc95">checkCollision</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a6818a4e4f4bf2f65542e247c16c21c1e">relativeDistance</link>);
+6 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8h_1a513ddee1c80e0586fcc887ceb5502626">checkValidationSensors</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a82bceca2a2b3cca1c7f65ef9e3a8027e">Fault_signal</link>,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a5ca4db79d52fb410de4f96e43c801a90">Gas_pedal</link>,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a2af77f8378df53dc4899ea083f098e38">Brake_pedal</link>);
+7 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__validation_8h_1a1f64d1353d11c7a3e1ff5b6d27c5ca8e">checkRainSafeDistance</link>(<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1ae733aedbd64552a407fd8daa6eee7428">ACC_enable</link>,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="__simulation_8c_1a38bf544400ec17b6c80bdceb5d9eeaaa">rain_signal</link>,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a956811f7965a657e3606df19862b3ec8">D_distance</link>,&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a066517b9bcab469cbf6f505f1c290e53">V_ego</link>,&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="__simulation_8c_1a2cafa3ee65cbf9d7f1b5e3b6b53c8674">safeDistance</link>);
+8 &#32;&#32;&#32;&#32;<emphasis role="comment">//bool&#32;checkRelativeSafeDistance(bool&#32;ACC_enable,&#32;float&#32;safeDistance,&#32;float&#32;relativeDistance);</emphasis>
+9 
+10 <emphasis role="preprocessor">#endif</emphasis>
+</programlisting></section>
