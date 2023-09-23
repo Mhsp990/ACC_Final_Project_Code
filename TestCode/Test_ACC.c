@@ -19,11 +19,23 @@ void test_speedSet_any(void) { CU_ASSERT(50 == speedSet(50)); }
 
 void test_speedSet_max(void) { CU_ASSERT(120 == speedSet(150)); }
 
-void test_accelerationControl(void) {
+void test_accelerationControl1(void) {
   struct ACCcontrol i = accelerationControl(1, 16.6, 3, 19.4, 2.7, 60);
   CU_ASSERT_DOUBLE_EQUAL(0.11, i.Acceleration, 0.01);
   CU_ASSERT_DOUBLE_EQUAL(60.00, i.Safe_distance, 0.2);
 }
+
+void test_accelerationControl2(void) {
+  struct ACCcontrol i = accelerationControl(1, 16.6, 3, 19.4, 2.7, 60);
+  CU_ASSERT_DOUBLE_EQUAL(0.11, i.Acceleration, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(60.00, i.Safe_distance, 0.2);
+}
+
+void test_accelerationControl3(void) {
+  struct ACCcontrol i = accelerationControl(0, 16.6, 3, 19.4, 2.7, 60);
+  CU_ASSERT_DOUBLE_EQUAL(0.0, i.Acceleration, 0.01);
+}
+
 
 /////////////////////////////////////////////////////////////////////
 ///////////--Test cases of "aux" output MC/DC--//////////////////////
