@@ -13,27 +13,48 @@ void test_timeGap(void) { CU_ASSERT(3 == timeGap(false)); }
 
 void test_timeGap_rain(void) { CU_ASSERT(6 == timeGap(true)); }
 
-void test_speedSet_min(void) { CU_ASSERT(40 == speedSet(20)); }
+///////////////////////////////////////////////////////////////////////////////////
+void test_speedSet_min(void) { CU_ASSERT_DOUBLE_EQUAL(40/3.6, speedSet(20), 0.1)}
 
-void test_speedSet_any(void) { CU_ASSERT(50 == speedSet(50)); }
+void test_speedSet_any(void) { CU_ASSERT_DOUBLE_EQUAL(50/3.6, speedSet(50), 0.1) }
 
-void test_speedSet_max(void) { CU_ASSERT(120 == speedSet(150)); }
+void test_speedSet_max(void) { CU_ASSERT_DOUBLE_EQUAL(120/3.6, speedSet(150), 0.1)}
+///////////////////////////////////////////////////////////////////////////////////
 
 void test_accelerationControl1(void) {
-  struct ACCcontrol i = accelerationControl(1, 16.6, 3, 19.4, 2.7, 60);
-  CU_ASSERT_DOUBLE_EQUAL(0.11, i.Acceleration, 0.01);
-  CU_ASSERT_DOUBLE_EQUAL(60.00, i.Safe_distance, 0.2);
+  // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
+  struct ACCcontrol i = accelerationControl(1, 19.44, 3, 27.78, 20.00, 20.00, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(-0.96, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(68.16, i.Safe_distance, 0.2);
 }
 
 void test_accelerationControl2(void) {
-  struct ACCcontrol i = accelerationControl(1, 16.6, 3, 19.4, 2.7, 60);
-  CU_ASSERT_DOUBLE_EQUAL(0.11, i.Acceleration, 0.01);
-  CU_ASSERT_DOUBLE_EQUAL(60.00, i.Safe_distance, 0.2);
+  // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
+  struct ACCcontrol i = accelerationControl(1, 19.71, 3, 27.77, 4.99722, 4.99457, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(-1.29, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(69.13, i.Safe_distance, 0.2);
 }
 
 void test_accelerationControl3(void) {
-  struct ACCcontrol i = accelerationControl(0, 16.6, 3, 19.4, 2.7, 60);
-  CU_ASSERT_DOUBLE_EQUAL(0.0, i.Acceleration, 0.01);
+  // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
+  struct ACCcontrol i = accelerationControl(0, 16.6, 3, 19.4, 2.7, 60, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(0.0, i.Acceleration, 0.1);
+}
+
+void test_accelerationControl4(void) {
+  // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
+  struct ACCcontrol i = accelerationControl(1, 20.25, 3, 27.77, 89.13385, 89.12582, 0.01);
+  printf("%f", i.Acceleration);
+  CU_ASSERT_DOUBLE_EQUAL(0.34, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(70.74, i.Safe_distance, 0.2);
+}
+
+void test_accelerationControl5(void) {
+  // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
+  struct ACCcontrol i = accelerationControl(1, 11.18, 3, 27.77, 140.69298, 140.83113, 0.01);
+  printf("%f", i.Acceleration);
+  CU_ASSERT_DOUBLE_EQUAL(1.47, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(43.55, i.Safe_distance, 0.2);
 }
 
 
@@ -176,6 +197,8 @@ int main(void) {
     return CU_get_error();
   }
 
+
+///////////////////////////////
   if ((NULL ==
        CU_add_test(pSuite1, "SpeedSet function Testing for values below range", test_speedSet_min))) {
     CU_cleanup_registry();
@@ -194,12 +217,37 @@ int main(void) {
     return CU_get_error();
   }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
   if ((NULL == 
-    CU_add_test(pSuite1, "Acceleration Control function Testing",test_accelerationControl))) {
+    CU_add_test(pSuite1, "Acceleration Control function Test 1",test_accelerationControl1))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
+   if ((NULL == 
+    CU_add_test(pSuite1, "Acceleration Control function Test 2",test_accelerationControl2))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+if ((NULL == 
+    CU_add_test(pSuite1, "Acceleration Control function Test 3",test_accelerationControl3))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL == 
+    CU_add_test(pSuite1, "Acceleration Control function Test 4",test_accelerationControl4))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL == 
+    CU_add_test(pSuite1, "Acceleration Control function Test 5",test_accelerationControl5))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
 
 ///////////// - Suite 2 - ///////////////////
    pSuite2 = CU_add_suite("Test Suite of Aux output from logic block", init_suite, clean_suite);

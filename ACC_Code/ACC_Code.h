@@ -9,8 +9,8 @@ struct ACCenable logicBlockAccEnable(bool aux, bool ACC_input,
                                      bool Gas_pedal, bool Brake_pedal);
 struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,
                                       float Time_Gap, float ACC_speed_set,
-                                      float Relative_velo,
-                                      float Relative_distance_pres);
+                                      float Relative_distance_past,
+                                      float Relative_distance_pres,float interval);
 float timeGap(bool Rain_sensor);
 float speedSet(float ACC_speed_set);
 

@@ -269,18 +269,18 @@
             <td class="headerValue">ACC_Code.c</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">0</td>
-            <td class="headerTableEntry">47</td>
-            <td class="headerTableEntry" style="background-color:LightPink">0.0 %</td>
+            <td class="headerTableEntry">49</td>
+            <td class="headerTableEntry">49</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2023-09-23 12:15:47</td>
+            <td class="headerValue">2023-09-23 18:26:59</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">0</td>
+            <td class="headerTableEntry">36</td>
             <td class="headerTableEntry">38</td>
-            <td class="headerTableEntry" style="background-color:LightPink">0.0 %</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">94.7 %</td>
           </tr>
         </table>
       </td>
@@ -428,8 +428,8 @@
     <tr>
     <td align="right" class="lineno"><pre>19</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>struct ACCenable logicBlockAccEnable(bool aux, bool ACC_input,</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="left" class="src coveredLine"><pre>struct ACCenable logicBlockAccEnable(bool aux, bool ACC_input,</pre></td>
     </tr>
 
     <tr>
@@ -462,30 +462,30 @@
 
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  if (aux == 0 &amp;&amp; ACC_input == 1 &amp;&amp; Fault_signal == 0 &amp;&amp; Ego_velo >= 11 &amp;&amp; Gas_pedal == 0 &amp;&amp; Brake_pedal == 0) {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 9 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span><span class="takenBranch" title="Branch 2 taken 8 times">&check;</span><span class="takenBranch" title="Branch 3 taken 1 times">&check;</span><br/><span class="takenBranch" title="Branch 4 taken 7 times">&check;</span><span class="takenBranch" title="Branch 5 taken 1 times">&check;</span><span class="takenBranch" title="Branch 6 taken 5 times">&check;</span><span class="takenBranch" title="Branch 7 taken 2 times">&check;</span><br/><span class="takenBranch" title="Branch 8 taken 4 times">&check;</span><span class="takenBranch" title="Branch 9 taken 1 times">&check;</span><span class="takenBranch" title="Branch 10 taken 2 times">&check;</span><span class="takenBranch" title="Branch 11 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="left" class="src coveredLine"><pre>  if (aux == 0 &amp;&amp; ACC_input == 1 &amp;&amp; Fault_signal == 0 &amp;&amp; Ego_velo >= 11 &amp;&amp; Gas_pedal == 0 &amp;&amp; Brake_pedal == 0) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    index.aux = 1;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>    index.aux = 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>26</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    index.ACC_enabled = 1;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>    index.ACC_enabled = 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    return index;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return index;</pre></td>
     </tr>
 
     <tr>
@@ -504,16 +504,16 @@
 
     <tr>
     <td align="right" class="lineno"><pre>30</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    if (ACC_input == 1 &amp;&amp; aux == 1 &amp;&amp; Fault_signal == 0 &amp;&amp; Gas_pedal == 0 &amp;&amp; Brake_pedal == 0) {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 11 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span><span class="takenBranch" title="Branch 2 taken 5 times">&check;</span><span class="takenBranch" title="Branch 3 taken 6 times">&check;</span><br/><span class="takenBranch" title="Branch 4 taken 4 times">&check;</span><span class="takenBranch" title="Branch 5 taken 1 times">&check;</span><span class="takenBranch" title="Branch 6 taken 3 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><br/><span class="takenBranch" title="Branch 8 taken 2 times">&check;</span><span class="takenBranch" title="Branch 9 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (ACC_input == 1 &amp;&amp; aux == 1 &amp;&amp; Fault_signal == 0 &amp;&amp; Gas_pedal == 0 &amp;&amp; Brake_pedal == 0) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>31</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      index.ACC_enabled = 1;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>      index.ACC_enabled = 1;</pre></td>
     </tr>
 
     <tr>
@@ -526,8 +526,8 @@
     <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      return index;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>      return index;</pre></td>
     </tr>
 
     <tr>
@@ -540,22 +540,22 @@
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      index.ACC_enabled = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="left" class="src coveredLine"><pre>      index.ACC_enabled = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      index.aux = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="left" class="src coveredLine"><pre>      index.aux = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>37</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      return index;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="left" class="src coveredLine"><pre>      return index;</pre></td>
     </tr>
 
     <tr>
@@ -603,36 +603,36 @@
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>float timeGap(bool Rain_sensor) {</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>float timeGap(bool Rain_sensor) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float Time_Gap = 3;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float Time_Gap = 3;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Default_Time_Gap = 3;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Default_Time_Gap = 3;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>47</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  Time_Gap = Rain_sensor ? Default_Time_Gap * 2 : Default_Time_Gap;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>  Time_Gap = Rain_sensor ? Default_Time_Gap * 2 : Default_Time_Gap;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>48</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  return Time_Gap;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>  return Time_Gap;</pre></td>
     </tr>
 
     <tr>
@@ -666,50 +666,50 @@
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>float speedSet(float ACC_speed_set) {</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>float speedSet(float ACC_speed_set) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float ACC_speed_set_max = 120.0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float ACC_speed_set_max = 120.0/3.6;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>55</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float ACC_speed_set_min = 40.0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float ACC_speed_set_min = 40.0/3.6;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  ACC_speed_set = (ACC_speed_set &lt; ACC_speed_set_min) ?</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>  ACC_speed_set = (ACC_speed_set &lt; ACC_speed_set_min) ?</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  ACC_speed_set_min : (ACC_speed_set > ACC_speed_set_max) ?</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>  ACC_speed_set_min : (ACC_speed_set > ACC_speed_set_max) ?</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  ACC_speed_set_max : ACC_speed_set;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>  ACC_speed_set_max : ACC_speed_set;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  return ACC_speed_set;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>  return ACC_speed_set/3.6;</pre></td>
     </tr>
 
     <tr>
@@ -729,8 +729,8 @@
     <tr>
     <td align="right" class="lineno"><pre>62</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,</pre></td>
     </tr>
 
     <tr>
@@ -744,7 +744,7 @@
     <td align="right" class="lineno"><pre>64</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>                                      float Relative_velo, float Relative_distance_pres) {</pre></td>
+    <td align="left" class="src "><pre>                                      float Relative_distance_past, float Relative_distance_pres, float interval) {</pre></td>
     </tr>
 
     <tr>
@@ -792,127 +792,127 @@
     <tr>
     <td align="right" class="lineno"><pre>71</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float SafeD_relD                 = 0;   // Difference between safe and relative distance</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float SafeD_relD                 = 0;   // Difference between safe and relative distance</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float D_default            = 10;  // Standard distance</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float D_default            = 10;  // Standard distance</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>73</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float Control_x                  = 0;   // Intermediate variable to calculate relative distance</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float Control_x                  = 0;   // Intermediate variable to calculate relative distance</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>74</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  float Control_v                  = 0;   // Intermediate variable to calculate relative distance</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float Control_v                  = 0;   // Intermediate variable to calculate relative distance</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>75</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Kverr_gain           = 0.5; // Model gain</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Kverr_gain           = 0.5; // Model gain</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Kxerr_gain           = 0.02;// Model gain</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Kxerr_gain           = 0.2;// Model gain</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Kvx_gain             = 0.04;// Model gain</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Kvx_gain             = 0.04;// Model gain</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>78</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Ego_acceleration_min = -5;  // Minimum ego car acceleration</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Ego_acceleration_min = -5;  // Minimum ego car acceleration</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>79</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  const float Ego_acceleration_max = 1.47;// Max ego car acceleration</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  const float Ego_acceleration_max = 1.47;// Max ego car acceleration</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>80</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  float Relative_velo              = 0;   // Relative velocity of both cars</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>81</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>81</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>  if (ACC_enabled) {// Test if acc is ON/OFF</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>82</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    i.Safe_distance = (Ego_velo * Time_Gap) + D_default;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="left" class="src coveredLine"><pre>  if (ACC_enabled) {// Test if acc is ON/OFF</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    SafeD_relD = i.Safe_distance - Relative_distance_pres;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Relative_velo = (Relative_distance_pres - Relative_distance_past)/interval;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>84</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    Control_x = (Relative_velo * Kvx_gain) - ((i.Safe_distance - Relative_distance_pres) * Kxerr_gain);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    i.Safe_distance = (Ego_velo * Time_Gap) + D_default;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>85</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    SafeD_relD = i.Safe_distance - Relative_distance_pres;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>86</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>  // Test whether it is possible to use ACC safely</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Control_x = (Relative_velo * Kvx_gain) - ((i.Safe_distance - Relative_distance_pres) * Kxerr_gain);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>87</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    if (SafeD_relD > 0) {</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>88</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
@@ -926,88 +926,116 @@
     <td align="right" class="lineno"><pre>90</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    } else {</pre></td>
+    <td align="left" class="src "><pre>  // Test whether it is possible to use ACC safely</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>91</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>      i.Acceleration = (Control_x &lt; Control_v) ? Control_x : Control_v;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (SafeD_relD > 0) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>92</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>      i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>93</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>94</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    } else {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>95</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>      i.Acceleration = (Control_x &lt; Control_v) ? Control_x : Control_v;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>96</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>93</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    i.Acceleration = (i.Acceleration &lt; Ego_acceleration_min) ?</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>94</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    Ego_acceleration_min : (i.Acceleration > Ego_acceleration_max) ?</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>95</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    Ego_acceleration_max : i.Acceleration;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>96</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    return i;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>97</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    // If the safety conditions are not accepted, do not accelerate the car</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    i.Acceleration = (i.Acceleration &lt; Ego_acceleration_min) ?</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>98</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>  } else {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Ego_acceleration_min : (i.Acceleration > Ego_acceleration_max) ?</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>99</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    i.Acceleration = 0;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Ego_acceleration_max : i.Acceleration;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>100</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>    return i;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return i;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>  }</pre></td>
+    <td align="left" class="src "><pre>    // If the safety conditions are not accepted, do not accelerate the car</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>102</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>  } else {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>103</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>    i.Acceleration = 0;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>104</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return i;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>105</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>  }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>

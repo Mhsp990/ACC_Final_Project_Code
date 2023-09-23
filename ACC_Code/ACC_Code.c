@@ -56,12 +56,12 @@ float speedSet(float ACC_speed_set) {
   ACC_speed_set = (ACC_speed_set < ACC_speed_set_min) ?
   ACC_speed_set_min : (ACC_speed_set > ACC_speed_set_max) ? 
   ACC_speed_set_max : ACC_speed_set;
-  return ACC_speed_set;
+  return ACC_speed_set/3.6;
 }
 
 struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,
                                       float Time_Gap, float ACC_speed_set,
-                                      float Relative_velo, float Relative_distance_pres) {
+                                      float Relative_distance_past, float Relative_distance_pres, float interval) {
   struct ACCcontrol i;
   //! Acceleration Control
   /*!
@@ -73,22 +73,26 @@ struct ACCcontrol accelerationControl(bool ACC_enabled, float Ego_velo,
   float Control_x                  = 0;   // Intermediate variable to calculate relative distance 
   float Control_v                  = 0;   // Intermediate variable to calculate relative distance
   const float Kverr_gain           = 0.5; // Model gain
-  const float Kxerr_gain           = 0.02;// Model gain
+  const float Kxerr_gain           = 0.2;// Model gain
   const float Kvx_gain             = 0.04;// Model gain
   const float Ego_acceleration_min = -5;  // Minimum ego car acceleration
   const float Ego_acceleration_max = 1.47;// Max ego car acceleration
+  float Relative_velo              = 0;   // Relative velocity of both cars
 
   if (ACC_enabled) {// Test if acc is ON/OFF
+    Relative_velo = (Relative_distance_pres - Relative_distance_past)/interval;
     i.Safe_distance = (Ego_velo * Time_Gap) + D_default;
     SafeD_relD = i.Safe_distance - Relative_distance_pres;
     Control_x = (Relative_velo * Kvx_gain) - ((i.Safe_distance - Relative_distance_pres) * Kxerr_gain);
     Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;
+
+
   // Test whether it is possible to use ACC safely
     if (SafeD_relD > 0) {
       i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);
 
     } else {
-      i.Acceleration = (Control_x < Control_v) ? Control_x : Control_v;
+      i.Acceleration = (Control_v < Control_x) ? Control_x : Control_v;
     }
     i.Acceleration = (i.Acceleration < Ego_acceleration_min) ?
     Ego_acceleration_min : (i.Acceleration > Ego_acceleration_max) ? 

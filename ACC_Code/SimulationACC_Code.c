@@ -3,41 +3,32 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "ACC_Code.h"
+#include <unistd.h>
 
 
 float Ego_ace = 0;
 float Lead_ace = 0;
 float Relative_velo = 0;
 
-float Lead_pos = 30.0;  // Initial lead car position (m)
+float Lead_pos = 15.0;  // Initial lead car position (m)
 float Ego_pos  = 10.0;  // Initial ego car position  (m)
 
-float Relative_distance_pres = 20; //Relative distance between Ego and Lead Car.
-float Relative_distance_past = 20; //Initial past value of relative distance.
+float Relative_distance_pres = 5; //Relative distance between Ego and Lead Car.
+float Relative_distance_past = 5; //Initial past value of relative distance.
 
-float Lead_velo = 70.0/3.6; // Initial lead car position (m/s)
-float Ego_velo  = 70.0/3.6; // Initial ego car position  (m/s)
+float Lead_velo = 100.0/3.6; // Initial lead car position (m/s)
+float Ego_velo  = 100.0/3.6; // Initial ego car position  (m/s)
 
-float interval = 0.001;
+float interval = 0.001; // Simulation's clock
 int counter = 1; //Interactions limiter
 
 //Calibration Variables
-const float D_default        = 10;
-const float Default_Time_Gap = 3;
 float Time_Gap = 3;
-const float Kverr_gain       = 0.5;
-const float Kxerr_gain       = 0.02;
-const float Kvx_gain         = 0.04;
+
 
 float Acceleration       = 0;
-float Safe_distance      = 15;
-float Control_v          = 0;
-float Control_x          = 0;
-float SafeD_relD		     = 0;
-const float Ego_acceleration_min     = -5;
-const float Ego_acceleration_max     = 1.47;
+float Safe_distance      = 0;
 
-//Variables received from CAN FRAMES
 bool ACC_input     = 1; //Trigger for ACC_input. 
 bool Rain_sensor   = 0;
 bool Gas_pedal     = 0;
@@ -63,7 +54,7 @@ int main ()
     }
 
   //Number of times of looping
-  while (counter < 10000)
+  while (counter < 50000)
   {
   
   Ego_ace = Acceleration;
@@ -107,25 +98,23 @@ int main ()
   ACC_speed_set = speedSet(ACC_speed_set);
 
   //ACC Model returning Acceleration
-  struct ACCcontrol i = accelerationControl(ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_velo, Relative_distance_pres);
+  struct ACCcontrol i = accelerationControl(ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval);
   Acceleration = i.Acceleration;
   Safe_distance = i.Safe_distance;
+
   counter++;
 
- /*
- // Data validation 
-  bool checkOne = checkCollision(ACC_enabled, Relative_distance_pres);
-  bool checkTwo = checkValidationSensors(ACC_enabled,  Fault_signal,  Gas_pedal,  Brake_pedal);
-  bool checkThree = checkRainSafeDistance( ACC_enabled,  Rain_sensor,  D_default,  Ego_velo,  Safe_distance);
-  if(checkOne || checkTwo || checkThree) counter=100000;*/
 
 
   // write to the text file
   fprintf(fp,"\nAcceleration: %.2f, ",Acceleration);
-  fprintf(fp,"RelativeDistance: %.2f, ", Relative_distance_pres);
   fprintf(fp,"SafeDistance: %.2f, ", Safe_distance);
   fprintf(fp,"EgoVelocity: %.2f, ", Ego_velo);
-  fprintf(fp,"LeadVelocity: %.2f, ", Lead_velo);
+  fprintf(fp,"Relative_D_past: %.5f, ", Relative_distance_past);
+  fprintf(fp,"Relative_D_pres: %.5f, ", Relative_distance_pres);
+
+
+  sleep(interval); // Simulation's clock
   }
 
   fclose(fp);   // close the file

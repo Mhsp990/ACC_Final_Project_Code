@@ -11,7 +11,8 @@ build: Test_ACC.o ## Make build
 	$(CC) $(CFLAG) -o main Test_ACC.o -lcunit
 
 coverage:
-	gcov Test_ACC.c 
+	gcov Test_ACC.c
+
 
 deps: ## Install dependencies of gcovr
 	sudo apt-get install lcov clang-format
