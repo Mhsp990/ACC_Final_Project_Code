@@ -1,4 +1,4 @@
-#include "../ACC_Code/ACC_Code.h"
+#include "ACC_Code.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 #include <math.h>
@@ -129,6 +129,14 @@ void test_logicBLockAccEnable14(void) {
   struct ACCenable i = logicBlockAccEnable(1, 0, 0, 10, 0,0); 
   CU_ASSERT(0 == i.ACC_enabled);
 }
+
+//----------Test ID 29 MC/DC------------------//
+void test_logicBLockAccEnable15(void) {
+  // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
+  struct ACCenable i = logicBlockAccEnable(1, 1, 0, 10, 0,1); 
+  CU_ASSERT(0 == i.ACC_enabled);
+}
+
 //--Finished test cases of "Acc_enabled" output MC/DC---//
 
 
@@ -279,6 +287,11 @@ int main(void) {
     return CU_get_error();
   }
 
+if ((NULL == CU_add_test(pSuite3, "Acc_enabled Control function Test 8",
+                           test_logicBLockAccEnable15))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
   CU_basic_run_tests();

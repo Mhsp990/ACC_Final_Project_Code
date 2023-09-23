@@ -21,7 +21,7 @@ gcovr-report: coverage ## Generate gcovr report ## If exists the directory, remo
 	mkdir gcovr-report
 	gcovr --root . --html --html-details --output gcovr-report/coverage.html
 
-clean: ## Clean all generate files
+clean: ## Clean all generated files
 	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
 
 lint: ## Lint code with clang-format

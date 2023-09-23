@@ -6,4 +6,4 @@ output/
 main
 *.out
 *.gcov
-
+*.c.gcov
