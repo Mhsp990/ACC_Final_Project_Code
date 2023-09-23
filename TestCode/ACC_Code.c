@@ -49,7 +49,7 @@ float timeGap(bool Rain_sensor) { // Detection of rain and change the Time_Gap
 
 float speedSet(float ACC_speed_set) { // Limit of Ego_velo to dont exceed the safe velocity
   float ACC_speed_set_max = 120.0;
-  float ACC_speed_set_min = 40.0
+  float ACC_speed_set_min = 40.0;
   ACC_speed_set = (ACC_speed_set < ACC_speed_set_min) ?
   ACC_speed_set_min : (ACC_speed_set > ACC_speed_set_max) ? 
   ACC_speed_set_max : ACC_speed_set;
