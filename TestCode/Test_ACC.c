@@ -9,9 +9,15 @@
 int init_suite(void) { return 0; }
 int clean_suite(void) { return 0; }
 
-void test_timeGap(void) { CU_ASSERT(6 == timeGap(true)); }
+void test_timeGap(void) { CU_ASSERT(3 == timeGap(false)); }
 
-void test_speedSet(void) { CU_ASSERT(40 == speedSet(40)); }
+void test_timeGap_rain(void) { CU_ASSERT(6 == timeGap(true)); }
+
+void test_speedSet_min(void) { CU_ASSERT(40 == speedSet(20)); }
+
+void test_speedSet_any(void) { CU_ASSERT(50 == speedSet(50)); }
+
+void test_speedSet_max(void) { CU_ASSERT(120 == speedSet(150)); }
 
 void test_accelerationControl(void) {
   struct ACCcontrol i = accelerationControl(1, 16.6, 3, 19.4, 2.7, 60);
@@ -54,13 +60,31 @@ int main(void) {
   }
 
   if ((NULL ==
-       CU_add_test(pSuite1, "TimeGap function Testing", test_timeGap))) {
+       CU_add_test(pSuite1, "TimeGap function Testing without rain", test_timeGap))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+    if ((NULL ==
+       CU_add_test(pSuite1, "TimeGap function Testing with rain", test_timeGap_rain))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
 
   if ((NULL ==
-       CU_add_test(pSuite1, "SpeedSet function Testing", test_speedSet))) {
+       CU_add_test(pSuite1, "SpeedSet function Testing for values below range", test_speedSet_min))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL ==
+       CU_add_test(pSuite1, "SpeedSet function Testing for values within range", test_speedSet_any))) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL ==
+       CU_add_test(pSuite1, "SpeedSet function Testing for values above range", test_speedSet_max))) {
     CU_cleanup_registry();
     return CU_get_error();
   }
