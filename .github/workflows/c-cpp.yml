@@ -17,13 +17,13 @@ jobs:
       run:  sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
       
     - name: Build tests and coverage
-      run: cd TestCode && make build
+      run: cd ACC_Code && make build
           
     - name: Run tests
-      run:  cd TestCode && ./main
+      run:  cd ACC_Code && ./main
             
     - name: Run coverage
-      run: cd TestCode && make coverage
+      run: cd ACC_Code && make coverage
       
     - name: Install html report labraries 
       run: sudo apt-get install lcov clang-format && pip install gcovr
