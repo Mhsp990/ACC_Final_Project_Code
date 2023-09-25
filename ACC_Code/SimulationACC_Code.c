@@ -15,8 +15,8 @@ float Ego_pos  = 20.0;  /*!< Initial ego car position  (m) */
 float Relative_distance_pres = 80; /*!<Relative distance between Ego and Lead Car. */
 float Relative_distance_past = 80; /*!<Initial past value of relative distance. */
 
-float Lead_velo = 0; /*!< Initial lead car position (m/s) */
-float Ego_velo  = 50.0/3.6; /*!< Initial ego car position  (m/s)*/
+float Lead_velo = 50.0/3.6; /*!< Initial lead car position (m/s) */
+float Ego_velo  = 70.0/3.6; /*!< Initial ego car position  (m/s)*/
 
 float interval = 0.001; /*!< simulation clock*/
 int counter = 1; /*!<Interactions limiter */
@@ -85,23 +85,16 @@ int main ()
       Relative_distance_pres = Relative_distance_pres;
   }
   
-  
-  
   //ACC enable logic block
 	struct ACCenable index = logicBlockAccEnable(aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal);
   ACC_enabled = index.ACC_enabled;
   aux = index.aux;
-  sleep(interval);
-
-  //----------------------Control block---------------------//
-
+  
   //Detection of rain and change the Time_Gap
   Time_Gap = timeGap(Rain_sensor);
-  sleep(interval);
-
+ 
   //Limit of Ego_velo setup to don't exceed the safe velocity in ACC_enebled on
   ACC_speed_set = speedSet(ACC_speed_set);
-  sleep(interval);
 
   //ACC Model returning Acceleration
   struct ACCcontrol i = accelerationControl(ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval);
@@ -110,15 +103,13 @@ int main ()
   
   counter++;
 
-
-
   // write to the text file
   fprintf(fp,"\nAcceleration: %.2f, ",Acceleration);
   fprintf(fp,"SafeDistance: %.2f, ", Safe_distance);
-  fprintf(fp,"EgoVelocity: %.5f, ", Ego_velo);
-  fprintf(fp,"Relative_D_past: %.5f, ", Relative_distance_past);
-  fprintf(fp,"Relative_D_pres: %.5f, ", Relative_distance_pres);
-
+  fprintf(fp,"RelativeDistance: %.2f, ", Relative_distance_pres);
+  fprintf(fp,"EgoVelocity: %.1f, ", Ego_velo);
+  fprintf(fp,"LeadVelocity: %.1f ", Lead_velo);
+  
 
   sleep(interval); // Simulation's clock
   }

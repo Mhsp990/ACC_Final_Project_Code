@@ -56,7 +56,6 @@ void test_accelerationControl4(void) {
 void test_accelerationControl5(void) {
   // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
   struct ACCcontrol i = accelerationControl(1, 15.80302, 3, 27.778, 60.48257, 60.46676, 0.001);
-  printf("%f", i.Acceleration);
   CU_ASSERT_DOUBLE_EQUAL(1.47, i.Acceleration, 0.1);
   CU_ASSERT_DOUBLE_EQUAL(57.41, i.Safe_distance, 0.2);
 }

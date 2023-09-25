@@ -1,9 +1,1 @@
-output/
-.vscode/
-*.o
-*.gcno
-*.gcda
-main
-*.out
-*.gcov
-*.c.gcov
+
