@@ -354,7 +354,7 @@ if ((NULL == CU_add_test(pSuite3, "Acc_enabled Control function Test 8",
   }
 
 ///////////// - Suite 5 - ///////////////////
- pSuite5 = CU_add_suite("Test Suite of ACC_speed_set from speedSet()", init_suite, clean_suite);
+ pSuite5 = CU_add_suite("Test cases of Acceleration and Safe_distance output", init_suite, clean_suite);
    if (NULL == pSuite5) {
     CU_cleanup_registry();
     return CU_get_error();
