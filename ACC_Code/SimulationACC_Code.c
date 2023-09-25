@@ -8,35 +8,28 @@
 
 float Ego_ace = 0; /*!< ego car acceleration */
 float Lead_ace = 0; /*!< lead car acceleration */
-float Relative_velo = 0; /*!< relative distance between ego and lead car*/
 
-float Lead_pos = 30.0;  /*!< Initial lead car position (m) */
-float Ego_pos  = 10.0;  /*!< Initial ego car position  (m) */
+float Lead_pos = 100.0;  /*!< Initial lead car position (m) */
+float Ego_pos  = 20.0;  /*!< Initial ego car position  (m) */
 
-float Relative_distance_pres = 20; /*!<Relative distance between Ego and Lead Car. */
-float Relative_distance_past = 20; /*!<Initial past value of relative distance. */
+float Relative_distance_pres = 80; /*!<Relative distance between Ego and Lead Car. */
+float Relative_distance_past = 80; /*!<Initial past value of relative distance. */
 
-float Lead_velo = 70.0/3.6; /*!< Initial lead car position (m/s) */
-float Ego_velo  = 70.0/3.6; /*!< Initial ego car position  (m/s)*/
+float Lead_velo = 0; /*!< Initial lead car position (m/s) */
+float Ego_velo  = 50.0/3.6; /*!< Initial ego car position  (m/s)*/
 
 float interval = 0.001; /*!< simulation clock*/
 int counter = 1; /*!<Interactions limiter */
 
 //Calibration Variables
-const float D_default        = 10; /*!<initial safe distance (at least) */
 const float Default_Time_Gap = 3; /*!< minimum time gap */
 float Time_Gap = 3;                /*!< Time gap add(add to safe distance) */
-const float Kverr_gain       = 0.5; /*!<K gain */
-const float Kxerr_gain       = 0.02; /*!<K gain */
-const float Kvx_gain         = 0.04; /*!<K gain  */
 
 float Acceleration       = 0;  /*!< Acceleration */
 float Safe_distance      = 15; /*!< Safe distance  */
-float Control_v          = 0; /*!<K gain  */
-float Control_x          = 0; /*!<K gain  */
-float SafeD_relD		     = 0; /*!<relative distance  */
-const float Ego_acceleration_min     = -5;   /*!<Ego accleration minimum  */
-const float Ego_acceleration_max     = 1.47; /*!<Ego acceleration maximum  */ 
+
+
+
 
 //Variables received from CAN FRAMES
 bool ACC_input     = 1; /*!< User input variable, on or off  */ 
@@ -55,7 +48,7 @@ float ACC_brake_acceleration = 0; /*!< Return from acc in use of breaks   */
 //--------------------------------Car Simulation--------------------------------/
 int main ()
 {
-  char *filename = "simulation_copy.txt";  
+  char *filename = "SimulationACC_Code.txt";  
   FILE *fp = fopen(filename, "w");   // open the file for writing 
    if (fp == NULL)
     {
@@ -74,7 +67,7 @@ int main ()
   //Simulation of vehicles behavior
   Ego_velo = Ego_velo + interval*Ego_ace;
   Lead_velo = Lead_velo + interval*Lead_ace;
-
+  
   //Calculation of Ego Car position
   Ego_pos += (Ego_velo*interval);
 
@@ -83,8 +76,7 @@ int main ()
 
   //Relative distance between Ego and Lead Car.
   Relative_distance_pres = Lead_pos - Ego_pos;
-  //Value of relative distance.
-  Relative_velo = Lead_velo - Ego_velo;
+  
 
   // Sensor range
   if(Relative_distance_pres > 200){
@@ -99,19 +91,23 @@ int main ()
 	struct ACCenable index = logicBlockAccEnable(aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal);
   ACC_enabled = index.ACC_enabled;
   aux = index.aux;
+  sleep(interval);
+
   //----------------------Control block---------------------//
 
   //Detection of rain and change the Time_Gap
   Time_Gap = timeGap(Rain_sensor);
+  sleep(interval);
 
   //Limit of Ego_velo setup to don't exceed the safe velocity in ACC_enebled on
   ACC_speed_set = speedSet(ACC_speed_set);
+  sleep(interval);
 
   //ACC Model returning Acceleration
   struct ACCcontrol i = accelerationControl(ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval);
   Acceleration = i.Acceleration;
   Safe_distance = i.Safe_distance;
-
+  
   counter++;
 
 
@@ -119,7 +115,7 @@ int main ()
   // write to the text file
   fprintf(fp,"\nAcceleration: %.2f, ",Acceleration);
   fprintf(fp,"SafeDistance: %.2f, ", Safe_distance);
-  fprintf(fp,"EgoVelocity: %.2f, ", Ego_velo);
+  fprintf(fp,"EgoVelocity: %.5f, ", Ego_velo);
   fprintf(fp,"Relative_D_past: %.5f, ", Relative_distance_past);
   fprintf(fp,"Relative_D_pres: %.5f, ", Relative_distance_pres);
 

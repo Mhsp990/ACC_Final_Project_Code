@@ -25,5 +25,6 @@ gcovr-report: coverage ## Generate gcovr report ## If exists the directory, remo
 clean: ## Clean all generated files
 	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
 
-lint: ## Lint code with clang-format
-	clang-format -i --style=LLVM *.c *.h
+install cunit:
+	sudo apt update
+	sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev

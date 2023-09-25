@@ -9,30 +9,35 @@
 int init_suite(void) { return 0; }
 int clean_suite(void) { return 0; }
 
+//////////////////////////////////////////////////////////////////////////////////
+///////////---------Test cases of "Time_Gap" output---------//////////////////////
 void test_timeGap(void) { CU_ASSERT(3 == timeGap(false)); }
 
 void test_timeGap_rain(void) { CU_ASSERT(6 == timeGap(true)); }
 
 ///////////////////////////////////////////////////////////////////////////////////
+///////////-------Test cases of "ACC_speed_set" output-------//////////////////////
 void test_speedSet_min(void) { CU_ASSERT_DOUBLE_EQUAL(40/3.6, speedSet(20), 0.1)}
 
 void test_speedSet_any(void) { CU_ASSERT_DOUBLE_EQUAL(50/3.6, speedSet(50), 0.1) }
 
 void test_speedSet_max(void) { CU_ASSERT_DOUBLE_EQUAL(120/3.6, speedSet(150), 0.1)}
+
 ///////////////////////////////////////////////////////////////////////////////////
+//------Test cases of "Acceleration and Safe_distance" output-------///////////////
 
 void test_accelerationControl1(void) {
   // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
-  struct ACCcontrol i = accelerationControl(1, 19.44, 3, 27.78, 20.00, 20.00, 0.01);
-  CU_ASSERT_DOUBLE_EQUAL(-0.96, i.Acceleration, 0.1);
-  CU_ASSERT_DOUBLE_EQUAL(68.16, i.Safe_distance, 0.2);
+  struct ACCcontrol i = accelerationControl(1, 11, 3, 27, 20.00, 20.00, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(-5, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(43.00, i.Safe_distance, 0.2);
 }
 
 void test_accelerationControl2(void) {
   // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
-  struct ACCcontrol i = accelerationControl(1, 19.71, 3, 27.77, 4.99722, 4.99457, 0.01);
-  CU_ASSERT_DOUBLE_EQUAL(-1.29, i.Acceleration, 0.1);
-  CU_ASSERT_DOUBLE_EQUAL(69.13, i.Safe_distance, 0.2);
+  struct ACCcontrol i = accelerationControl(1, 15, 3, 27, 70, 70, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(1.47, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(55.00, i.Safe_distance, 0.2);
 }
 
 void test_accelerationControl3(void) {
@@ -43,18 +48,17 @@ void test_accelerationControl3(void) {
 
 void test_accelerationControl4(void) {
   // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
-  struct ACCcontrol i = accelerationControl(1, 20.25, 3, 27.77, 89.13385, 89.12582, 0.01);
-  printf("%f", i.Acceleration);
-  CU_ASSERT_DOUBLE_EQUAL(0.34, i.Acceleration, 0.1);
-  CU_ASSERT_DOUBLE_EQUAL(70.74, i.Safe_distance, 0.2);
+  struct ACCcontrol i = accelerationControl(1, 20, 3, 27, 65, 65, 0.01);
+  CU_ASSERT_DOUBLE_EQUAL(-2.5, i.Acceleration, 0.1);
+  CU_ASSERT_DOUBLE_EQUAL(70, i.Safe_distance, 0.2);
 }
 
 void test_accelerationControl5(void) {
   // ACC_enabled, Ego_velo, Time_Gap, ACC_speed_set, Relative_distance_past, Relative_distance_pres, interval
-  struct ACCcontrol i = accelerationControl(1, 11.18, 3, 27.77, 140.69298, 140.83113, 0.01);
+  struct ACCcontrol i = accelerationControl(1, 15.80302, 3, 27.778, 60.48257, 60.46676, 0.001);
   printf("%f", i.Acceleration);
   CU_ASSERT_DOUBLE_EQUAL(1.47, i.Acceleration, 0.1);
-  CU_ASSERT_DOUBLE_EQUAL(43.55, i.Safe_distance, 0.2);
+  CU_ASSERT_DOUBLE_EQUAL(57.41, i.Safe_distance, 0.2);
 }
 
 
@@ -86,7 +90,7 @@ void test_logicBLockAccEnable3(void) {
 void test_logicBLockAccEnable4(void) {
   // aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal
   struct ACCenable i = logicBlockAccEnable(1, 1, 0, 11, 0,0); 
-  CU_ASSERT(0 == i.aux);
+  CU_ASSERT(1 == i.aux);
 }
 
 //----------Test ID 54 MC/DC------------------//

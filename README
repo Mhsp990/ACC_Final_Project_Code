@@ -1,0 +1,111 @@
+# Adaptative Cruise Control Code
+
+In this repository, we developed the code for our ACC based on the Matlab model and requirements at ACC_Code/ACC/Code.c.
+Was also developed some test suites to verify the code operation.
+For all compilations to work correctly, the compilation environment must be Linux.
+
+## 🚀 First of all, clone this repository to your local machine
+
+```
+git clone https://github.com/Mhsp990/ACC_Final_Project_Code.git
+```
+
+### 📋 Prerequisites
+
+-> GCC compiler
+-> CUnit unit tester
+-> GCOV test coverage
+-> GCOVR coverage report
+
+GCC needs to be installed on your local machine,so below we will instruct you using the 
+makefile to install all the necessary freeworks.
+
+### 🔧 Makefile Instructions 
+
+Open linux terminal, enter the <ACC_Code> folder and run the lines code below in order.
+
+* Comand to install CUnit tester
+
+```
+make install cunit
+```
+
+* Comand to build the tests from Test_ACC.c
+
+```
+make build
+```
+
+* Run the main file
+
+```
+./main
+```
+
+And then the tests were generated and executed creating the .gcno, .o and .gcda binaries.
+Then we will do the following commands
+
+
+## ⚙️ Executando os testes
+
+Explicar como executar os testes automatizados para este sistema.
+
+### 🔩 Analise os testes de ponta a ponta
+
+Explique que eles verificam esses testes e porquê.
+
+```
+Dar exemplos
+```
+
+### ⌨️ E testes de estilo de codificação
+
+Explique que eles verificam esses testes e porquê.
+
+```
+Dar exemplos
+```
+
+## 📦 Implantação
+
+Adicione notas adicionais sobre como implantar isso em um sistema ativo
+
+## 🛠️ Construído com
+
+Mencione as ferramentas que você usou para criar seu projeto
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
+* [Maven](https://maven.apache.org/) - Gerente de Dependência
+* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+
+## 🖇️ Colaborando
+
+Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
+
+## 📌 Versão
+
+Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
+
+## ✒️ Autores
+
+Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+
+* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
+* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
+
+Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
+
+## 📄 Licença
+
+Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
+
+## 🎁 Expressões de gratidão
+
+* Conte a outras pessoas sobre este projeto 📢;
+* Convide alguém da equipe para uma cerveja 🍺;
+* Um agradecimento publicamente 🫂;
+* etc.
+
+
+---
+⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊

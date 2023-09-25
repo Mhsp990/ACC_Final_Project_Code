@@ -28,19 +28,16 @@ struct ACCenable logicBlockAccEnable(bool aux/**<  Auxiliary variable */,
   if (aux == 0 && ACC_input == 1 && Fault_signal == 0 && Ego_velo >= 11 && Gas_pedal == 0 && Brake_pedal == 0) {
     index.aux = 1;
     index.ACC_enabled = 1;
-    return index;
 
-  } else {
-    if (ACC_input == 1 && aux == 1 && Fault_signal == 0 && Gas_pedal == 0 && Brake_pedal == 0) {
-      index.ACC_enabled = 1;
-
-      return index;
-    } else {
-      index.ACC_enabled = 0;
-      index.aux = 0;
-      return index;
-    }
-  }
+    }else if (ACC_input == 1 && aux == 1 && Fault_signal == 0 && Gas_pedal == 0 && Brake_pedal == 0) {
+        index.ACC_enabled = 1;
+        index.aux = 1;
+      } else {
+        index.ACC_enabled = 0;
+        index.aux = 0;
+      }
+  
+  return index;
 }
 
 //! Time Gap
@@ -67,24 +64,25 @@ struct ACCcontrol accelerationControl(bool ACC_enabled/**<  Variable that define
                                       float Ego_velo/**<  Car speed */,
                                       float Time_Gap/**<  Time gap between ego car and lead car */, 
                                       float ACC_speed_set/**<  Setspeed defined by user */,
-                                      float Relative_distance_past/**<  Relative speed between ego and lead car */, 
-                                      float Relative_distance_pres/**<  Relative distance between ego car and lead car */, float interval) {
+                                      float Relative_distance_past/**<  Relative distance past between ego car and lead car */, 
+                                      float Relative_distance_pres/**<  Relative distance present between ego car and lead car */,
+                                      float interval) {
   struct ACCcontrol i;
   //! Acceleration Control
   /*!
 
   Function responsible for calculating and defining the acceleration to reach the setspeed or reduce the speed to meet the safety distance
   */
-  float SafeD_relD                 = 0;   // Difference between safe and relative distance
-  const float D_default            = 10;  // Standard distance
-  float Control_x                  = 0;   // Intermediate variable to calculate relative distance 
-  float Control_v                  = 0;   // Intermediate variable to calculate relative distance
-  const float Kverr_gain           = 0.5; // Model gain
-  const float Kxerr_gain           = 0.2;// Model gain
-  const float Kvx_gain             = 0.04;// Model gain
-  const float Ego_acceleration_min = -5;  // Minimum ego car acceleration
-  const float Ego_acceleration_max = 1.47;// Max ego car acceleration
-  float Relative_velo              = 0;   // Relative velocity of both cars
+  float SafeD_relD                 = 0;    /*!<Difference between safe and relative distance  */
+  const float D_default            = 10;   /*!<initial safe distance (at least) */
+  float Control_x                  = 0;    /*!<Intermediate variable to calculate relative distance  */
+  float Control_v                  = 0;    /*!<Intermediate variable to calculate relative distance  */
+  const float Kverr_gain           = 0.5;  /*!<Model gain  */
+  const float Kxerr_gain           = 0.5;  /*!<Model gain  */
+  const float Kvx_gain             = 0.04; /*!<Model gain  */
+  const float Ego_acceleration_min = -5;  /*!<Ego accleration maximum  */
+  const float Ego_acceleration_max = 1.47; /*!<Ego accleration minimum  */
+  float Relative_velo              = 0;    /*!<Relative velocity of both cars */
 
   if (ACC_enabled) {// Test if acc is ON/OFF
     Relative_velo = (Relative_distance_pres - Relative_distance_past)/interval;
