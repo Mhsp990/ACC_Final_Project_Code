@@ -19,7 +19,7 @@ float Relative_distance_past = 80; /*!<Initial past value of relative distance. 
 float Lead_velo = 50.0/3.6; /*!< Initial lead car position (m/s) */
 float Ego_velo  = 70.0/3.6; /*!< Initial ego car position  (m/s)*/
 
-float interval = 0.001; /*!< simulation clock*/
+float interval = 0.010; /*!< simulation clock, required by RStw-14*/
 int counter = 1; /*!<Interactions limiter */
 
 //Calibration Variables
@@ -66,20 +66,20 @@ int main ()
   Relative_distance_past = Relative_distance_pres;
 
   //Simulation of vehicles behavior
-  Ego_velo = Ego_velo + interval*Ego_ace;
+  Ego_velo = Ego_velo + interval*Ego_ace; // Required by RStw-12.
   Lead_velo = Lead_velo + interval*Lead_ace;
   
   //Calculation of Ego Car position
   Ego_pos += (Ego_velo*interval);
 
-  //Calculation of Lead Car position
-  Lead_pos += (Lead_velo*interval);
+  //Calculation of Lead Car position, required by RStw–07
+  Lead_pos += (Lead_velo*interval); 
 
-  //Relative distance between Ego and Lead Car.
+  //Relative distance between Ego and Lead Car, required by RStw-01.
   Relative_distance_pres = Lead_pos - Ego_pos;
   
 
-  // Sensor range
+  // Sensor range, required by RStw-01.
   if(Relative_distance_pres > 200){
       Relative_distance_pres = 200;
   }else{
@@ -88,7 +88,7 @@ int main ()
   
   //ACC enable logic block
 	struct ACCenable index = logicBlockAccEnable(aux, ACC_input, Fault_signal, Ego_velo, Gas_pedal, Brake_pedal);
-  ACC_enabled = index.ACC_enabled;
+  ACC_enabled = index.ACC_enabled; 
   aux = index.aux;
   
   //Detection of rain and change the Time_Gap
@@ -112,7 +112,7 @@ int main ()
   fprintf(fp,"LeadVelocity: %.1f ", Lead_velo);
   
 
-  sleep(interval); // Simulation's clock
+  sleep(interval); // Simulation's clock, required by RStw-14
   }
 
   fclose(fp);   // close the file

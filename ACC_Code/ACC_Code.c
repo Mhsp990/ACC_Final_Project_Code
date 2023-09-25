@@ -13,7 +13,7 @@ struct ACCcontrol {
   float Safe_distance;
 };
 
-//! ACC enable logic block
+//! ACC enable logic block, required by RStw-08, RStw-09, RStw-11 and RStw-13
 /*! This function has the role of checking whether or not it is possible to activate the ACC */
 
 struct ACCenable logicBlockAccEnable(bool aux/**<  Auxiliary variable */, 
@@ -40,7 +40,7 @@ struct ACCenable logicBlockAccEnable(bool aux/**<  Auxiliary variable */,
   return index;
 }
 
-//! Time Gap
+//! Time Gap, required by RStw-02
 /*! This function focuses on calculating the time gap between the car and the lead car */
 float timeGap(bool Rain_sensor/**<  Variable that receives whether there is rain or not */) { 
   float Time_Gap = 3;
@@ -60,12 +60,13 @@ float speedSet(float ACC_speed_set/**<  Setspeed defined by user */) {
   return ACC_speed_set/3.6;
 }
 
+// Required by RStw-10
 struct ACCcontrol accelerationControl(bool ACC_enabled/**<  Variable that defines whether ACC is on or off */, 
                                       float Ego_velo/**<  Car speed */,
                                       float Time_Gap/**<  Time gap between ego car and lead car */, 
                                       float ACC_speed_set/**<  Setspeed defined by user */,
                                       float Relative_distance_past/**<  Relative distance past between ego car and lead car */, 
-                                      float Relative_distance_pres/**<  Relative distance present between ego car and lead car */,
+                                      float Relative_distance_pres/**<  Relative distance present between ego car and lead car. Required by RStw-05 */,
                                       float interval) {
   struct ACCcontrol i;
   //! Acceleration Control
@@ -85,16 +86,16 @@ struct ACCcontrol accelerationControl(bool ACC_enabled/**<  Variable that define
   float Relative_velo              = 0;    /*!<Relative velocity of both cars */
 
   if (ACC_enabled) {// Test if acc is ON/OFF
-    Relative_velo = (Relative_distance_pres - Relative_distance_past)/interval;
-    i.Safe_distance = (Ego_velo * Time_Gap) + D_default;
+    Relative_velo = (Relative_distance_pres - Relative_distance_past)/interval; // Required by RStw-03
+    i.Safe_distance = (Ego_velo * Time_Gap) + D_default;// Required by RStw-04 and RStw-06
     SafeD_relD = i.Safe_distance - Relative_distance_pres;
     Control_x = (Relative_velo * Kvx_gain) - ((i.Safe_distance - Relative_distance_pres) * Kxerr_gain);
     Control_v = (ACC_speed_set - Ego_velo) * Kverr_gain;
 
 
   // Test whether it is possible to use ACC safely
-    if (SafeD_relD > 0) {
-      i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain);
+    if (SafeD_relD > 0) { //Required by RStw-04
+      i.Acceleration = (Relative_velo * Kvx_gain) - (SafeD_relD * Kxerr_gain); 
 
     } else {
       i.Acceleration = (Control_v < Control_x) ? Control_x : Control_v;
