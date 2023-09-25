@@ -21,7 +21,7 @@ deps: ## Install dependencies of gcovr
 gcovr-report: coverage ## Generate gcovr report ## If exists the directory, remove them first.
 	mkdir gcovr-report
 	gcovr --root . --html --html-details --output gcovr-report/coverage.html
-
+	
 clean: ## Clean all generated files
 	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
 

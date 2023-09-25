@@ -17,8 +17,8 @@ git clone https://github.com/Mhsp990/ACC_Final_Project_Code.git
 -> GCOV test coverage
 -> GCOVR coverage report
 
-GCC needs to be installed on your local machine,so below we will instruct you using the 
-makefile to install all the necessary freeworks.
+GCC needs to be installed on your local machine previously and than you can use the 
+makefile to install all the necessary freeworks to run Test, coverage and report.
 
 ### 🔧 Makefile Instructions 
 
@@ -43,69 +43,37 @@ make build
 ```
 
 And then the tests were generated and executed creating the .gcno, .o and .gcda binaries.
-Then we will do the following commands
+Next we will run the following commands to make coverage and report.
 
-
-## ⚙️ Executando os testes
-
-Explicar como executar os testes automatizados para este sistema.
-
-### 🔩 Analise os testes de ponta a ponta
-
-Explique que eles verificam esses testes e porquê.
+* Comand to build the coverage tests
 
 ```
-Dar exemplos
+make coverage
 ```
 
-### ⌨️ E testes de estilo de codificação
-
-Explique que eles verificam esses testes e porquê.
+* Comand to install gcovr and libraries - needs the pip package management
 
 ```
-Dar exemplos
+make deps
 ```
 
-## 📦 Implantação
+* Comand that generate html file at gcovr-report folder
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
+```
+make gcovr-report
+```
 
-## 🛠️ Construído com
+### 🔩 Analyze tests end-to-end
 
-Mencione as ferramentas que você usou para criar seu projeto
+After compiled all comands above, we have the following results:
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
-* [Maven](https://maven.apache.org/) - Gerente de Dependência
-* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
-
-## 🖇️ Colaborando
-
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
-
-## 📌 Versão
-
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
 
 ## ✒️ Autores
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
-
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
-
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
-
-## 📄 Licença
-
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
+* **Gabriel Oliveira** -  [github profile](https://github.com/sironark)
+* **Matheus Passos** - [github profile](https://github.com/Mhsp990)
+* **Leonardo Mello** - [github profile](https://github.com/leonardomello27)
+* **Lucas Sobral** - [github profile](https://github.com/lucasbral)
+* **Vitor Fassanaro** - [github profile](https://github.com/vitorfccarvalho)
 
 
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
