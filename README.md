@@ -5,6 +5,12 @@ Was also developed some test suites to verify the code operation.
 
 For all compilations to work correctly, the compilation environment must be Linux.
 
+#### 📌  A project using <strong>RTOS</strong> was done too. To check it, clone the follow repository:
+
+```
+git clone https://github.com/leonardomello27/RTOS.git
+```
+
 ## 🚀 First of all, clone this repository to your local machine
 
 ```
@@ -109,6 +115,14 @@ make gcovr-report
 
 After compiled all comands above, we have the following results:
 
+#### Tests:
+![Alt text](tests.png)
+
+### Coverage:
+![Alt text](coverage.png)
+
+### Gcov report:
+[Html report](http://127.0.0.1:5500/ACC_Code/gcovr-report/coverage.ACC_Code.c.html)
 
 ## ✒️ Autores
 
