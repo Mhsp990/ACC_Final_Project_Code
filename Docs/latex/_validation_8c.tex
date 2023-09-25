@@ -1,23 +1,23 @@
 \doxysection{Validation.\+c File Reference}
-\label{_validation_8c}\index{Validation.c@{Validation.c}}
+\hypertarget{_validation_8c}{}\label{_validation_8c}\index{Validation.c@{Validation.c}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \textbf{ check\+Collision} (bool \textbf{ ACC\+\_\+enable}, float \textbf{ relative\+Distance})
+bool \mbox{\hyperlink{_validation_8c_a29f65dfccab410add4c062f22aeabc95}{check\+Collision}} (bool \mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\+\_\+enable}}, float \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relative\+Distance}})
 \item 
-bool \textbf{ check\+Validation\+Sensors} (bool \textbf{ ACC\+\_\+enable}, bool \textbf{ Fault\+\_\+signal}, bool \textbf{ Gas\+\_\+pedal}, bool \textbf{ Brake\+\_\+pedal})
+bool \mbox{\hyperlink{_validation_8c_a513ddee1c80e0586fcc887ceb5502626}{check\+Validation\+Sensors}} (bool \mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\+\_\+enable}}, bool \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\+\_\+signal}}, bool \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\+\_\+pedal}}, bool \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\+\_\+pedal}})
 \item 
-bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool \textbf{ rain\+\_\+signal}, const float \textbf{ D\+\_\+distance}, float \textbf{ V\+\_\+ego}, float \textbf{ safe\+Distance})
+bool \mbox{\hyperlink{_validation_8c_a1f64d1353d11c7a3e1ff5b6d27c5ca8e}{check\+Rain\+Safe\+Distance}} (bool \mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\+\_\+enable}}, bool \mbox{\hyperlink{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa}{rain\+\_\+signal}}, const float \mbox{\hyperlink{_simulation_8c_a956811f7965a657e3606df19862b3ec8}{D\+\_\+distance}}, float \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\+\_\+ego}}, float \mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safe\+Distance}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\label{_validation_8c_a29f65dfccab410add4c062f22aeabc95} 
+\Hypertarget{_validation_8c_a29f65dfccab410add4c062f22aeabc95}\label{_validation_8c_a29f65dfccab410add4c062f22aeabc95} 
 \index{Validation.c@{Validation.c}!checkCollision@{checkCollision}}
 \index{checkCollision@{checkCollision}!Validation.c@{Validation.c}}
-\doxysubsubsection{checkCollision()}
+\doxysubsubsection{\texorpdfstring{checkCollision()}{checkCollision()}}
 {\footnotesize\ttfamily bool check\+Collision (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{float}]{relative\+Distance }\end{DoxyParamCaption})}
 
 
@@ -31,7 +31,7 @@ bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00006\ }
-\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ ==\ \textcolor{keyword}{true}\ \&\&\ relativeDistance\ <=\ 0)\{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\_enable}}\ ==\ \textcolor{keyword}{true}\ \&\&\ \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relativeDistance}}\ <=\ 0)\{}
 \DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Collision\ detected.\ Take\ the\ necessary\ actions...\(\backslash\)n"{}});}
 \DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00010\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
@@ -40,10 +40,10 @@ bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool
 \DoxyCodeLine{00013\ \}}
 
 \end{DoxyCode}
-\label{_validation_8c_a1f64d1353d11c7a3e1ff5b6d27c5ca8e} 
+\Hypertarget{_validation_8c_a1f64d1353d11c7a3e1ff5b6d27c5ca8e}\label{_validation_8c_a1f64d1353d11c7a3e1ff5b6d27c5ca8e} 
 \index{Validation.c@{Validation.c}!checkRainSafeDistance@{checkRainSafeDistance}}
 \index{checkRainSafeDistance@{checkRainSafeDistance}!Validation.c@{Validation.c}}
-\doxysubsubsection{checkRainSafeDistance()}
+\doxysubsubsection{\texorpdfstring{checkRainSafeDistance()}{checkRainSafeDistance()}}
 {\footnotesize\ttfamily bool check\+Rain\+Safe\+Distance (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{bool}]{rain\+\_\+signal,  }\item[{const float}]{D\+\_\+distance,  }\item[{float}]{V\+\_\+ego,  }\item[{float}]{safe\+Distance }\end{DoxyParamCaption})}
 
 
@@ -63,8 +63,8 @@ bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable\ \&\&\ rain\_signal)\{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(safeDistance\ !=\ (D\_distance\ +\ V\_ego*6))\{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\_enable}}\ \&\&\ \mbox{\hyperlink{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa}{rain\_signal}})\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safeDistance}}\ !=\ (\mbox{\hyperlink{_simulation_8c_a956811f7965a657e3606df19862b3ec8}{D\_distance}}\ +\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}}*6))\{}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Safe\ distance\ is\ not\ correct\ for\ a\ wet\ street\(\backslash\)n"{}});}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
@@ -73,10 +73,10 @@ bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool
 \DoxyCodeLine{00056\ \}}
 
 \end{DoxyCode}
-\label{_validation_8c_a513ddee1c80e0586fcc887ceb5502626} 
+\Hypertarget{_validation_8c_a513ddee1c80e0586fcc887ceb5502626}\label{_validation_8c_a513ddee1c80e0586fcc887ceb5502626} 
 \index{Validation.c@{Validation.c}!checkValidationSensors@{checkValidationSensors}}
 \index{checkValidationSensors@{checkValidationSensors}!Validation.c@{Validation.c}}
-\doxysubsubsection{checkValidationSensors()}
+\doxysubsubsection{\texorpdfstring{checkValidationSensors()}{checkValidationSensors()}}
 {\footnotesize\ttfamily bool check\+Validation\+Sensors (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enable,  }\item[{bool}]{Fault\+\_\+signal,  }\item[{bool}]{Gas\+\_\+pedal,  }\item[{bool}]{Brake\+\_\+pedal }\end{DoxyParamCaption})}
 
 
@@ -95,16 +95,16 @@ bool \textbf{ check\+Rain\+Safe\+Distance} (bool \textbf{ ACC\+\_\+enable}, bool
 \DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_enable)\{}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Fault\_signal)\{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\_enable}})\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\_signal}})\{}
 \DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Fault\ signal\ on\(\backslash\)n"{}});}
 \DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
 \DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Gas\_pedal)\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\_pedal}})\{}
 \DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Gas\ pedal\ signal\ on\(\backslash\)n"{}});}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Brake\_pedal)\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\_pedal}})\{}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ACC\ could\ not\ have\ triggered\ with\ a\ Break\ pedal\ signal\ on\(\backslash\)n"{}});}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ flag++;}
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}

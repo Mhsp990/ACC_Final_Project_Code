@@ -1,34 +1,34 @@
 \doxysection{ACC\+\_\+\+Code.\+c File Reference}
-\label{_a_c_c___code_8c}\index{ACC\_Code.c@{ACC\_Code.c}}
+\hypertarget{_a_c_c___code_8c}{}\label{_a_c_c___code_8c}\index{ACC\_Code.c@{ACC\_Code.c}}
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 \doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-struct \textbf{ ACCenable}
+struct \mbox{\hyperlink{struct_a_c_cenable}{ACCenable}}
 \item 
-struct \textbf{ ACCcontrol}
+struct \mbox{\hyperlink{struct_a_c_ccontrol}{ACCcontrol}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-struct \textbf{ ACCenable} \textbf{ logic\+Block\+Acc\+Enable} (bool \textbf{ aux}, bool \textbf{ ACC\+\_\+input}, bool \textbf{ Fault\+\_\+signal}, float \textbf{ Ego\+\_\+velo}, bool \textbf{ Gas\+\_\+pedal}, bool \textbf{ Brake\+\_\+pedal})
+struct \mbox{\hyperlink{struct_a_c_cenable}{ACCenable}} \mbox{\hyperlink{_a_c_c___code_8c_a9702c702ceac6b23c0340bc23f03fca3}{logic\+Block\+Acc\+Enable}} (bool \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9470c26598e7647a6dc6405c215bb22e}{aux}}, bool \mbox{\hyperlink{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}{ACC\+\_\+input}}, bool \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\+\_\+signal}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e}{Ego\+\_\+velo}}, bool \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\+\_\+pedal}}, bool \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\+\_\+pedal}})
 \begin{DoxyCompactList}\small\item\em ACC enable logic block. \end{DoxyCompactList}\item 
-float \textbf{ time\+Gap} (bool \textbf{ Rain\+\_\+sensor})
+float \mbox{\hyperlink{_a_c_c___code_8c_a0e4499ee6d6488c81c271b3a66a4ccbe}{time\+Gap}} (bool \mbox{\hyperlink{_simulation_a_c_c___code_8c_a1cde5d5ce80220d52bb5767d2301e17d}{Rain\+\_\+sensor}})
 \begin{DoxyCompactList}\small\item\em Time Gap. \end{DoxyCompactList}\item 
-float \textbf{ speed\+Set} (float \textbf{ ACC\+\_\+speed\+\_\+set})
+float \mbox{\hyperlink{_a_c_c___code_8c_a5799c10c74a8123d1d52caea9e5827a7}{speed\+Set}} (float \mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\+\_\+speed\+\_\+set}})
 \begin{DoxyCompactList}\small\item\em Speed Set. \end{DoxyCompactList}\item 
-struct \textbf{ ACCcontrol} \textbf{ acceleration\+Control} (bool \textbf{ ACC\+\_\+enabled}, float \textbf{ Ego\+\_\+velo}, float \textbf{ Time\+\_\+\+Gap}, float \textbf{ ACC\+\_\+speed\+\_\+set}, float \textbf{ Relative\+\_\+velo}, float \textbf{ Relative\+\_\+distance\+\_\+pres})
+struct \mbox{\hyperlink{struct_a_c_ccontrol}{ACCcontrol}} \mbox{\hyperlink{_a_c_c___code_8c_a386f000156b63f3dff0448300a879c9b}{acceleration\+Control}} (bool \mbox{\hyperlink{_simulation_a_c_c___code_8c_ac21a71322990ef380730f0c211071a6c}{ACC\+\_\+enabled}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e}{Ego\+\_\+velo}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054}{Time\+\_\+\+Gap}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\+\_\+speed\+\_\+set}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_a34acfd270620b972681e56e1073e157a}{Relative\+\_\+velo}}, float \mbox{\hyperlink{_simulation_a_c_c___code_8c_abec8e6854791ca180fd45812ac392e58}{Relative\+\_\+distance\+\_\+pres}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\label{_a_c_c___code_8c_a386f000156b63f3dff0448300a879c9b} 
+\Hypertarget{_a_c_c___code_8c_a386f000156b63f3dff0448300a879c9b}\label{_a_c_c___code_8c_a386f000156b63f3dff0448300a879c9b} 
 \index{ACC\_Code.c@{ACC\_Code.c}!accelerationControl@{accelerationControl}}
 \index{accelerationControl@{accelerationControl}!ACC\_Code.c@{ACC\_Code.c}}
-\doxysubsubsection{accelerationControl()}
-{\footnotesize\ttfamily struct \textbf{ ACCcontrol} acceleration\+Control (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enabled,  }\item[{float}]{Ego\+\_\+velo,  }\item[{float}]{Time\+\_\+\+Gap,  }\item[{float}]{ACC\+\_\+speed\+\_\+set,  }\item[{float}]{Relative\+\_\+velo,  }\item[{float}]{Relative\+\_\+distance\+\_\+pres }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{accelerationControl()}{accelerationControl()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct_a_c_ccontrol}{ACCcontrol}} acceleration\+Control (\begin{DoxyParamCaption}\item[{bool}]{ACC\+\_\+enabled,  }\item[{float}]{Ego\+\_\+velo,  }\item[{float}]{Time\+\_\+\+Gap,  }\item[{float}]{ACC\+\_\+speed\+\_\+set,  }\item[{float}]{Relative\+\_\+velo,  }\item[{float}]{Relative\+\_\+distance\+\_\+pres }\end{DoxyParamCaption})}
 
 Acceleration Control
 
@@ -50,33 +50,33 @@ Function responsible for calculating and defining the acceleration to reach the 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{struct\ }ACCcontrol\ i;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_a_c_ccontrol}{ACCcontrol}}\ i;}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{float}\ SafeD\_relD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Difference\ between\ safe\ and\ relative\ distance}}
-\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ D\_default\ \ \ \ \ \ \ \ \ \ \ \ =\ 10;\ \ \textcolor{comment}{//\ Standard\ distance}}
-\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{float}\ Control\_x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance\ }}
-\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{float}\ Control\_v\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance}}
-\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kverr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.5;\ \textcolor{comment}{//\ Model\ gain}}
-\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kxerr\_gain\ \ \ \ \ \ \ \ \ \ \ =\ 0.02;\textcolor{comment}{//\ Model\ gain}}
-\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Kvx\_gain\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0.04;\textcolor{comment}{//\ Model\ gain}}
-\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_min\ =\ -\/5;\ \ \textcolor{comment}{//\ Minimum\ ego\ car\ acceleration}}
-\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Ego\_acceleration\_max\ =\ 1.47;\textcolor{comment}{//\ Max\ ego\ car\ acceleration}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a4afee67ae19c4a23846ae4f4fe8f6581}{SafeD\_relD}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Difference\ between\ safe\ and\ relative\ distance}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a6f8d6e73b450c1a075effff099511a07}{D\_default}}\ \ \ \ \ \ \ \ \ \ \ \ =\ 10;\ \ \textcolor{comment}{//\ Standard\ distance}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance\ }}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;\ \ \ \textcolor{comment}{//\ Intermediate\ variable\ to\ calculate\ relative\ distance}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_8c_a19f9c8d588c878138bb53677277486d2}{Kverr\_gain}}\ \ \ \ \ \ \ \ \ \ \ =\ 0.5;\ \textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\_gain}}\ \ \ \ \ \ \ \ \ \ \ =\ 0.02;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\_gain}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0.04;\textcolor{comment}{//\ Model\ gain}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\_acceleration\_min}}\ =\ -\/5;\ \ \textcolor{comment}{//\ Minimum\ ego\ car\ acceleration}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\_acceleration\_max}}\ =\ 1.47;\textcolor{comment}{//\ Max\ ego\ car\ acceleration}}
 \DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (ACC\_enabled)\ \{\textcolor{comment}{//\ Test\ if\ acc\ is\ ON/OFF}}
-\DoxyCodeLine{00089\ \ \ \ \ i.Safe\_distance\ =\ (Ego\_velo\ *\ Time\_Gap)\ +\ D\_default;}
-\DoxyCodeLine{00090\ \ \ \ \ SafeD\_relD\ =\ i.Safe\_distance\ -\/\ Relative\_distance\_pres;}
-\DoxyCodeLine{00091\ \ \ \ \ Control\_x\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ ((i.Safe\_distance\ -\/\ Relative\_distance\_pres)\ *\ Kxerr\_gain);}
-\DoxyCodeLine{00092\ \ \ \ \ Control\_v\ =\ (ACC\_speed\_set\ -\/\ Ego\_velo)\ *\ Kverr\_gain;}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_ac21a71322990ef380730f0c211071a6c}{ACC\_enabled}})\ \{\textcolor{comment}{//\ Test\ if\ acc\ is\ ON/OFF}}
+\DoxyCodeLine{00089\ \ \ \ \ i.\mbox{\hyperlink{struct_a_c_ccontrol_a100acb7cdf1ca545aefa7723dc9d3b57}{Safe\_distance}}\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e}{Ego\_velo}}\ *\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054}{Time\_Gap}})\ +\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a6f8d6e73b450c1a075effff099511a07}{D\_default}};}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a4afee67ae19c4a23846ae4f4fe8f6581}{SafeD\_relD}}\ =\ i.Safe\_distance\ -\/\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abec8e6854791ca180fd45812ac392e58}{Relative\_distance\_pres}};}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a34acfd270620b972681e56e1073e157a}{Relative\_velo}}\ *\ \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\_gain}})\ -\/\ ((i.Safe\_distance\ -\/\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abec8e6854791ca180fd45812ac392e58}{Relative\_distance\_pres}})\ *\ \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\_gain}});}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}}\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}}\ -\/\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e}{Ego\_velo}})\ *\ \mbox{\hyperlink{_simulation_8c_a19f9c8d588c878138bb53677277486d2}{Kverr\_gain}};}
 \DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Test\ whether\ it\ is\ possible\ to\ use\ ACC\ safely}}
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (SafeD\_relD\ >\ 0)\ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ i.Acceleration\ =\ (Relative\_velo\ *\ Kvx\_gain)\ -\/\ (SafeD\_relD\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a4afee67ae19c4a23846ae4f4fe8f6581}{SafeD\_relD}}\ >\ 0)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ i.Acceleration\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a34acfd270620b972681e56e1073e157a}{Relative\_velo}}\ *\ \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\_gain}})\ -\/\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a4afee67ae19c4a23846ae4f4fe8f6581}{SafeD\_relD}}\ *\ \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\_gain}});}
 \DoxyCodeLine{00096\ }
 \DoxyCodeLine{00097\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ i.Acceleration\ =\ (Control\_x\ <\ Control\_v)\ ?\ Control\_x\ :\ Control\_v;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ i.Acceleration\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ <\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}})\ ?\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ :\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}};}
 \DoxyCodeLine{00099\ \ \ \ \ \}}
-\DoxyCodeLine{00100\ \ \ \ \ i.Acceleration\ =\ (i.Acceleration\ <\ Ego\_acceleration\_min)\ ?}
-\DoxyCodeLine{00101\ \ \ \ \ Ego\_acceleration\_min\ :\ (i.Acceleration\ >\ Ego\_acceleration\_max)\ ?\ }
-\DoxyCodeLine{00102\ \ \ \ \ Ego\_acceleration\_max\ :\ i.Acceleration;}
+\DoxyCodeLine{00100\ \ \ \ \ i.Acceleration\ =\ (i.Acceleration\ <\ \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\_acceleration\_min}})\ ?}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\_acceleration\_min}}\ :\ (i.\mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ >\ \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\_acceleration\_max}})\ ?\ }
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\_acceleration\_max}}\ :\ i.\mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}};}
 \DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
 \DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ If\ the\ safety\ conditions\ are\ not\ accepted,\ do\ not\ accelerate\ the\ car}}
 \DoxyCodeLine{00105\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
@@ -86,11 +86,11 @@ Function responsible for calculating and defining the acceleration to reach the 
 \DoxyCodeLine{00109\ \}}
 
 \end{DoxyCode}
-\label{_a_c_c___code_8c_a9702c702ceac6b23c0340bc23f03fca3} 
+\Hypertarget{_a_c_c___code_8c_a9702c702ceac6b23c0340bc23f03fca3}\label{_a_c_c___code_8c_a9702c702ceac6b23c0340bc23f03fca3} 
 \index{ACC\_Code.c@{ACC\_Code.c}!logicBlockAccEnable@{logicBlockAccEnable}}
 \index{logicBlockAccEnable@{logicBlockAccEnable}!ACC\_Code.c@{ACC\_Code.c}}
-\doxysubsubsection{logicBlockAccEnable()}
-{\footnotesize\ttfamily struct \textbf{ ACCenable} logic\+Block\+Acc\+Enable (\begin{DoxyParamCaption}\item[{bool}]{aux,  }\item[{bool}]{ACC\+\_\+input,  }\item[{bool}]{Fault\+\_\+signal,  }\item[{float}]{Ego\+\_\+velo,  }\item[{bool}]{Gas\+\_\+pedal,  }\item[{bool}]{Brake\+\_\+pedal }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{logicBlockAccEnable()}{logicBlockAccEnable()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct_a_c_cenable}{ACCenable}} logic\+Block\+Acc\+Enable (\begin{DoxyParamCaption}\item[{bool}]{aux,  }\item[{bool}]{ACC\+\_\+input,  }\item[{bool}]{Fault\+\_\+signal,  }\item[{float}]{Ego\+\_\+velo,  }\item[{bool}]{Gas\+\_\+pedal,  }\item[{bool}]{Brake\+\_\+pedal }\end{DoxyParamCaption})}
 
 
 
@@ -114,15 +114,15 @@ This function has the role of checking whether or not it is possible to activate
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{struct\ }ACCenable\ index;}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_a_c_cenable}{ACCenable}}\ index;}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}\ (aux\ ==\ 0\ \&\&\ ACC\_input\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Ego\_velo\ >=\ 11\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ index.aux\ =\ 1;}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a9470c26598e7647a6dc6405c215bb22e}{aux}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}{ACC\_input}}\ ==\ 1\ \&\&\ \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\_signal}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_ac4044dc15be87ac6a279b81143444f2e}{Ego\_velo}}\ >=\ 11\ \&\&\ \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\_pedal}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\_pedal}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ index.\mbox{\hyperlink{struct_a_c_cenable_a9470c26598e7647a6dc6405c215bb22e}{aux}}\ =\ 1;}
 \DoxyCodeLine{00030\ \ \ \ \ index.ACC\_enabled\ =\ 1;}
 \DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (ACC\_input\ ==\ 1\ \&\&\ aux\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}{ACC\_input}}\ ==\ 1\ \&\&\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9470c26598e7647a6dc6405c215bb22e}{aux}}\ ==\ 1\ \&\&\ \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\_signal}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\_pedal}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\_pedal}}\ ==\ 0)\ \{}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ index.ACC\_enabled\ =\ 1;}
 \DoxyCodeLine{00036\ }
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
@@ -135,10 +135,10 @@ This function has the role of checking whether or not it is possible to activate
 \DoxyCodeLine{00044\ \}}
 
 \end{DoxyCode}
-\label{_a_c_c___code_8c_a5799c10c74a8123d1d52caea9e5827a7} 
+\Hypertarget{_a_c_c___code_8c_a5799c10c74a8123d1d52caea9e5827a7}\label{_a_c_c___code_8c_a5799c10c74a8123d1d52caea9e5827a7} 
 \index{ACC\_Code.c@{ACC\_Code.c}!speedSet@{speedSet}}
 \index{speedSet@{speedSet}!ACC\_Code.c@{ACC\_Code.c}}
-\doxysubsubsection{speedSet()}
+\doxysubsubsection{\texorpdfstring{speedSet()}{speedSet()}}
 {\footnotesize\ttfamily float speed\+Set (\begin{DoxyParamCaption}\item[{float}]{ACC\+\_\+speed\+\_\+set }\end{DoxyParamCaption})}
 
 
@@ -156,17 +156,17 @@ This variable\textquotesingle{}s function is to receive the desired speed value 
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
 \DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_max\ =\ 120.0;}
 \DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{float}\ ACC\_speed\_set\_min\ =\ 40.0;}
-\DoxyCodeLine{00060\ \ \ ACC\_speed\_set\ =\ (ACC\_speed\_set\ <\ ACC\_speed\_set\_min)\ ?}
-\DoxyCodeLine{00061\ \ \ ACC\_speed\_set\_min\ :\ (ACC\_speed\_set\ >\ ACC\_speed\_set\_max)\ ?\ }
-\DoxyCodeLine{00062\ \ \ ACC\_speed\_set\_max\ :\ ACC\_speed\_set;}
-\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ ACC\_speed\_set;}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}}\ =\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}}\ <\ ACC\_speed\_set\_min)\ ?}
+\DoxyCodeLine{00061\ \ \ ACC\_speed\_set\_min\ :\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}}\ >\ ACC\_speed\_set\_max)\ ?\ }
+\DoxyCodeLine{00062\ \ \ ACC\_speed\_set\_max\ :\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_af0638d1d343f8057eb4417f3258f4242}{ACC\_speed\_set}};}
 \DoxyCodeLine{00064\ \}}
 
 \end{DoxyCode}
-\label{_a_c_c___code_8c_a0e4499ee6d6488c81c271b3a66a4ccbe} 
+\Hypertarget{_a_c_c___code_8c_a0e4499ee6d6488c81c271b3a66a4ccbe}\label{_a_c_c___code_8c_a0e4499ee6d6488c81c271b3a66a4ccbe} 
 \index{ACC\_Code.c@{ACC\_Code.c}!timeGap@{timeGap}}
 \index{timeGap@{timeGap}!ACC\_Code.c@{ACC\_Code.c}}
-\doxysubsubsection{timeGap()}
+\doxysubsubsection{\texorpdfstring{timeGap()}{timeGap()}}
 {\footnotesize\ttfamily float time\+Gap (\begin{DoxyParamCaption}\item[{bool}]{Rain\+\_\+sensor }\end{DoxyParamCaption})}
 
 
@@ -181,10 +181,10 @@ This function focuses on calculating the time gap between the car and the lead c
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ }
-\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{float}\ Time\_Gap\ =\ 3;}
-\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ Default\_Time\_Gap\ =\ 3;}
-\DoxyCodeLine{00051\ \ \ Time\_Gap\ =\ Rain\_sensor\ ?\ Default\_Time\_Gap\ *\ 2\ :\ Default\_Time\_Gap;}
-\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{return}\ Time\_Gap;}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054}{Time\_Gap}}\ =\ 3;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_ab8b2c911e40397febd1d7c32a452ab9b}{Default\_Time\_Gap}}\ =\ 3;}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054}{Time\_Gap}}\ =\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a1cde5d5ce80220d52bb5767d2301e17d}{Rain\_sensor}}\ ?\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_ab8b2c911e40397febd1d7c32a452ab9b}{Default\_Time\_Gap}}\ *\ 2\ :\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_ab8b2c911e40397febd1d7c32a452ab9b}{Default\_Time\_Gap}};}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_abf3e935bafcae937d559251be96f0054}{Time\_Gap}};}
 \DoxyCodeLine{00053\ \}}
 
 \end{DoxyCode}

@@ -141,6 +141,24 @@
   \doxynewunicodechar{²}{${}^{2}$}% Superscript two
   \doxynewunicodechar{³}{${}^{3}$}% Superscript three
   % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifpdf
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifxetex
+        \usepackage[pagebackref=true]{hyperref}
+      \else
+        \usepackage[ps2pdf,pagebackref=true]{hyperref}
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode,%
+      pdftitle={ACC},%
+      pdfsubject={Detail of the operating code of an adaptive cruise controller developed for the final project of the residency in automotive software at the Federal University of Pernambuco -\/ UFPE.}%
+    }
   % Custom commands used by the header
   % Custom commands
   \newcommand{\clearemptydoublepage}{%
@@ -165,6 +183,12 @@
 \begin{document}
   \raggedbottom
   % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
   \pagenumbering{alph}
   \begin{titlepage}
   \vspace*{7cm}
@@ -180,6 +204,8 @@
   \tableofcontents
   \clearemptydoublepage
   \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
 %--- Begin generated contents ---
 \chapter{Data Structure Index}
 \input{annotated}

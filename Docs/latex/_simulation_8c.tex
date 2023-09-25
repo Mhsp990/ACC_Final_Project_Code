@@ -1,93 +1,93 @@
 \doxysection{Simulation.\+c File Reference}
-\label{_simulation_8c}\index{Simulation.c@{Simulation.c}}
+\hypertarget{_simulation_8c}{}\label{_simulation_8c}\index{Simulation.c@{Simulation.c}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include "{}Validation.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-float \textbf{ calculate\+Lead\+Speed} (float Vo, float Acc, float dT)
+float \mbox{\hyperlink{_simulation_8c_a7c1d1b0927a4ead62732285e30ac90e8}{calculate\+Lead\+Speed}} (float Vo, float Acc, float dT)
 \begin{DoxyCompactList}\small\item\em Simulation function to calculate lead car speed. \end{DoxyCompactList}\item 
-float \textbf{ calculate\+Lead\+Position} (float So, float Vo, float dT, float Acc)
+float \mbox{\hyperlink{_simulation_8c_a81055d9301084d4324fef5c0cd6de0d8}{calculate\+Lead\+Position}} (float So, float Vo, float dT, float Acc)
 \begin{DoxyCompactList}\small\item\em Simulation function to calculate lead car position. \end{DoxyCompactList}\item 
-float \textbf{ generate\+Lead\+Acceleration} (float \textbf{ Amplitude\+\_\+move\+\_\+lead})
+float \mbox{\hyperlink{_simulation_8c_a9bf16dca346a76e02b69f4294d4aae0b}{generate\+Lead\+Acceleration}} (float \mbox{\hyperlink{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26}{Amplitude\+\_\+move\+\_\+lead}})
 \begin{DoxyCompactList}\small\item\em Simulation function to calculate lead car sacceleration. \end{DoxyCompactList}\item 
-float \textbf{ calculate\+Ego\+Speed} (float Vo, float Acc, float dT)
+float \mbox{\hyperlink{_simulation_8c_ae825d5bd0a44403bd0b374ba6afb5c58}{calculate\+Ego\+Speed}} (float Vo, float Acc, float dT)
 \begin{DoxyCompactList}\small\item\em Simulation function to calculate Ego car speed. \end{DoxyCompactList}\item 
-float \textbf{ calculate\+Ego\+Position} (float So, float Vo, float dT, float Acc)
+float \mbox{\hyperlink{_simulation_8c_a939656fa586dcc1d48f583e13157b41d}{calculate\+Ego\+Position}} (float So, float Vo, float dT, float Acc)
 \begin{DoxyCompactList}\small\item\em Simulation function to calculate Ego car position. \end{DoxyCompactList}\item 
-float \textbf{ set\+Time\+Gap} ()
+float \mbox{\hyperlink{_simulation_8c_aa433a1f6c1c6e656a7f020468916ff45}{set\+Time\+Gap}} ()
 \begin{DoxyCompactList}\small\item\em Simulation function to define time gap between lead and ego car. \end{DoxyCompactList}\item 
-float \textbf{ control} ()
+float \mbox{\hyperlink{_simulation_8c_aec14e90b6f95b48c921690111448881a}{control}} ()
 \begin{DoxyCompactList}\small\item\em Simulation function to define control block. \end{DoxyCompactList}\item 
-float \textbf{ ACC\+\_\+\+FUNCTION} ()
+float \mbox{\hyperlink{_simulation_8c_aa37779b685d67683fb2409e719b8ba47}{ACC\+\_\+\+FUNCTION}} ()
 \begin{DoxyCompactList}\small\item\em Simulation function to execute ACC. \end{DoxyCompactList}\item 
-int \textbf{ main} ()
+int \mbox{\hyperlink{_simulation_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-float \textbf{ step} = 0.\+001
+float \mbox{\hyperlink{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}{step}} = 0.\+001
 \item 
-float \textbf{ D\+\_\+time\+\_\+gap} = 3
+float \mbox{\hyperlink{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e}{D\+\_\+time\+\_\+gap}} = 3
 \item 
-float \textbf{ D\+\_\+distance} = 10
+float \mbox{\hyperlink{_simulation_8c_a956811f7965a657e3606df19862b3ec8}{D\+\_\+distance}} = 10
 \item 
-float \textbf{ V\+\_\+set} = 21
+float \mbox{\hyperlink{_simulation_8c_aa927134014151ea1451a02794db39d00}{V\+\_\+set}} = 21
 \item 
-int \textbf{ rain\+\_\+signal} = 0
+int \mbox{\hyperlink{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa}{rain\+\_\+signal}} = 0
 \item 
-short int \textbf{ ACC\+\_\+enable} = 0
+short int \mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\+\_\+enable}} = 0
 \item 
-const float \textbf{ Kverr\+\_\+gain} = 0.\+5
+const float \mbox{\hyperlink{_simulation_8c_a19f9c8d588c878138bb53677277486d2}{Kverr\+\_\+gain}} = 0.\+5
 \item 
-const float \textbf{ Kxerr\+\_\+gain} = 0.\+0
+const float \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\+\_\+gain}} = 0.\+0
 \item 
-const float \textbf{ Kvx\+\_\+gain} = 0.\+04
+const float \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\+\_\+gain}} = 0.\+04
 \item 
-const float \textbf{ Ego\+\_\+acceleration\+\_\+min} = -\/5.\+0
+const float \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\+\_\+acceleration\+\_\+min}} = -\/5.\+0
 \item 
-const float \textbf{ Ego\+\_\+acceleration\+\_\+max} = 1.\+47
+const float \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\+\_\+acceleration\+\_\+max}} = 1.\+47
 \item 
-int \textbf{ ACC\+\_\+input} = 0
+int \mbox{\hyperlink{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}{ACC\+\_\+input}} = 0
 \item 
-int \textbf{ Fault\+\_\+signal} = 0
+int \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\+\_\+signal}} = 0
 \item 
-int \textbf{ Gas\+\_\+pedal} = 0
+int \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\+\_\+pedal}} = 0
 \item 
-int \textbf{ Brake\+\_\+pedal} = 0
+int \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\+\_\+pedal}} = 0
 \item 
-int \textbf{ counter} = 0
+int \mbox{\hyperlink{_simulation_8c_a617a47c70795bcff659815ad0efd2266}{counter}} = 0
 \item 
-const int \textbf{ max\+Counter} = 10000
+const int \mbox{\hyperlink{_simulation_8c_a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff}{max\+Counter}} = 10000
 \item 
-float \textbf{ V\+\_\+lead} = 25
+float \mbox{\hyperlink{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}{V\+\_\+lead}} = 25
 \item 
-float \textbf{ Pos\+\_\+lead} = 100
+float \mbox{\hyperlink{_simulation_8c_aa908554740714f0d33597e95c412a215}{Pos\+\_\+lead}} = 100
 \item 
-float \textbf{ Acceleration\+\_\+lead} = 0
+float \mbox{\hyperlink{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e}{Acceleration\+\_\+lead}} = 0
 \item 
-float \textbf{ Amplitude\+\_\+move\+\_\+lead} = 0.\+1
+float \mbox{\hyperlink{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26}{Amplitude\+\_\+move\+\_\+lead}} = 0.\+1
 \item 
-float \textbf{ Pos\+\_\+ego} = 0
+float \mbox{\hyperlink{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e}{Pos\+\_\+ego}} = 0
 \item 
-float \textbf{ V\+\_\+ego} = 17
+float \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\+\_\+ego}} = 17
 \item 
-float \textbf{ ACC\+\_\+acceleration} = 0
+float \mbox{\hyperlink{_simulation_8c_afd340d6fb70d61744efa058238326252}{ACC\+\_\+acceleration}} = 0
 \item 
-float \textbf{ relative\+Distance} = 15
+float \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relative\+Distance}} = 15
 \item 
-float \textbf{ relative\+Speed} = 10
+float \mbox{\hyperlink{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac}{relative\+Speed}} = 10
 \item 
-float \textbf{ safe\+Distance} = 15
+float \mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safe\+Distance}} = 15
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\label{_simulation_8c_aa37779b685d67683fb2409e719b8ba47} 
+\Hypertarget{_simulation_8c_aa37779b685d67683fb2409e719b8ba47}\label{_simulation_8c_aa37779b685d67683fb2409e719b8ba47} 
 \index{Simulation.c@{Simulation.c}!ACC\_FUNCTION@{ACC\_FUNCTION}}
 \index{ACC\_FUNCTION@{ACC\_FUNCTION}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{ACC\_FUNCTION()}
+\doxysubsubsection{\texorpdfstring{ACC\_FUNCTION()}{ACC\_FUNCTION()}}
 {\footnotesize\ttfamily float ACC\+\_\+\+FUNCTION (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -97,42 +97,42 @@ Simulation function to execute ACC.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00145\ \{}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (ACC\_enable)\{}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ Control\_x\ =0,\ Control\_v=0;}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ Acceleration\ =\ 0;}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ Control\_x\ =\ (relativeSpeed\ *\ Kvx\_gain)\ -\/\ ((safeDistance\ -\/\ relativeDistance)\ *\ Kxerr\_gain);}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ Control\_v\ =\ (V\_set\ -\/\ V\_ego)\ *\ Kverr\_gain;}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\_enable}})\{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ =0,\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}}=0;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ 0;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ =\ (\mbox{\hyperlink{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac}{relativeSpeed}}\ *\ \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\_gain}})\ -\/\ ((\mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safeDistance}}\ -\/\ \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relativeDistance}})\ *\ \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\_gain}});}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}}\ =\ (\mbox{\hyperlink{_simulation_8c_aa927134014151ea1451a02794db39d00}{V\_set}}\ -\/\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}})\ *\ \mbox{\hyperlink{_simulation_8c_a19f9c8d588c878138bb53677277486d2}{Kverr\_gain}};}
 \DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (safeDistance\ <=\ relativeDistance)\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safeDistance}}\ <=\ \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relativeDistance}})\{}
 \DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ Acceleration\ =\ (relativeSpeed\ *\ Kvx\_gain)\ -\/\ ((safeDistance\ -\/\ relativeDistance)\ *\ Kxerr\_gain);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ (\mbox{\hyperlink{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac}{relativeSpeed}}\ *\ \mbox{\hyperlink{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}{Kvx\_gain}})\ -\/\ ((\mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safeDistance}}\ -\/\ \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relativeDistance}})\ *\ \mbox{\hyperlink{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}{Kxerr\_gain}});}
 \DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Control\_x\ <\ Control\_v)\{}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Acceleration\ =\ Control\_x;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}}\ <\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}})\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a3ad2e1d26cda4f171c7e97b9d4754791}{Control\_x}};}
 \DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Acceleration\ =\ Control\_v;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a26907b6c3e4a1be2a4a2456d906469a1}{Control\_v}};}
 \DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Acceleration\ <\ Ego\_acceleration\_min)\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ <\ \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\_acceleration\_min}})\{}
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ Acceleration\ =\ Ego\_acceleration\_min;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ \mbox{\hyperlink{_simulation_8c_ad8c674482d700191da4df4dc627729d3}{Ego\_acceleration\_min}};}
 \DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Acceleration\ >\ Ego\_acceleration\_max)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ >\ \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\_acceleration\_max}})\ \{}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ Acceleration\ =\ Ego\_acceleration\_max;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}}\ =\ \mbox{\hyperlink{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}{Ego\_acceleration\_max}};}
 \DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Acceleration;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_simulation_a_c_c___code_8c_a9fb7b7e941fa4bce2acd85fd08a2e36e}{Acceleration}};}
 \DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{00175\ \}\ \ \ \ \ \ \ }
 
 \end{DoxyCode}
-\label{_simulation_8c_a939656fa586dcc1d48f583e13157b41d} 
+\Hypertarget{_simulation_8c_a939656fa586dcc1d48f583e13157b41d}\label{_simulation_8c_a939656fa586dcc1d48f583e13157b41d} 
 \index{Simulation.c@{Simulation.c}!calculateEgoPosition@{calculateEgoPosition}}
 \index{calculateEgoPosition@{calculateEgoPosition}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{calculateEgoPosition()}
+\doxysubsubsection{\texorpdfstring{calculateEgoPosition()}{calculateEgoPosition()}}
 {\footnotesize\ttfamily float calculate\+Ego\+Position (\begin{DoxyParamCaption}\item[{float}]{So,  }\item[{float}]{Vo,  }\item[{float}]{dT,  }\item[{float}]{Acc }\end{DoxyParamCaption})}
 
 
@@ -157,10 +157,10 @@ Simulation function to calculate Ego car position.
 \DoxyCodeLine{00123\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_ae825d5bd0a44403bd0b374ba6afb5c58} 
+\Hypertarget{_simulation_8c_ae825d5bd0a44403bd0b374ba6afb5c58}\label{_simulation_8c_ae825d5bd0a44403bd0b374ba6afb5c58} 
 \index{Simulation.c@{Simulation.c}!calculateEgoSpeed@{calculateEgoSpeed}}
 \index{calculateEgoSpeed@{calculateEgoSpeed}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{calculateEgoSpeed()}
+\doxysubsubsection{\texorpdfstring{calculateEgoSpeed()}{calculateEgoSpeed()}}
 {\footnotesize\ttfamily float calculate\+Ego\+Speed (\begin{DoxyParamCaption}\item[{float}]{Vo,  }\item[{float}]{Acc,  }\item[{float}]{dT }\end{DoxyParamCaption})}
 
 
@@ -183,10 +183,10 @@ Simulation function to calculate Ego car speed.
 \DoxyCodeLine{00115\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_a81055d9301084d4324fef5c0cd6de0d8} 
+\Hypertarget{_simulation_8c_a81055d9301084d4324fef5c0cd6de0d8}\label{_simulation_8c_a81055d9301084d4324fef5c0cd6de0d8} 
 \index{Simulation.c@{Simulation.c}!calculateLeadPosition@{calculateLeadPosition}}
 \index{calculateLeadPosition@{calculateLeadPosition}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{calculateLeadPosition()}
+\doxysubsubsection{\texorpdfstring{calculateLeadPosition()}{calculateLeadPosition()}}
 {\footnotesize\ttfamily float calculate\+Lead\+Position (\begin{DoxyParamCaption}\item[{float}]{So,  }\item[{float}]{Vo,  }\item[{float}]{dT,  }\item[{float}]{Acc }\end{DoxyParamCaption})}
 
 
@@ -211,17 +211,17 @@ Simulation function to calculate lead car position.
 \DoxyCodeLine{00101\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_a7c1d1b0927a4ead62732285e30ac90e8} 
+\Hypertarget{_simulation_8c_a7c1d1b0927a4ead62732285e30ac90e8}\label{_simulation_8c_a7c1d1b0927a4ead62732285e30ac90e8} 
 \index{Simulation.c@{Simulation.c}!calculateLeadSpeed@{calculateLeadSpeed}}
 \index{calculateLeadSpeed@{calculateLeadSpeed}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{calculateLeadSpeed()}
+\doxysubsubsection{\texorpdfstring{calculateLeadSpeed()}{calculateLeadSpeed()}}
 {\footnotesize\ttfamily float calculate\+Lead\+Speed (\begin{DoxyParamCaption}\item[{float}]{Vo,  }\item[{float}]{Acc,  }\item[{float}]{dT }\end{DoxyParamCaption})}
 
 
 
 Simulation function to calculate lead car speed. 
 
-safe\+Distance = (D\+\_\+time\+\_\+\+Gap$\ast$2) + D\+\_\+distance 
+safe\+Distance = (D\+\_\+time\+\_\+\+Gap\texorpdfstring{$\ast$}{*}2) + D\+\_\+distance 
 \begin{DoxyParams}{Parameters}
 {\em Vo} & initial speed  \\
 \hline
@@ -237,10 +237,10 @@ safe\+Distance = (D\+\_\+time\+\_\+\+Gap$\ast$2) + D\+\_\+distance
 \DoxyCodeLine{00093\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_aec14e90b6f95b48c921690111448881a} 
+\Hypertarget{_simulation_8c_aec14e90b6f95b48c921690111448881a}\label{_simulation_8c_aec14e90b6f95b48c921690111448881a} 
 \index{Simulation.c@{Simulation.c}!control@{control}}
 \index{control@{control}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{control()}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
 {\footnotesize\ttfamily float control (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -250,7 +250,7 @@ Simulation function to define control block.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00134\ \{}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{if}(ACC\_input\ ==\ 1\ \&\&\ Fault\_signal\ ==\ 0\ \&\&\ (V\_ego\ >=\ 11\ ||\ V\_ego\ <=\ 33)\ \&\&\ Gas\_pedal\ ==\ 0\ \&\&\ Brake\_pedal\ ==\ 0)\{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}{ACC\_input}}\ ==\ 1\ \&\&\ \mbox{\hyperlink{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}{Fault\_signal}}\ ==\ 0\ \&\&\ (\mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}}\ >=\ 11\ ||\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}}\ <=\ 33)\ \&\&\ \mbox{\hyperlink{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}{Gas\_pedal}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}{Brake\_pedal}}\ ==\ 0)\{}
 \DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
 \DoxyCodeLine{00137\ \ \ \ \ \}}
 \DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
@@ -259,10 +259,10 @@ Simulation function to define control block.
 \DoxyCodeLine{00141\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_a9bf16dca346a76e02b69f4294d4aae0b} 
+\Hypertarget{_simulation_8c_a9bf16dca346a76e02b69f4294d4aae0b}\label{_simulation_8c_a9bf16dca346a76e02b69f4294d4aae0b} 
 \index{Simulation.c@{Simulation.c}!generateLeadAcceleration@{generateLeadAcceleration}}
 \index{generateLeadAcceleration@{generateLeadAcceleration}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{generateLeadAcceleration()}
+\doxysubsubsection{\texorpdfstring{generateLeadAcceleration()}{generateLeadAcceleration()}}
 {\footnotesize\ttfamily float generate\+Lead\+Acceleration (\begin{DoxyParamCaption}\item[{float}]{Amplitude\+\_\+move\+\_\+lead }\end{DoxyParamCaption})}
 
 
@@ -281,10 +281,10 @@ Simulation function to calculate lead car sacceleration.
 \DoxyCodeLine{00106\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\Hypertarget{_simulation_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{_simulation_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
 \index{Simulation.c@{Simulation.c}!main@{main}}
 \index{main@{main}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{main()}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -294,39 +294,39 @@ Simulation function to calculate lead car sacceleration.
 \DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{do}}
 \DoxyCodeLine{00055\ \ \ \ \ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//Generating\ Lead\ car\ data\ for\ this\ interaction.\ Based\ on\ previous\ values}}
-\DoxyCodeLine{00057\ \ \ \ \ Acceleration\_lead\ =\ generateLeadAcceleration(Amplitude\_move\_lead);}
-\DoxyCodeLine{00058\ \ \ \ \ V\_lead\ =\ calculateLeadSpeed(V\_lead,\ Acceleration\_lead,\ step);}
-\DoxyCodeLine{00059\ \ \ \ \ Pos\_lead\ =calculateEgoPosition(Pos\_lead,V\_lead,step,Acceleration\_lead);}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e}{Acceleration\_lead}}\ =\ \mbox{\hyperlink{_simulation_8c_a9bf16dca346a76e02b69f4294d4aae0b}{generateLeadAcceleration}}(\mbox{\hyperlink{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26}{Amplitude\_move\_lead}});}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}{V\_lead}}\ =\ \mbox{\hyperlink{_simulation_8c_a7c1d1b0927a4ead62732285e30ac90e8}{calculateLeadSpeed}}(\mbox{\hyperlink{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}{V\_lead}},\ \mbox{\hyperlink{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e}{Acceleration\_lead}},\ \mbox{\hyperlink{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}{step}});}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_aa908554740714f0d33597e95c412a215}{Pos\_lead}}\ =\mbox{\hyperlink{_simulation_8c_a939656fa586dcc1d48f583e13157b41d}{calculateEgoPosition}}(\mbox{\hyperlink{_simulation_8c_aa908554740714f0d33597e95c412a215}{Pos\_lead}},\mbox{\hyperlink{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}{V\_lead}},\mbox{\hyperlink{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}{step}},\mbox{\hyperlink{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e}{Acceleration\_lead}});}
 \DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ safeDistance\ =\ D\_distance\ +\ V\_ego*(setTimeGap());\ \textcolor{comment}{//Calculating\ safe\ distance}}
-\DoxyCodeLine{00062\ \ \ \ \ relativeDistance\ =\ Pos\_lead\ -\/\ Pos\_ego;\ \textcolor{comment}{//Calculating\ relative\ distance}}
-\DoxyCodeLine{00063\ \ \ \ \ relativeSpeed\ =\ V\_lead\ -\/\ V\_ego;\ \textcolor{comment}{//Calculating\ relative\ speed}}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}{safeDistance}}\ =\ \mbox{\hyperlink{_simulation_8c_a956811f7965a657e3606df19862b3ec8}{D\_distance}}\ +\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}}*(\mbox{\hyperlink{_simulation_8c_aa433a1f6c1c6e656a7f020468916ff45}{setTimeGap}}());\ \textcolor{comment}{//Calculating\ safe\ distance}}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}{relativeDistance}}\ =\ \mbox{\hyperlink{_simulation_8c_aa908554740714f0d33597e95c412a215}{Pos\_lead}}\ -\/\ \mbox{\hyperlink{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e}{Pos\_ego}};\ \textcolor{comment}{//Calculating\ relative\ distance}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac}{relativeSpeed}}\ =\ \mbox{\hyperlink{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}{V\_lead}}\ -\/\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}};\ \textcolor{comment}{//Calculating\ relative\ speed}}
 \DoxyCodeLine{00064\ \ \ \ \ }
 \DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//if(ACC\_input)\ V\_ego\_INITIAL\ =\ V\_ego;}}
 \DoxyCodeLine{00066\ }
 \DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//Using\ the\ ACC\ system\ with\ generated\ data\ from\ simulation}}
-\DoxyCodeLine{00068\ \ \ \ \ ACC\_enable\ =\ control();\ \textcolor{comment}{//Check\ if\ ACC\ can\ be\ enabled}}
-\DoxyCodeLine{00069\ \ \ \ \ ACC\_acceleration\ =\ ACC\_FUNCTION();\ \textcolor{comment}{//Calculate\ ACC.\ If\ ACC\ is\ disable,\ returns\ 0;}}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}{ACC\_enable}}\ =\ \mbox{\hyperlink{_simulation_8c_aec14e90b6f95b48c921690111448881a}{control}}();\ \textcolor{comment}{//Check\ if\ ACC\ can\ be\ enabled}}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_afd340d6fb70d61744efa058238326252}{ACC\_acceleration}}\ =\ \mbox{\hyperlink{_simulation_8c_aa37779b685d67683fb2409e719b8ba47}{ACC\_FUNCTION}}();\ \textcolor{comment}{//Calculate\ ACC.\ If\ ACC\ is\ disable,\ returns\ 0;}}
 \DoxyCodeLine{00070\ }
 \DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//Generating\ Ego\ car\ data\ for\ this\ interaction.\ Based\ on\ previous\ values}}
-\DoxyCodeLine{00072\ \ \ \ \ V\_ego\ =\ calculateEgoSpeed(Pos\_ego,\ V\_ego,\ step);\ \textcolor{comment}{//Calculating\ new\ speed}}
-\DoxyCodeLine{00073\ \ \ \ \ Pos\_lead\ =\ calculateEgoPosition(Pos\_ego,V\_ego,step,ACC\_acceleration);\ \textcolor{comment}{//Calculating\ new\ pos}}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}}\ =\ \mbox{\hyperlink{_simulation_8c_ae825d5bd0a44403bd0b374ba6afb5c58}{calculateEgoSpeed}}(\mbox{\hyperlink{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e}{Pos\_ego}},\ \mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}},\ \mbox{\hyperlink{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}{step}});\ \textcolor{comment}{//Calculating\ new\ speed}}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_aa908554740714f0d33597e95c412a215}{Pos\_lead}}\ =\ \mbox{\hyperlink{_simulation_8c_a939656fa586dcc1d48f583e13157b41d}{calculateEgoPosition}}(\mbox{\hyperlink{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e}{Pos\_ego}},\mbox{\hyperlink{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}{V\_ego}},\mbox{\hyperlink{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}{step}},\mbox{\hyperlink{_simulation_8c_afd340d6fb70d61744efa058238326252}{ACC\_acceleration}});\ \textcolor{comment}{//Calculating\ new\ pos}}
 \DoxyCodeLine{00074\ }
 \DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//Run\ test\ for\ this\ interaction,\ such\ as\ check\ if\ there\ is\ colision}}
 \DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ counter++;}
-\DoxyCodeLine{00078\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (counter<=maxCounter);}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{_simulation_8c_a617a47c70795bcff659815ad0efd2266}{counter}}++;}
+\DoxyCodeLine{00078\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{_simulation_8c_a617a47c70795bcff659815ad0efd2266}{counter}}<=\mbox{\hyperlink{_simulation_8c_a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff}{maxCounter}});}
 \DoxyCodeLine{00079\ }
 \DoxyCodeLine{00080\ \ \ \ \ printf(\textcolor{stringliteral}{"{}SIMULATION\ ENDED"{}});}
-\DoxyCodeLine{00081\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\%d"{}},counter);}
+\DoxyCodeLine{00081\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\%d"{}},\mbox{\hyperlink{_simulation_8c_a617a47c70795bcff659815ad0efd2266}{counter}});}
 \DoxyCodeLine{00082\ \ \ \ \ }
 \DoxyCodeLine{00083\ \}}
 
 \end{DoxyCode}
-\label{_simulation_8c_aa433a1f6c1c6e656a7f020468916ff45} 
+\Hypertarget{_simulation_8c_aa433a1f6c1c6e656a7f020468916ff45}\label{_simulation_8c_aa433a1f6c1c6e656a7f020468916ff45} 
 \index{Simulation.c@{Simulation.c}!setTimeGap@{setTimeGap}}
 \index{setTimeGap@{setTimeGap}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{setTimeGap()}
+\doxysubsubsection{\texorpdfstring{setTimeGap()}{setTimeGap()}}
 {\footnotesize\ttfamily float set\+Time\+Gap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -336,174 +336,174 @@ Simulation function to define time gap between lead and ego car.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00126\ \{}
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}(rain\_signal\ ==\ 0)\ \textcolor{keywordflow}{return}\ D\_time\_gap;}
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ D\_time\_gap*2;}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa}{rain\_signal}}\ ==\ 0)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e}{D\_time\_gap}};}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e}{D\_time\_gap}}*2;}
 \DoxyCodeLine{00129\ \}}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Variable Documentation}
-\label{_simulation_8c_afd340d6fb70d61744efa058238326252} 
+\Hypertarget{_simulation_8c_afd340d6fb70d61744efa058238326252}\label{_simulation_8c_afd340d6fb70d61744efa058238326252} 
 \index{Simulation.c@{Simulation.c}!ACC\_acceleration@{ACC\_acceleration}}
 \index{ACC\_acceleration@{ACC\_acceleration}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{ACC\_acceleration}
+\doxysubsubsection{\texorpdfstring{ACC\_acceleration}{ACC\_acceleration}}
 {\footnotesize\ttfamily float ACC\+\_\+acceleration = 0}
 
-Ego car initial speed (meters per second) \label{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428} 
+Ego car initial speed (meters per second) \Hypertarget{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428}\label{_simulation_8c_ae733aedbd64552a407fd8daa6eee7428} 
 \index{Simulation.c@{Simulation.c}!ACC\_enable@{ACC\_enable}}
 \index{ACC\_enable@{ACC\_enable}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{ACC\_enable}
+\doxysubsubsection{\texorpdfstring{ACC\_enable}{ACC\_enable}}
 {\footnotesize\ttfamily short int ACC\+\_\+enable = 0}
 
-Signal from rain sensor. Indicates rain surface, affecting required time gap. \label{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85} 
+Signal from rain sensor. Indicates rain surface, affecting required time gap. \Hypertarget{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85}\label{_simulation_8c_acbc4f4aaa886a5dc0da0757aa853cf85} 
 \index{Simulation.c@{Simulation.c}!ACC\_input@{ACC\_input}}
 \index{ACC\_input@{ACC\_input}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{ACC\_input}
+\doxysubsubsection{\texorpdfstring{ACC\_input}{ACC\_input}}
 {\footnotesize\ttfamily int ACC\+\_\+input = 0}
 
-Max acceleration value -\/ More than this and will be unconfortable \label{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e} 
+Max acceleration value -\/ More than this and will be unconfortable \Hypertarget{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e}\label{_simulation_8c_ade2d2b5f9c0b152f97ca2e6c6c90e38e} 
 \index{Simulation.c@{Simulation.c}!Acceleration\_lead@{Acceleration\_lead}}
 \index{Acceleration\_lead@{Acceleration\_lead}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Acceleration\_lead}
+\doxysubsubsection{\texorpdfstring{Acceleration\_lead}{Acceleration\_lead}}
 {\footnotesize\ttfamily float Acceleration\+\_\+lead = 0}
 
-Initial front car position (meters) \label{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26} 
+Initial front car position (meters) \Hypertarget{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26}\label{_simulation_8c_aa0ea152f25d8d75fca542b2987ad4c26} 
 \index{Simulation.c@{Simulation.c}!Amplitude\_move\_lead@{Amplitude\_move\_lead}}
 \index{Amplitude\_move\_lead@{Amplitude\_move\_lead}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Amplitude\_move\_lead}
+\doxysubsubsection{\texorpdfstring{Amplitude\_move\_lead}{Amplitude\_move\_lead}}
 {\footnotesize\ttfamily float Amplitude\+\_\+move\+\_\+lead = 0.\+1}
 
-Base front car acceleration -\/ Causes variation in front car speed \label{_simulation_8c_a2af77f8378df53dc4899ea083f098e38} 
+Base front car acceleration -\/ Causes variation in front car speed \Hypertarget{_simulation_8c_a2af77f8378df53dc4899ea083f098e38}\label{_simulation_8c_a2af77f8378df53dc4899ea083f098e38} 
 \index{Simulation.c@{Simulation.c}!Brake\_pedal@{Brake\_pedal}}
 \index{Brake\_pedal@{Brake\_pedal}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Brake\_pedal}
+\doxysubsubsection{\texorpdfstring{Brake\_pedal}{Brake\_pedal}}
 {\footnotesize\ttfamily int Brake\+\_\+pedal = 0}
 
-User input indicating the Gas pedal has been pressed and ACC must be disabled. \label{_simulation_8c_a617a47c70795bcff659815ad0efd2266} 
+User input indicating the Gas pedal has been pressed and ACC must be disabled. \Hypertarget{_simulation_8c_a617a47c70795bcff659815ad0efd2266}\label{_simulation_8c_a617a47c70795bcff659815ad0efd2266} 
 \index{Simulation.c@{Simulation.c}!counter@{counter}}
 \index{counter@{counter}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{counter}
+\doxysubsubsection{\texorpdfstring{counter}{counter}}
 {\footnotesize\ttfamily int counter = 0}
 
-User input indicating the Brake pedal has been pressed and ACC must be disabled. \label{_simulation_8c_a956811f7965a657e3606df19862b3ec8} 
+User input indicating the Brake pedal has been pressed and ACC must be disabled. \Hypertarget{_simulation_8c_a956811f7965a657e3606df19862b3ec8}\label{_simulation_8c_a956811f7965a657e3606df19862b3ec8} 
 \index{Simulation.c@{Simulation.c}!D\_distance@{D\_distance}}
 \index{D\_distance@{D\_distance}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{D\_distance}
+\doxysubsubsection{\texorpdfstring{D\_distance}{D\_distance}}
 {\footnotesize\ttfamily float D\+\_\+distance = 10}
 
-Base time gap between the ACC car (Ego) and front car (Lead). \label{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e} 
+Base time gap between the ACC car (Ego) and front car (Lead). \Hypertarget{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e}\label{_simulation_8c_aaa00d6deaba7bc13c8f03fc1b638106e} 
 \index{Simulation.c@{Simulation.c}!D\_time\_gap@{D\_time\_gap}}
 \index{D\_time\_gap@{D\_time\_gap}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{D\_time\_gap}
+\doxysubsubsection{\texorpdfstring{D\_time\_gap}{D\_time\_gap}}
 {\footnotesize\ttfamily float D\+\_\+time\+\_\+gap = 3}
 
-\label{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96} 
+\Hypertarget{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96}\label{_simulation_8c_a3112cac93f77e9cc17c218a63204bf96} 
 \index{Simulation.c@{Simulation.c}!Ego\_acceleration\_max@{Ego\_acceleration\_max}}
 \index{Ego\_acceleration\_max@{Ego\_acceleration\_max}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Ego\_acceleration\_max}
+\doxysubsubsection{\texorpdfstring{Ego\_acceleration\_max}{Ego\_acceleration\_max}}
 {\footnotesize\ttfamily const float Ego\+\_\+acceleration\+\_\+max = 1.\+47}
 
-Max brake value \label{_simulation_8c_ad8c674482d700191da4df4dc627729d3} 
+Max brake value \Hypertarget{_simulation_8c_ad8c674482d700191da4df4dc627729d3}\label{_simulation_8c_ad8c674482d700191da4df4dc627729d3} 
 \index{Simulation.c@{Simulation.c}!Ego\_acceleration\_min@{Ego\_acceleration\_min}}
 \index{Ego\_acceleration\_min@{Ego\_acceleration\_min}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Ego\_acceleration\_min}
+\doxysubsubsection{\texorpdfstring{Ego\_acceleration\_min}{Ego\_acceleration\_min}}
 {\footnotesize\ttfamily const float Ego\+\_\+acceleration\+\_\+min = -\/5.\+0}
 
-Gains \label{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e} 
+Gains \Hypertarget{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e}\label{_simulation_8c_a82bceca2a2b3cca1c7f65ef9e3a8027e} 
 \index{Simulation.c@{Simulation.c}!Fault\_signal@{Fault\_signal}}
 \index{Fault\_signal@{Fault\_signal}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Fault\_signal}
+\doxysubsubsection{\texorpdfstring{Fault\_signal}{Fault\_signal}}
 {\footnotesize\ttfamily int Fault\+\_\+signal = 0}
 
-User input to enable ACC. Does not mean the acc is enabled (yet). \label{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90} 
+User input to enable ACC. Does not mean the acc is enabled (yet). \Hypertarget{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90}\label{_simulation_8c_a5ca4db79d52fb410de4f96e43c801a90} 
 \index{Simulation.c@{Simulation.c}!Gas\_pedal@{Gas\_pedal}}
 \index{Gas\_pedal@{Gas\_pedal}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Gas\_pedal}
+\doxysubsubsection{\texorpdfstring{Gas\_pedal}{Gas\_pedal}}
 {\footnotesize\ttfamily int Gas\+\_\+pedal = 0}
 
-System input indicating fault in at least one sensor. If true, ACC must be disabled. \label{_simulation_8c_a19f9c8d588c878138bb53677277486d2} 
+System input indicating fault in at least one sensor. If true, ACC must be disabled. \Hypertarget{_simulation_8c_a19f9c8d588c878138bb53677277486d2}\label{_simulation_8c_a19f9c8d588c878138bb53677277486d2} 
 \index{Simulation.c@{Simulation.c}!Kverr\_gain@{Kverr\_gain}}
 \index{Kverr\_gain@{Kverr\_gain}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Kverr\_gain}
+\doxysubsubsection{\texorpdfstring{Kverr\_gain}{Kverr\_gain}}
 {\footnotesize\ttfamily const float Kverr\+\_\+gain = 0.\+5}
 
-Represents the system input when the ACC is enabled. \label{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88} 
+Represents the system input when the ACC is enabled. \Hypertarget{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88}\label{_simulation_8c_a3a67f9dc88562eeddb9c0abe7d8b9d88} 
 \index{Simulation.c@{Simulation.c}!Kvx\_gain@{Kvx\_gain}}
 \index{Kvx\_gain@{Kvx\_gain}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Kvx\_gain}
+\doxysubsubsection{\texorpdfstring{Kvx\_gain}{Kvx\_gain}}
 {\footnotesize\ttfamily const float Kvx\+\_\+gain = 0.\+04}
 
-Gains \label{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e} 
+Gains \Hypertarget{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e}\label{_simulation_8c_acd139192a15ab7e2e0a7d55d60cd1d9e} 
 \index{Simulation.c@{Simulation.c}!Kxerr\_gain@{Kxerr\_gain}}
 \index{Kxerr\_gain@{Kxerr\_gain}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Kxerr\_gain}
+\doxysubsubsection{\texorpdfstring{Kxerr\_gain}{Kxerr\_gain}}
 {\footnotesize\ttfamily const float Kxerr\+\_\+gain = 0.\+0}
 
-Gains \label{_simulation_8c_a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff} 
+Gains \Hypertarget{_simulation_8c_a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff}\label{_simulation_8c_a9c4bfcb99f137a7b5c6f2cdb5cfbb5ff} 
 \index{Simulation.c@{Simulation.c}!maxCounter@{maxCounter}}
 \index{maxCounter@{maxCounter}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{maxCounter}
+\doxysubsubsection{\texorpdfstring{maxCounter}{maxCounter}}
 {\footnotesize\ttfamily const int max\+Counter = 10000}
 
-Counter of iteractions for this simulation \label{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e} 
+Counter of iteractions for this simulation \Hypertarget{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e}\label{_simulation_8c_af720e5ece426ad568df9a06151ca4c4e} 
 \index{Simulation.c@{Simulation.c}!Pos\_ego@{Pos\_ego}}
 \index{Pos\_ego@{Pos\_ego}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Pos\_ego}
+\doxysubsubsection{\texorpdfstring{Pos\_ego}{Pos\_ego}}
 {\footnotesize\ttfamily float Pos\+\_\+ego = 0}
 
-Determines how much the front car acceleration should vary \label{_simulation_8c_aa908554740714f0d33597e95c412a215} 
+Determines how much the front car acceleration should vary \Hypertarget{_simulation_8c_aa908554740714f0d33597e95c412a215}\label{_simulation_8c_aa908554740714f0d33597e95c412a215} 
 \index{Simulation.c@{Simulation.c}!Pos\_lead@{Pos\_lead}}
 \index{Pos\_lead@{Pos\_lead}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{Pos\_lead}
+\doxysubsubsection{\texorpdfstring{Pos\_lead}{Pos\_lead}}
 {\footnotesize\ttfamily float Pos\+\_\+lead = 100}
 
-Initial front car speed in meters per second \label{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa} 
+Initial front car speed in meters per second \Hypertarget{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa}\label{_simulation_8c_a38bf544400ec17b6c80bdceb5d9eeaaa} 
 \index{Simulation.c@{Simulation.c}!rain\_signal@{rain\_signal}}
 \index{rain\_signal@{rain\_signal}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{rain\_signal}
+\doxysubsubsection{\texorpdfstring{rain\_signal}{rain\_signal}}
 {\footnotesize\ttfamily int rain\+\_\+signal = 0}
 
-User defined velocity for ACC. \label{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e} 
+User defined velocity for ACC. \Hypertarget{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e}\label{_simulation_8c_a6818a4e4f4bf2f65542e247c16c21c1e} 
 \index{Simulation.c@{Simulation.c}!relativeDistance@{relativeDistance}}
 \index{relativeDistance@{relativeDistance}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{relativeDistance}
+\doxysubsubsection{\texorpdfstring{relativeDistance}{relativeDistance}}
 {\footnotesize\ttfamily float relative\+Distance = 15}
 
-Ego car initial acceleration. Changed by ACC output during runtime. \label{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac} 
+Ego car initial acceleration. Changed by ACC output during runtime. \Hypertarget{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac}\label{_simulation_8c_ab2fc382d81dbd7faa4bbc8f1331290ac} 
 \index{Simulation.c@{Simulation.c}!relativeSpeed@{relativeSpeed}}
 \index{relativeSpeed@{relativeSpeed}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{relativeSpeed}
+\doxysubsubsection{\texorpdfstring{relativeSpeed}{relativeSpeed}}
 {\footnotesize\ttfamily float relative\+Speed = 10}
 
-relative\+Distance = Pos\+\_\+lead -\/ Pos\+\_\+ego \label{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674} 
+relative\+Distance = Pos\+\_\+lead -\/ Pos\+\_\+ego \Hypertarget{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674}\label{_simulation_8c_a2cafa3ee65cbf9d7f1b5e3b6b53c8674} 
 \index{Simulation.c@{Simulation.c}!safeDistance@{safeDistance}}
 \index{safeDistance@{safeDistance}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{safeDistance}
+\doxysubsubsection{\texorpdfstring{safeDistance}{safeDistance}}
 {\footnotesize\ttfamily float safe\+Distance = 15}
 
-relative\+Speed = V\+\_\+lead -\/ V\+\_\+ego \label{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa} 
+relative\+Speed = V\+\_\+lead -\/ V\+\_\+ego \Hypertarget{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa}\label{_simulation_8c_a863c86bdfd96bf9c461846689c2614aa} 
 \index{Simulation.c@{Simulation.c}!step@{step}}
 \index{step@{step}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{step}
+\doxysubsubsection{\texorpdfstring{step}{step}}
 {\footnotesize\ttfamily float step = 0.\+001}
 
-Time between iteractions \label{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53} 
+Time between iteractions \Hypertarget{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53}\label{_simulation_8c_a066517b9bcab469cbf6f505f1c290e53} 
 \index{Simulation.c@{Simulation.c}!V\_ego@{V\_ego}}
 \index{V\_ego@{V\_ego}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{V\_ego}
+\doxysubsubsection{\texorpdfstring{V\_ego}{V\_ego}}
 {\footnotesize\ttfamily float V\+\_\+ego = 17}
 
-Ego car initial position (meters) \label{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42} 
+Ego car initial position (meters) \Hypertarget{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42}\label{_simulation_8c_abdb8b047ec78f6b3b1277a909250dc42} 
 \index{Simulation.c@{Simulation.c}!V\_lead@{V\_lead}}
 \index{V\_lead@{V\_lead}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{V\_lead}
+\doxysubsubsection{\texorpdfstring{V\_lead}{V\_lead}}
 {\footnotesize\ttfamily float V\+\_\+lead = 25}
 
-Max number of iteractions for this simulation \label{_simulation_8c_aa927134014151ea1451a02794db39d00} 
+Max number of iteractions for this simulation \Hypertarget{_simulation_8c_aa927134014151ea1451a02794db39d00}\label{_simulation_8c_aa927134014151ea1451a02794db39d00} 
 \index{Simulation.c@{Simulation.c}!V\_set@{V\_set}}
 \index{V\_set@{V\_set}!Simulation.c@{Simulation.c}}
-\doxysubsubsection{V\_set}
+\doxysubsubsection{\texorpdfstring{V\_set}{V\_set}}
 {\footnotesize\ttfamily float V\+\_\+set = 21}
 
 Base distance between cars, regardless of timegap. 
