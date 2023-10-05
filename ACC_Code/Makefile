@@ -3,16 +3,23 @@ CC	= gcc
 CFLAG = -fPIC -fprofile-arcs -ftest-coverage -lgcov
 RM	= rm -rf
 
+Simulation_Code.o: Simulation_Code.c
+	$(CC) -c -Wall -Werror Simulation_Code.c
+
 Test_ACC.o: Test_ACC.c
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 
+build: Simulation_Code.o ## Make build
+	$(CC) -c -Wall -Werror Simulation_Code.c
+	$(CC) -o Simulation Simulation_Code.o
+	./Simulation.exe
+
 build: Test_ACC.o ## Make build 
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
-	$(CC) $(CFLAG) -o main Test_ACC.o -lcunit
+	$(CC) $(CFLAG) -o Test Test_ACC.o -lcunit
 
 coverage:
 	gcov Test_ACC.c
-
 
 deps: ## Install dependencies of gcovr
 	sudo apt-get install lcov clang-format

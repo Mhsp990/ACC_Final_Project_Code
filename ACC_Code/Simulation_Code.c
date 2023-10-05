@@ -119,8 +119,8 @@ int main ()
   fprintf(fp,"\n %.2f, ",Acceleration);
   fprintf(fp," %.2f, ", Safe_distance);
   fprintf(fp," %.2f, ", Relative_distance_pres);
-  fprintf(fp," %.1f, ", Ego_velo);
-  fprintf(fp," %.1f, ", Lead_velo);
+  fprintf(fp," %.1f, ", Ego_velo*3.6);
+  fprintf(fp," %.1f, ", Lead_velo*3.6);
   fprintf(fp," %d ", counter);
   
 
