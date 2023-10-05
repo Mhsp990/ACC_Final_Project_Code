@@ -13,9 +13,9 @@ int clean_suite(void) { return 0; }
 /////////// Test Suite 1
 //Test cases of "Time_Gap" output
 
-// Case that rain sansor is false
+// Case that rain sensor is false
 void test_timeGap(void) { CU_ASSERT(3 == timeGap(false)); } 
-// Case that rain sansor is true
+// Case that rain sensor is true
 void test_timeGap_rain(void) { CU_ASSERT(6 == timeGap(true)); } 
 //////// Finished test Suite 1
 
