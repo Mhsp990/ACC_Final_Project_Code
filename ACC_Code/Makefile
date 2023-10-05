@@ -16,9 +16,10 @@ build: Simulation_Code.o ## Make build
 
 build: Test_ACC.o ## Make build 
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
-	$(CC) $(CFLAG) -o Test Test_ACC.o -lcunit
+	$(CC) $(CFLAG) -o Tests Test_ACC.o -lcunit
+	./Tests.exe
 
-coverage:
+coverage: ## Make coverage
 	gcov Test_ACC.c
 
 deps: ## Install dependencies of gcovr
