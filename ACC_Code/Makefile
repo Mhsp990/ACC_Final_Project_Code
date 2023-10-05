@@ -11,7 +11,7 @@ Test_ACC.o: Test_ACC.c
 
 build_simu: Simulation_Code.o ## Make build
 	$(CC) -c -Wall -Werror Simulation_Code.c
-	$(CC) -lm -o Simulation Simulation_Code.o
+	$(CC) -o Simulation Simulation_Code.o -lm
 	./Simulation.exe
 
 build_test: Test_ACC.o ## Make build 
