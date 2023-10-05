@@ -12,12 +12,12 @@ Test_ACC.o: Test_ACC.c
 build_simu: Simulation_Code.o ## Make build
 	$(CC) -c -Wall -Werror Simulation_Code.c
 	$(CC) -o Simulation Simulation_Code.o -lm
-	./Simulation.exe
+	./Simulation
 
 build_test: Test_ACC.o ## Make build 
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 	$(CC) $(CFLAG) -o Test Test_ACC.o -lcunit
-	./Test.exe
+	./Test
 
 coverage: ## Make coverage
 	gcov Test_ACC.c
