@@ -16,11 +16,17 @@ jobs:
     - name: Install CUnit
       run:  sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
       
+    - name: Build Simulation
+      run: cd ACC_Code && make build_simu
+      
     - name: Build tests and coverage
-      run: cd ACC_Code && make build
-          
+      run: cd ACC_Code && make build_test
+
+    - name: Run Simulation
+      run:  cd ACC_Code && ./Simulation
+    
     - name: Run tests
-      run:  cd ACC_Code && ./main
+      run:  cd ACC_Code && ./Test
             
     - name: Run coverage
       run: cd ACC_Code && make coverage
