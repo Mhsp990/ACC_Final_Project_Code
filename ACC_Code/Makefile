@@ -9,12 +9,12 @@ Simulation_Code.o: Simulation_Code.c
 Test_ACC.o: Test_ACC.c
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 
-build: Simulation_Code.o ## Make build
+build_simu: Simulation_Code.o ## Make build
 	$(CC) -c -Wall -Werror Simulation_Code.c
 	$(CC) -o Simulation Simulation_Code.o
 	./Simulation.exe
 
-build: Test_ACC.o ## Make build 
+build_test: Test_ACC.o ## Make build 
 	$(CC) $(CFLAG) -c -Wall -Werror Test_ACC.c
 	$(CC) $(CFLAG) -o Test Test_ACC.o -lcunit
 	./Test.exe
