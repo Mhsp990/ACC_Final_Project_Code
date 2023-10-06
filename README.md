@@ -1,4 +1,4 @@
-# Adaptative Cruise Control Code
+# Adaptive Cruise Control Code
 
 In this repository, we developed the code for our ACC based on the Matlab model and requirements at ACC_Code/ACC/Code.c.
 Was also developed some test suites to verify the code operation.
